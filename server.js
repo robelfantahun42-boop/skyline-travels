@@ -8,45 +8,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
 
-// Temporary in-memory storage for Vercel
 let memoryDB = {
   settings: { whatsapp: "251900000000" },
   applicants: []
 };
 
-const DATA_DIR = path.join('/tmp', 'data');
-const DB_FILE = path.join(DATA_DIR, 'database.json');
-
-function readDB() {
-  try {
-    if (fs.existsSync(DB_FILE)) {
-      const data = fs.readFileSync(DB_FILE, 'utf8');
-      return JSON.parse(data);
-    }
-  } catch (err) {
-    console.error('Error reading DB:', err);
-  }
-  return memoryDB;
-}
-
-function writeDB(data) {
-  memoryDB = data;
-  try {
-    if (!fs.existsSync(DATA_DIR)) {
-      fs.mkdirSync(DATA_DIR, { recursive: true });
-    }
-    fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
-  } catch (err) {
-    console.error('File write skipped on serverless:', err.message);
-  }
-}
-
-// --- ROUTES ---
-
-// 1. Admin Page Route
+// 1. Admin Page Route (አሁን admin.html በመጠቀም)
 app.get('/admin', (req, res) => {
-  res.setHeader('Content-Type', 'text/html');
-  res.sendFile(path.join(__dirname, 'admin'));
+  res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
 // 2. Admin Login API
@@ -62,7 +31,6 @@ app.post('/api/admin/login', (req, res) => {
 // 3. User Registration Route
 app.post('/api/register', (req, res) => {
   try {
-    const db = readDB();
     const newApplicant = {
       id: Date.now().toString(),
       ...req.body,
@@ -70,9 +38,7 @@ app.post('/api/register', (req, res) => {
       createdAt: new Date().toISOString()
     };
     
-    db.applicants.push(newApplicant);
-    writeDB(db);
-
+    memoryDB.applicants.push(newApplicant);
     res.json({ success: true, message: 'Application submitted successfully!' });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Error saving application' });
@@ -81,21 +47,17 @@ app.post('/api/register', (req, res) => {
 
 // 4. Get Applicants Data
 app.get('/api/applicants', (req, res) => {
-  const db = readDB();
-  res.json(db.applicants || []);
+  res.json(memoryDB.applicants || []);
 });
 
 // 5. Get Settings
 app.get('/api/settings', (req, res) => {
-  const db = readDB();
-  res.json(db.settings || { whatsapp: "251900000000" });
+  res.json(memoryDB.settings || { whatsapp: "251900000000" });
 });
 
 // 6. Update Settings
 app.post('/api/settings', (req, res) => {
-  const db = readDB();
-  db.settings = { ...db.settings, ...req.body };
-  writeDB(db);
+  memoryDB.settings = { ...memoryDB.settings, ...req.body };
   res.json({ success: true, message: 'Settings updated' });
 });
 
