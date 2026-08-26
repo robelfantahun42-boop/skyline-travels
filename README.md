@@ -26,7 +26,7 @@ The server listens on `0.0.0.0`.
 4. Admin: `http://192.168.1.10:3000/admin`.
 
 If Windows Firewall asks whether Node.js can communicate on the network, allow it on your private network.
-
+v2
 ## What is included
 - Original public website pages
 - Registration form connected to the backend
