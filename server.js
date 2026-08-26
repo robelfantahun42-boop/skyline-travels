@@ -1,27 +1,13 @@
 const express = require('express');
-const path = require('path');
-
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname));
 
-// In-Memory Database for Vercel Serverless
 let applicantsData = [];
 let settingsData = { whatsapp: "251900000000" };
 
-// 1. Home Page
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-// 2. Admin Page
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'admin.html'));
-});
-
-// 3. Admin Login API
+// Admin Login API
 app.post('/api/admin/login', (req, res) => {
   const { username, password } = req.body;
   if (username === 'admin' && password === 'ChangeMe123!') {
@@ -30,7 +16,7 @@ app.post('/api/admin/login', (req, res) => {
   return res.status(401).json({ success: false, message: 'Invalid credentials' });
 });
 
-// 4. Registration API
+// Registration API
 app.post('/api/register', (req, res) => {
   try {
     const newApplicant = {
@@ -46,12 +32,12 @@ app.post('/api/register', (req, res) => {
   }
 });
 
-// 5. Get Applicants Data
+// Get Applicants
 app.get('/api/applicants', (req, res) => {
   res.json(applicantsData);
 });
 
-// 6. Settings API
+// Settings API
 app.get('/api/settings', (req, res) => {
   res.json(settingsData);
 });
