@@ -4,47 +4,46 @@ const fs = require('fs');
 
 const app = express();
 
-// Body Parser Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Static files (HTML, CSS, JS) እንዲሰሩ ማድረግ
 app.use(express.static(__dirname));
 
-// Database Path Configuration
-const DATA_DIR = path.join(__dirname, 'data');
+// Temporary in-memory storage for Vercel
+let memoryDB = {
+  settings: { whatsapp: "251900000000" },
+  applicants: []
+};
+
+const DATA_DIR = path.join('/tmp', 'data');
 const DB_FILE = path.join(DATA_DIR, 'database.json');
 
-// Ensure data folder and database.json exist
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
-}
-
-if (!fs.existsSync(DB_FILE)) {
-  const initialData = {
-    settings: { whatsapp: "251900000000" },
-    applicants: []
-  };
-  fs.writeFileSync(DB_FILE, JSON.stringify(initialData, null, 2));
-}
-
-// Helper functions for Database
 function readDB() {
   try {
-    const data = fs.readFileSync(DB_FILE, 'utf8');
-    return JSON.parse(data);
+    if (fs.existsSync(DB_FILE)) {
+      const data = fs.readFileSync(DB_FILE, 'utf8');
+      return JSON.parse(data);
+    }
   } catch (err) {
-    return { settings: { whatsapp: "251900000000" }, applicants: [] };
+    console.error('Error reading DB:', err);
   }
+  return memoryDB;
 }
 
 function writeDB(data) {
-  fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
+  memoryDB = data;
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
+  } catch (err) {
+    console.error('File write skipped on serverless:', err.message);
+  }
 }
 
 // --- ROUTES ---
 
-// 1. Admin Page Route (በብራውዘር በቀጥታ እንዲከፍት)
+// 1. Admin Page Route
 app.get('/admin', (req, res) => {
   res.setHeader('Content-Type', 'text/html');
   res.sendFile(path.join(__dirname, 'admin'));
@@ -60,7 +59,7 @@ app.post('/api/admin/login', (req, res) => {
   }
 });
 
-// 3. User Registration Route (ለመመዝገቢያ ፎርሙ)
+// 3. User Registration Route
 app.post('/api/register', (req, res) => {
   try {
     const db = readDB();
@@ -80,13 +79,13 @@ app.post('/api/register', (req, res) => {
   }
 });
 
-// 4. Get Applicants Data (ለ Admin Dashboard)
+// 4. Get Applicants Data
 app.get('/api/applicants', (req, res) => {
   const db = readDB();
   res.json(db.applicants || []);
 });
 
-// 5. Get Settings (WhatsApp number)
+// 5. Get Settings
 app.get('/api/settings', (req, res) => {
   const db = readDB();
   res.json(db.settings || { whatsapp: "251900000000" });
@@ -100,7 +99,6 @@ app.post('/api/settings', (req, res) => {
   res.json({ success: true, message: 'Settings updated' });
 });
 
-// For Vercel Serverless Deployment
 module.exports = app;
 
 if (require.main === module) {
