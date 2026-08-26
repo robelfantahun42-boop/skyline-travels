@@ -1,79 +1,109 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-const multer = require('multer');
+
 const app = express();
 
+// Body Parser Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ፎልደሮች
-const publicPath = path.join(__dirname, 'public');
-const adminPath = path.join(__dirname, 'admin');
-const uploadsPath = path.join(__dirname, 'uploads');
-const dbFile = path.join(__dirname, 'database.json');
+// Static files (HTML, CSS, JS) እንዲሰሩ ማድረግ
+app.use(express.static(__dirname));
 
-if (!fs.existsSync(uploadsPath)) fs.mkdirSync(uploadsPath, { recursive: true });
+// Database Path Configuration
+const DATA_DIR = path.join(__dirname, 'data');
+const DB_FILE = path.join(DATA_DIR, 'database.json');
 
-app.use(express.static(publicPath));
-app.use('/admin', express.static(adminPath));
-app.use('/uploads', express.static(uploadsPath));
-
-// Multer ለፋይል አፕሎድ
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, uploadsPath),
-    filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
-});
-const upload = multer({ storage: storage });
-
-// Database Functions
-function getDb() {
-    if (!fs.existsSync(dbFile)) {
-        const initial = { settings: { whatsapp_number: '+251911000000', phone: '+251911000000' }, applicants: [] };
-        fs.writeFileSync(dbFile, JSON.stringify(initial, null, 2));
-        return initial;
-    }
-    return JSON.parse(fs.readFileSync(dbFile, 'utf8'));
+// Ensure data folder and database.json exist
+if (!fs.existsSync(DATA_DIR)) {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
 }
 
-function saveDb(data) {
-    fs.writeFileSync(dbFile, JSON.stringify(data, null, 2));
+if (!fs.existsSync(DB_FILE)) {
+  const initialData = {
+    settings: { whatsapp: "251900000000" },
+    applicants: []
+  };
+  fs.writeFileSync(DB_FILE, JSON.stringify(initialData, null, 2));
 }
 
-// Routes
-app.get('/api/settings', (req, res) => res.json(getDb().settings));
-app.get('/api/public/settings', (req, res) => res.json(getDb().settings)); // ለ Frontend ተስማሚ እንዲሆን
+// Helper functions for Database
+function readDB() {
+  try {
+    const data = fs.readFileSync(DB_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch (err) {
+    return { settings: { whatsapp: "251900000000" }, applicants: [] };
+  }
+}
 
-app.post('/api/settings', (req, res) => {
-    const db = getDb();
-    db.settings = { whatsapp_number: req.body.whatsapp_number, phone: req.body.phone };
-    saveDb(db);
-    res.json({ success: true });
+function writeDB(data) {
+  fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
+}
+
+// --- ROUTES ---
+
+// 1. Admin Page Route (በብራውዘር በቀጥታ እንዲከፍት)
+app.get('/admin', (req, res) => {
+  res.setHeader('Content-Type', 'text/html');
+  res.sendFile(path.join(__dirname, 'admin'));
 });
 
-app.get('/api/applicants', (req, res) => res.json(getDb().applicants || []));
+// 2. Admin Login API
+app.post('/api/admin/login', (req, res) => {
+  const { username, password } = req.body;
+  if (username === 'admin' && password === 'ChangeMe123!') {
+    res.json({ success: true, message: 'Logged in successfully' });
+  } else {
+    res.status(401).json({ success: false, message: 'Invalid credentials' });
+  }
+});
 
-// ፎርሙ ከሚልክባቸው የፋይል ስሞች (passportPhoto እና resume) ጋር የተስተካከለ
-app.post('/api/register', upload.fields([{ name: 'passportPhoto', maxCount: 1 }, { name: 'resume', maxCount: 1 }]), (req, res) => {
-    const db = getDb();
+// 3. User Registration Route (ለመመዝገቢያ ፎርሙ)
+app.post('/api/register', (req, res) => {
+  try {
+    const db = readDB();
     const newApplicant = {
-        id: Date.now(),
-        full_name: req.body.fullName || 'N/A',
-        email: req.body.email || 'N/A',
-        phone: req.body.phone || 'N/A',
-        current_country: req.body.currentCountry || 'N/A',
-        preferred_destination: req.body.destination || 'N/A',
-        job_sector: req.body.jobSector || 'N/A',
-        experience: req.body.experience || 'N/A',
-        education: req.body.education || 'N/A',
-        notes: req.body.notes || '',
-        passport_photo: req.files && req.files.passportPhoto ? req.files.passportPhoto[0].filename : null,
-        resume: req.files && req.files.resume ? req.files.resume[0].filename : null,
-        created_at: new Date().toISOString()
+      id: Date.now().toString(),
+      ...req.body,
+      status: 'Pending',
+      createdAt: new Date().toISOString()
     };
-    db.applicants.unshift(newApplicant);
-    saveDb(db);
-    res.json({ success: true, message: 'Saved successfully' });
+    
+    db.applicants.push(newApplicant);
+    writeDB(db);
+
+    res.json({ success: true, message: 'Application submitted successfully!' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error saving application' });
+  }
 });
 
-app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+// 4. Get Applicants Data (ለ Admin Dashboard)
+app.get('/api/applicants', (req, res) => {
+  const db = readDB();
+  res.json(db.applicants || []);
+});
+
+// 5. Get Settings (WhatsApp number)
+app.get('/api/settings', (req, res) => {
+  const db = readDB();
+  res.json(db.settings || { whatsapp: "251900000000" });
+});
+
+// 6. Update Settings
+app.post('/api/settings', (req, res) => {
+  const db = readDB();
+  db.settings = { ...db.settings, ...req.body };
+  writeDB(db);
+  res.json({ success: true, message: 'Settings updated' });
+});
+
+// For Vercel Serverless Deployment
+module.exports = app;
+
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
