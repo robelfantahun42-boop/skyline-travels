@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f7f6; margin: 0; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        input { padding: 8px 12px; margin: 5px 0; border: 1px solid #ccc; border-radius: 4px; width: 300px; display: block; }
+        button { padding: 8px 15px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 5px; }
+        button:hover { background: #0056b3; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; font-size: 14px; }
+        th { background: #f8f9fa; }
+        .details-box { background: #f9f9f9; padding: 5px; border-radius: 4px; font-size: 12px; color: #555; margin-top: 4px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    
+    <!-- Settings Card -->
+    <div class="card">
+        <h3>⚙️ Contact & WhatsApp Settings</h3>
+        <form id="settingsForm">
+            <label>WhatsApp Number:</label>
+            <input type="text" id="whatsapp" required>
+            
+            <label>Phone Number:</label>
+            <input type="text" id="phone" required>
+            
+            <button type="button" onclick="saveSettings()">Save Settings</button>
+        </form>
+    </div>
+
+    <!-- Applicants Table Card -->
+    <div class="card">
+        <h3>📋 Applicants List (ሙሉ የደንበኛ መረጃ)</h3>
+        <button onclick="loadData()">Refresh List</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID / Date</th>
+                    <th>Full Name & Country</th>
+                    <th>Contact Info</th>
+                    <th>Job & Destination</th>
+                    <th>Qualification</th>
+                    <th>Documents</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr><td colspan="6" style="text-align:center;">Loading...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    async function loadData() {
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">Loading data from server...</td></tr>`;
+
+        try {
+            // Settings ማምጣት
+            const setRes = await fetch('/api/settings');
+            if (setRes.ok) {
+                const settings = await setRes.json();
+                document.getElementById('whatsapp').value = settings.whatsapp_number || '';
+                document.getElementById('phone').value = settings.phone || '';
+            }
+
+            // Applicants ማምጣት
+            const appRes = await fetch('/api/applicants');
+            if (!appRes.ok) throw new Error('Failed to fetch applicants from server');
+            
+            const applicants = await appRes.json();
+            tbody.innerHTML = '';
+
+            if (!applicants || applicants.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:red;">No applicants found yet. Please make a test registration from the main website.</td></tr>`;
+                return;
+            }
+
+            applicants.forEach(app => {
+                const dateStr = app.created_at ? new Date(app.created_at).toLocaleString() : 'N/A';
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${app.id}<br><small style="color:gray;">${dateStr}</small></td>
+                        <td>
+                            <strong>${app.full_name || 'N/A'}</strong><br>
+                            <small>መኖሪያ: ${app.current_country || 'N/A'}</small>
+                        </td>
+                        <td>
+                            📞 ${app.phone || 'N/A'}<br>
+                            ✉️ ${app.email || 'N/A'}
+                        </td>
+                        <td>
+                            <b>ሀገር:</b> ${app.preferred_destination || 'N/A'}<br>
+                            <b>ዘርፍ:</b> ${app.job_sector || 'N/A'}
+                        </td>
+                        <td>
+                            <b>ልምድ:</b> ${app.experience || 'N/A'}<br>
+                            <b>ትምህርት:</b> ${app.education || 'N/A'}
+                            ${app.notes ? `<div class="details-box"><b>ማስታወሻ:</b> ${app.notes}</div>` : ''}
+                        </td>
+                        <td>
+                            ${app.passport_photo ? `<a href="/uploads/${app.passport_photo}" target="_blank">[ፋስፖርት ፎቶ]</a><br>` : 'ፎቶ የለም<br>'}
+                            ${app.resume ? `<a href="/uploads/${app.resume}" target="_blank" style="color:green;">[ሲቪ/ሰነድ]</a>` : ''}
+                        </td>
+                    </tr>
+                `;
+            });
+        } catch (e) {
+            console.error(e);
+            tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:red;">Error connecting to server! Please make sure you open this page via: <b>http://localhost:3000/admin/</b></td></tr>`;
+        }
+    }
+
+    async function saveSettings() {
+        const whatsapp_number = document.getElementById('whatsapp').value;
+        const phone = document.getElementById('phone').value;
+
+        try {
+            const res = await fetch('/api/settings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ whatsapp_number, phone })
+            });
+            
+            if (res.ok) {
+                alert('Settings updated successfully!');
+                loadData();
+            } else {
+                alert('Failed to update settings.');
+            }
+        } catch (err) {
+            alert('Error connecting to server.');
+            console.error(err);
+        }
+    }
+
+    window.onload = loadData;
+</script>
+</body>
+</html>
