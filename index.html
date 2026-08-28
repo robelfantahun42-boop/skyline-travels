@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Skyline Travels - Registration</title>
+  <title>Skyline Travels & Educational Consultancy</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
@@ -14,310 +14,459 @@
     }
 
     body {
-      background: linear-gradient(135deg, #b0c4de 0%, #cfd9df 50%, #e2ebf0 100%);
-      min-height: 100vh;
+      background-color: #f4f7f6;
       color: #333;
-      padding-bottom: 40px;
     }
 
+    /* Top Utility Bar */
+    .top-bar {
+      background-color: #0b2545;
+      color: #fff;
+      padding: 8px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .top-info a {
+      color: #25d366;
+      text-decoration: none;
+      font-weight: bold;
+      margin-left: 15px;
+    }
+
+    .lang-select {
+      background: #134074;
+      color: #fff;
+      border: 1px solid #8da9c4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* Header & Nav */
     header {
-      background-color: #ffffff;
+      background: #ffffff;
       padding: 15px 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
-    .logo a {
-      font-size: 24px;
-      font-weight: bold;
-      color: #0d3b66;
+    .logo {
+      font-size: 26px;
+      font-weight: 800;
+      color: #134074;
       text-decoration: none;
+      letter-spacing: 0.5px;
     }
 
     nav a {
       margin-left: 20px;
       text-decoration: none;
       color: #4a5568;
-      font-weight: 500;
+      font-weight: 600;
       transition: color 0.2s;
     }
 
-    nav a:hover {
+    nav a:hover, nav a.active {
       color: #007bff;
     }
 
-    nav a.active {
-      color: #007bff;
-      font-weight: 600;
-    }
-
-    .main-title {
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(11, 37, 69, 0.75), rgba(11, 37, 69, 0.75)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1200') center/cover no-repeat;
+      color: #fff;
       text-align: center;
-      margin: 30px 0;
-      color: #1e293b;
-      font-size: 28px;
-      font-weight: 600;
-      font-family: Georgia, serif;
+      padding: 80px 20px;
     }
 
-    .container {
-      max-width: 900px;
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 800;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 700px;
+      margin: 0 auto 25px auto;
+      color: #e0e6ed;
+    }
+
+    .btn-apply-main {
+      display: inline-block;
+      background: #2563eb;
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+      transition: 0.3s;
+    }
+
+    .btn-apply-main:hover {
+      background: #1d4ed8;
+      transform: translateY(-2px);
+    }
+
+    /* Opportunities Grid */
+    .section-title {
+      text-align: center;
+      margin: 40px 0 10px 0;
+      font-size: 30px;
+      color: #0b2545;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #64748b;
+      margin-bottom: 30px;
+    }
+
+    .grid-container {
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 20px 60px 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
     }
 
-    .section-card {
+    .card {
       background: #ffffff;
       border-radius: 12px;
       overflow: hidden;
-      margin-bottom: 25px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-    }
-
-    .card-header {
-      padding: 14px 20px;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    .header-1 {
-      background: linear-gradient(90deg, #4a90e2, #63a4ff);
-    }
-
-    .header-2 {
-      background: linear-gradient(90deg, #008080, #20b2aa);
-    }
-
-    .header-3 {
-      background: linear-gradient(90deg, #6a4c93, #8a5aab);
-    }
-
-    .card-body {
-      padding: 22px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 18px;
-    }
-
-    .form-group {
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      transition: transform 0.3s, box-shadow 0.3s;
       display: flex;
       flex-direction: column;
     }
 
-    .form-group.full-width {
-      grid-column: 1 / -1;
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
     }
 
-    label {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: #334155;
-    }
-
-    label .req {
-      color: #e53e3e;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    select,
-    textarea {
-      padding: 10px 14px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      font-size: 14px;
-      outline: none;
-      transition: all 0.2s ease;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
-    }
-
-    .file-upload {
-      border: 1px solid #cbd5e1;
-      padding: 8px;
-      border-radius: 8px;
-      background-color: #f8fafc;
-    }
-
-    .btn-submit {
+    .card img {
       width: 100%;
-      background: linear-gradient(90deg, #2563eb, #1d4ed8);
-      color: white;
-      padding: 14px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-      transition: background 0.2s;
+      height: 180px;
+      object-fit: cover;
     }
 
-    .btn-submit:hover {
-      background: linear-gradient(90deg, #1d4ed8, #1e40af);
+    .card-body {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: bold;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      width: fit-content;
+    }
+
+    .badge-job { background: #e0f2fe; color: #0369a1; }
+    .badge-scholarship { background: #fef3c7; color: #b45309; }
+    .badge-visa { background: #dcfce7; color: #15803d; }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #1e293b;
+    }
+
+    .card-text {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    .btn-card {
+      text-align: center;
+      background: #0b2545;
+      color: #fff;
+      padding: 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .btn-card:hover {
+      background: #134074;
+    }
+
+    /* Footer */
+    footer {
+      background: #0b2545;
+      color: #8da9c4;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
 
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-info">
+      <span><i class="fas fa-phone-alt"></i> +251 900 000 000</span>
+      <a href="https://wa.me/251900000000" target="_blank"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+    </div>
+    <div>
+      <label for="lang" style="margin-right: 5px;"><i class="fas fa-globe"></i></label>
+      <select id="lang" class="lang-select">
+        <option value="en">English</option>
+        <option value="am">አማርኛ</option>
+        <option value="ar">العربية</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Header -->
   <header>
-    <div class="logo"><a href="/">Skyline Travels</a></div>
+    <a href="/" class="logo">SKYLINE TRAVELS</a>
     <nav>
-      <a href="/">Home</a>
-      <a href="/index.html" class="active">Register</a>
-      <a href="#">Jobs</a>
-      <a href="/about.html">About Us</a>
-      <a href="/contact.html">Contact</a>
+      <a href="/" class="active">Home</a>
+      <a href="#opportunities">Jobs & Scholarships</a>
+      <a href="#about">About Us</a>
+      <a href="https://wa.me/251900000000">Contact</a>
     </nav>
   </header>
 
-  <h1 class="main-title">Become Part of Our Global Travels Community</h1>
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>SKYLINE TRAVELS & CONSULTANCY</h1>
+    <p>Your Trusted Partner for International Employment, Fully Funded University Scholarships, and Worldwide Visa Services.</p>
+    <a href="https://wa.me/251900000000" class="btn-apply-main"><i class="fab fa-whatsapp"></i> Apply Now via WhatsApp</a>
+  </section>
 
-  <div class="container">
-    <form id="registrationForm">
-      
-      <!-- Section 1 -->
-      <div class="section-card">
-        <div class="card-header header-1">
-          <span>1. Personal Details</span>
-          <i class="fas fa-user"></i>
+  <!-- Opportunities Section -->
+  <h2 class="section-title" id="opportunities">Latest International Opportunities</h2>
+  <p class="section-subtitle">Explore 15+ Job Openings, Scholarships, and Travel Packages</p>
+
+  <div class="grid-container">
+
+    <!-- Card 1 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=400" alt="Dubai Jobs">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-job">Job Opportunity</span>
+          <h3 class="card-title">Hospitality Staff - Dubai (UAE)</h3>
+          <p class="card-text">5-Star Luxury Hotels hiring Waiters, Receptionists, and Cleaners. Accommodation provided.</p>
         </div>
-        <div class="card-body">
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Full Name <span class="req">*</span></label>
-              <input type="text" name="fullName" required>
-            </div>
-            <div class="form-group">
-              <label>Email Address <span class="req">*</span></label>
-              <input type="email" name="email" required>
-            </div>
-            <div class="form-group">
-              <label>Phone / WhatsApp Number <span class="req">*</span></label>
-              <input type="text" name="phone" required>
-            </div>
-            <div class="form-group">
-              <label>Current Country of Residence <span class="req">*</span></label>
-              <input type="text" name="currentCountry" required>
-            </div>
-          </div>
-        </div>
+        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Dubai%20Hospitality%20Jobs" class="btn-card">Apply via WhatsApp</a>
       </div>
+    </div>
 
-      <!-- Section 2 -->
-      <div class="section-card">
-        <div class="card-header header-2">
-          <span>2. Preferred Destination & Job Sector</span>
-          <i class="fas fa-globe"></i>
+    <!-- Card 2 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=400" alt="Scholarship">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-scholarship">Scholarship</span>
+          <h3 class="card-title">Full Master's Scholarship - Europe</h3>
+          <p class="card-text">Fully funded government scholarships covering tuition, living stipend, and airfare.</p>
         </div>
-        <div class="card-body">
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Preferred Country <span class="req">*</span></label>
-              <select name="preferredCountry" required>
-                <option value="" disabled selected>Select destination country</option>
-                <option value="UAE">United Arab Emirates</option>
-                <option value="Saudi Arabia">Saudi Arabia</option>
-                <option value="Qatar">Qatar</option>
-                <option value="Canada">Canada</option>
-                <option value="Europe">Europe</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Job Industry / Sector <span class="req">*</span></label>
-              <select name="jobSector" required>
-                <option value="" disabled selected>Select preferred sector</option>
-                <option value="Hospitality">Hospitality & Tourism</option>
-                <option value="Healthcare">Healthcare</option>
-                <option value="Construction">Construction & Engineering</option>
-                <option value="IT">Information Technology</option>
-                <option value="Driver">Driving & Logistics</option>
-              </select>
-            </div>
-          </div>
-        </div>
+        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Europe%20Scholarship" class="btn-card">Apply via WhatsApp</a>
       </div>
+    </div>
 
-      <!-- Section 3 -->
-      <div class="section-card">
-        <div class="card-header header-3">
-          <span>3. Qualification & Experience</span>
-          <i class="fas fa-graduation-cap"></i>
+    <!-- Card 3 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=400" alt="Logistics">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-job">Job Opportunity</span>
+          <h3 class="card-title">Warehouse & Drivers - Qatar</h3>
+          <p class="card-text">Urgently needed Heavy & Light Drivers and Logistics Handlers with attractive salaries.</p>
         </div>
-        <div class="card-body">
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Work Experience <span class="req">*</span></label>
-              <select name="experience" required>
-                <option value="" disabled selected>Select experience level</option>
-                <option value="No Experience">No Experience</option>
-                <option value="1-2 Years">1 - 2 Years</option>
-                <option value="3-5 Years">3 - 5 Years</option>
-                <option value="5+ Years">5+ Years</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Education Level <span class="req">*</span></label>
-              <select name="education" required>
-                <option value="" disabled selected>Select education level</option>
-                <option value="High School">High School</option>
-                <option value="Diploma">Diploma</option>
-                <option value="Bachelor Degree">Bachelor's Degree</option>
-                <option value="Master Degree">Master's Degree</option>
-              </select>
-            </div>
-            <div class="form-group full-width">
-              <label>Upload Resume / CV / Documents (Optional)</label>
-              <input type="file" class="file-upload">
-            </div>
-            <div class="form-group full-width">
-              <label>Additional Information</label>
-              <textarea name="additionalInfo" rows="3"></textarea>
-            </div>
-          </div>
-        </div>
+        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Qatar%20Logistics%20Jobs" class="btn-card">Apply via WhatsApp</a>
       </div>
+    </div>
 
-      <button type="submit" class="btn-submit">Submit Application</button>
-    </form>
+    <!-- Card 4 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=400" alt="Saudi Arabia">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-job">Job Opportunity</span>
+          <h3 class="card-title">Healthcare & Nursing - Saudi Arabia</h3>
+          <p class="card-text">Nurses, Medical Technicians, and Caregivers wanted for leading hospitals in Riyadh.</p>
+        </div>
+        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Saudi%20Healthcare%20Jobs" class="btn-card">Apply via WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=400" alt="Canada Studies">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-scholarship">Scholarship</span>
+          <h3 class="card-title">Undergraduate Grants - Canada</h3>
+          <p class="card-text">Partial and full tuition waivers for international students in STEM and Business.</p>
+        </div>
+        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Canada%20Undergraduate%20Scholarship" class="btn-card">Apply via WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?q=80&w=400" alt="Construction">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-job">Job Opportunity</span>
+          <h3 class="card-title">Construction Engineers - Kuwait</h3>
+          <p class="card-text">Civil Engineers, Electricians, and Technicians needed for high-rise infrastructure projects.</p>
+        </div>
+        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Kuwait%20Construction%20Jobs" class="btn-card">Apply via WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- Card 7 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=400" alt="Tourist Visa">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-visa">Visa Service</span>
+          <h3 class="card-title">Schengen Express Tourist Visa</h3>
+          <p class="card-text">Fast-track documentation and appointment assistance for European Schengen visas.</p>
+        </div>
+        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Schengen%20Visa%20Services" class="btn-card">Apply via WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- Card 8 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=400" alt="IT Jobs">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-job">Job Opportunity</span>
+          <h3 class="card-title">IT & Software Developers - Remote/UAE</h3>
+          <p class="card-text">Web developers and IT support specialists needed for top tech companies in Abu Dhabi.</p>
+        </div>
+        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20IT%20Jobs" class="btn-card">Apply via WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- Card 9 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=400" alt="PhD Scholarship">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-scholarship">Scholarship</span>
+          <h3 class="card-title">PhD Fellowship Program - China</h3>
+          <p class="card-text">Fully funded doctoral research positions with monthly living allowance and accommodation.</p>
+        </div>
+        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20China%20PhD%20Fellowship" class="btn-card">Apply via WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- Card 10 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=400" alt="Spa and Salon">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-job">Job Opportunity</span>
+          <h3 class="card-title">Beauty & Wellness Staff - Oman</h3>
+          <p class="card-text">Barbers, Hair Stylists, and Spa Therapists needed for high-end beauty lounges.</p>
+        </div>
+        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Oman%20Beauty%20Jobs" class="btn-card">Apply via WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- Card 11 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?q=80&w=400" alt="Factory Jobs">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-job">Job Opportunity</span>
+          <h3 class="card-title">Factory Workers & Packers - Poland</h3>
+          <p class="card-text">Food packaging and manufacturing jobs with official European work permits.</p>
+        </div>
+        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Poland%20Factory%20Jobs" class="btn-card">Apply via WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- Card 12 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=400" alt="Executive Jobs">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-job">Job Opportunity</span>
+          <h3 class="card-title">Sales & Marketing Reps - Bahrain</h3>
+          <p class="card-text">Dynamic retail and corporate sales representatives with tax-free salary and bonuses.</p>
+        </div>
+        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Bahrain%20Sales%20Jobs" class="btn-card">Apply via WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- Card 13 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=400" alt="Teaching">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-job">Job Opportunity</span>
+          <h3 class="card-title">English & Science Teachers - Asia</h3>
+          <p class="card-text">Primary and Secondary school teachers needed. Flight ticket and housing included.</p>
+        </div>
+        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Teaching%20Jobs" class="btn-card">Apply via WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- Card 14 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1569154941061-e231b4725ef1?q=80&w=400" alt="Work Permit">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-visa">Visa Service</span>
+          <h3 class="card-title">Canada Work Permit Assistance</h3>
+          <p class="card-text">Guaranteed guidance through LMIA application and Canada Express Entry system.</p>
+        </div>
+        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Canada%20Work%20Permits" class="btn-card">Apply via WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- Card 15 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=400" alt="Business Visa">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-visa">Visa Service</span>
+          <h3 class="card-title">US & UK Business & Travel Visas</h3>
+          <p class="card-text">Professional interview preparation, invitation letters, and file processing.</p>
+        </div>
+        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20US/UK%20Visa%20Services" class="btn-card">Apply via WhatsApp</a>
+      </div>
+    </div>
+
   </div>
 
-  <script>
-    document.getElementById('registrationForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const formData = new FormData(this);
-      const data = Object.fromEntries(formData.entries());
+  <footer>
+    <p>&copy; 2026 Skyline Travels & Educational Consultancy. All rights reserved.</p>
+  </footer>
 
-      try {
-        const response = await fetch('/api/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-        const result = await response.json();
-        if (result.success) {
-          alert('Application submitted successfully!');
-          this.reset();
-        } else {
-          alert('Error: ' + result.message);
-        }
-      } catch (err) {
-        alert('Failed to submit application.');
-      }
-    });
-  </script>
 </body>
 </html>
