@@ -32,6 +32,7 @@
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
       border: 1px solid #e2e8f0;
       padding: 40px;
+      position: relative;
     }
 
     .form-header {
@@ -122,21 +123,77 @@
       background: #1d4ed8;
     }
 
-    .success-msg {
+    /* Success Overlay Modal replacing form area */
+    .success-overlay {
       display: none;
-      background: #dcfce7;
-      color: #166534;
-      padding: 15px;
-      border-radius: 8px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      border-radius: 16px;
+      z-index: 100;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      font-weight: 600;
+      padding: 30px;
+    }
+
+    .success-overlay i.fa-circle-check {
+      font-size: 64px;
+      color: #22c55e;
+      margin-bottom: 15px;
+    }
+
+    .success-overlay h2 {
+      font-size: 26px;
+      color: #0f172a;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .success-overlay p {
+      font-size: 16px;
+      color: #475569;
+      line-height: 1.5;
       margin-bottom: 20px;
+    }
+
+    .admin-whatsapp-box {
+      background: #f0fdf4;
+      border: 2px solid #22c55e;
+      padding: 15px 25px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #166534;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .admin-whatsapp-box i {
+      font-size: 24px;
+      color: #25d366;
     }
   </style>
 </head>
 <body>
 
   <div class="form-card">
+    <!-- Success Overlay Screen that covers the form completely -->
+    <div id="successOverlay" class="success-overlay">
+      <i class="fa-solid fa-circle-check"></i>
+      <h2>ምዝገባህን ጨርሰሃል! እንኳን ደስ አለህ!</h2>
+      <p>ቀሪውን የቪዛ እና የጉዞ ፕሮሰስ ለመከታተል እባክዎ ከታች ባለው የዋትሰድ ቁጥር የደንበኞች አገልግሎትን በአስቸኳይ ያነጋግሩ።</p>
+      <a id="adminWaBtn" href="#" target="_blank" class="admin-whatsapp-box">
+        <i class="fa-brands fa-whatsapp"></i> <span id="adminWaText">+251 900 000 000</span>
+      </a>
+    </div>
+
     <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
     
     <div class="form-header">
@@ -145,26 +202,22 @@
       <p>Fill out your comprehensive details to apply for international jobs or scholarships.</p>
     </div>
 
-    <div id="successMsg" class="success-msg">
-      Application submitted successfully! Our team will review your details soon.
-    </div>
-
     <form id="applyForm">
-      <!-- Full Name -->
+      <!-- Full Name (No placeholder hints) -->
       <div class="form-group">
         <label for="fullName">Full Name *</label>
-        <input type="text" id="fullName" name="fullName" placeholder="e.g. Abebe Bikila" required>
+        <input type="text" id="fullName" name="fullName" required>
       </div>
 
       <!-- Row: Email & Phone -->
       <div class="form-row">
         <div class="form-group">
           <label for="email">Email Address *</label>
-          <input type="email" id="email" name="email" placeholder="example@mail.com" required>
+          <input type="email" id="email" name="email" required>
         </div>
         <div class="form-group">
           <label for="phone">Phone / WhatsApp Number *</label>
-          <input type="text" id="phone" name="phone" placeholder="+251 9..." required>
+          <input type="text" id="phone" name="phone" required>
         </div>
       </div>
 
@@ -223,7 +276,7 @@
       <!-- Additional Info -->
       <div class="form-group">
         <label for="message">Additional Information / Work Experience</label>
-        <textarea id="message" name="message" placeholder="Mention your skills, work experience or specific requests..."></textarea>
+        <textarea id="message" name="message"></textarea>
       </div>
 
       <button type="submit" class="submit-btn">Submit Application</button>
@@ -231,6 +284,23 @@
   </div>
 
   <script>
+    // Load Admin WhatsApp setting dynamically to show big on completion board
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const res = await fetch('/api/settings');
+        const settings = await res.json();
+        if (settings.whatsapp) {
+          const waBtn = document.getElementById('adminWaBtn');
+          const waText = document.getElementById('adminWaText');
+          waBtn.href = `https://wa.me/${settings.whatsapp}`;
+          waText.textContent = `+${settings.whatsapp}`;
+        }
+      } catch (e) {
+        // Fallback default
+        document.getElementById('adminWaBtn').href = `https://wa.me/251900000000`;
+      }
+    });
+
     document.getElementById('applyForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       
@@ -252,15 +322,17 @@
           body: JSON.stringify(formData)
         });
 
+        const result = await response.json();
+
         if (response.ok) {
-          document.getElementById('successMsg').style.display = 'block';
-          document.getElementById('applyForm').reset();
+          // Show the big full-card success overlay covering the form
+          document.getElementById('successOverlay').style.display = 'flex';
           window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
-          alert('Submission failed. Please try again.');
+          alert(result.message || 'ይህ ስልክ ቁጥር ቀድሞውኑ ተመዝግቧል! በአንድ ስልክ ቁጥር ከአንድ ጊዜ በላይ መመዝገብ አይቻልም።');
         }
       } catch (err) {
-        alert('Network error. Please check your connection.');
+        alert('የኔትወርክ ስህተት ተፈጥሯል። እባክዎ እንደገና ይሞክሩ።');
       }
     });
   </script>
