@@ -6,91 +6,263 @@
   <title>Application Form - Skyline Travels</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background-color: #f1f5f9; color: #1e293b; padding: 20px 10px; }
-    .form-container { max-width: 650px; margin: 30px auto; background: #ffffff; padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
-    .header { text-align: center; margin-bottom: 25px; }
-    .header h2 { font-size: 24px; color: #0f172a; font-weight: 800; }
-    .header p { color: #64748b; font-size: 14px; margin-top: 5px; }
-    .form-group { margin-bottom: 18px; }
-    .form-group label { display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px; }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 14px; outline: none; transition: border-color 0.2s; }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #2563eb; }
-    .btn-submit { width: 100%; background: #2563eb; color: white; padding: 14px; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
-    .btn-submit:hover { background: #1d4ed8; }
-    .back-home { display: inline-block; margin-bottom: 15px; color: #2563eb; text-decoration: none; font-weight: 600; font-size: 14px; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f8fafc;
+      color: #1e293b;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px 20px;
+    }
+
+    .form-card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 650px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e2e8f0;
+      padding: 40px;
+    }
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .form-header h2 {
+      font-size: 24px;
+      color: #0f172a;
+      font-weight: 800;
+      margin-top: 10px;
+    }
+
+    .form-header p {
+      font-size: 14px;
+      color: #64748b;
+      margin-top: 5px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .back-link i {
+      margin-right: 5px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 8px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      background: #fff;
+      color: #0f172a;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #2563eb;
+    }
+
+    textarea {
+      resize: vertical;
+      height: 100px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: #2563eb;
+      color: #ffffff;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 10px;
+    }
+
+    .submit-btn:hover {
+      background: #1d4ed8;
+    }
+
+    .success-msg {
+      display: none;
+      background: #dcfce7;
+      color: #166534;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
   </style>
 </head>
 <body>
 
-  <div class="form-container">
-    <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> Back to Home</a>
+  <div class="form-card">
+    <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
     
-    <div class="header">
-      <h2><i class="fas fa-file-signature" style="color:#2563eb;"></i> Skyline Travels Registration</h2>
-      <p>Fill in your details below to apply for international jobs or scholarships.</p>
+    <div class="form-header">
+      <i class="fa-solid fa-passport" style="font-size: 36px; color: #2563eb;"></i>
+      <h2>Global Opportunity Application</h2>
+      <p>Fill out your comprehensive details to apply for international jobs or scholarships.</p>
     </div>
 
-    <form id="applicantForm">
+    <div id="successMsg" class="success-msg">
+      Application submitted successfully! Our team will review your details soon.
+    </div>
+
+    <form id="applyForm">
+      <!-- Full Name -->
       <div class="form-group">
-        <label><i class="fas fa-user"></i> Full Name *</label>
-        <input type="text" id="fullName" placeholder="e.g. Abebe Bikila" required>
+        <label for="fullName">Full Name *</label>
+        <input type="text" id="fullName" name="fullName" placeholder="e.g. Abebe Bikila" required>
       </div>
 
-      <div class="form-group">
-        <label><i class="fas fa-envelope"></i> Email Address *</label>
-        <input type="email" id="email" placeholder="example@mail.com" required>
+      <!-- Row: Email & Phone -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" placeholder="example@mail.com" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone / WhatsApp Number *</label>
+          <input type="text" id="phone" name="phone" placeholder="+251 9..." required>
+        </div>
       </div>
 
-      <div class="form-group">
-        <label><i class="fas fa-phone"></i> Phone / WhatsApp Number *</label>
-        <input type="tel" id="phone" placeholder="+251 9..." required>
+      <!-- Row: Nationality & Target Country -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nationality">Your Nationality *</label>
+          <select id="nationality" name="nationality" required>
+            <option value="">-- Select Country --</option>
+            <option value="Ethiopian">Ethiopian</option>
+            <option value="Kenyan">Kenyan</option>
+            <option value="Eritrean">Eritrean</option>
+            <option value="Somali">Somali</option>
+            <option value="Sudanese">Sudanese</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="targetCountry">Target Destination Country *</label>
+          <select id="targetCountry" name="targetCountry" required>
+            <option value="">-- Select Destination --</option>
+            <option value="Canada">Canada</option>
+            <option value="USA">USA</option>
+            <option value="Germany">Germany</option>
+            <option value="UK">UK</option>
+            <option value="Australia">Australia</option>
+            <option value="Japan">Japan</option>
+            <option value="Middle East">Middle East</option>
+            <option value="Other Europe">Other Europe</option>
+          </select>
+        </div>
       </div>
 
-      <div class="form-group">
-        <label><i class="fas fa-briefcase"></i> Select Opportunity / Service *</label>
-        <select id="opportunity" required>
-          <option value="">-- Choose Option --</option>
-          <option value="Dubai Hospitality Staff">Hospitality Staff - Dubai</option>
-          <option value="Europe Scholarship">Full Master's Scholarship - Europe</option>
-          <option value="Qatar Warehouse & Driver">Warehouse & Drivers - Qatar</option>
-          <option value="Saudi Healthcare">Healthcare & Nursing - Saudi Arabia</option>
-          <option value="Canada Grant">Undergraduate Grants - Canada</option>
-          <option value="Kuwait Construction">Construction Technicians - Kuwait</option>
-          <option value="Schengen Visa">Schengen Express Tourist Visa</option>
-          <option value="UAE IT Jobs">IT & Software Developers - UAE</option>
-          <option value="Poland Factory">Factory Packers - Poland</option>
-          <option value="Canada LMIA Permit">Canada LMIA Work Permit Guidance</option>
-          <option value="Other / General Inquiry">Other Services / General Inquiry</option>
-        </select>
+      <!-- Row: Category (Job / Scholarship) & Education Level -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="category">Application Category *</label>
+          <select id="category" name="category" required>
+            <option value="">-- Select Category --</option>
+            <option value="Job Opportunity">Job Opportunity (ስራ)</option>
+            <option value="Scholarship">Educational Scholarship (ስኮላርሺፕ)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="education">Highest Education Level *</label>
+          <select id="education" name="education" required>
+            <option value="High School">High School</option>
+            <option value="Diploma">Diploma / TVET</option>
+            <option value="Bachelor Degree">Bachelor's Degree</option>
+            <option value="Master Degree">Master's Degree</option>
+            <option value="PhD">PhD</option>
+          </select>
+        </div>
       </div>
 
+      <!-- Additional Info -->
       <div class="form-group">
-        <label><i class="fas fa-graduation-cap"></i> Highest Education Level</label>
-        <select id="education">
-          <option value="High School">High School</option>
-          <option value="Diploma / TVET">Diploma / TVET</option>
-          <option value="Bachelor's Degree">Bachelor's Degree</option>
-          <option value="Master's Degree">Master's Degree / Higher</option>
-        </select>
+        <label for="message">Additional Information / Work Experience</label>
+        <textarea id="message" name="message" placeholder="Mention your skills, work experience or specific requests..."></textarea>
       </div>
 
-      <div class="form-group">
-        <label><i class="fas fa-comment-dots"></i> Additional Information or Message</label>
-        <textarea id="message" rows="4" placeholder="Mention your work experience or specific requests..."></textarea>
-      </div>
-
-      <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> Submit Application</button>
+      <button type="submit" class="submit-btn">Submit Application</button>
     </form>
   </div>
 
   <script>
-    document.getElementById('applicantForm').addEventListener('submit', function(e) {
+    document.getElementById('applyForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      alert('Thank you! Your application has been submitted successfully. Our team will contact you via WhatsApp or Email soon.');
-      this.reset();
+      
+      const formData = {
+        fullName: document.getElementById('fullName').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        nationality: document.getElementById('nationality').value,
+        targetCountry: document.getElementById('targetCountry').value,
+        category: document.getElementById('category').value,
+        education: document.getElementById('education').value,
+        message: document.getElementById('message').value
+      };
+
+      try {
+        const response = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+
+        if (response.ok) {
+          document.getElementById('successMsg').style.display = 'block';
+          document.getElementById('applyForm').reset();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          alert('Submission failed. Please try again.');
+        }
+      } catch (err) {
+        alert('Network error. Please check your connection.');
+      }
     });
   </script>
-
 </body>
 </html>
