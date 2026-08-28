@@ -1,199 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skyline Travels - Global Job & Visa Placement</title>
-    <link rel="stylesheet" href="style.css">
-    
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,am,ar,ur,fr,es,om,hi,fil,sw,de,it,pt,tr,ru,zh-CN',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-            }, 'google_translate_element');
-        }
-    </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&hl=en"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skyline Travels - Registration</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #b0c4de 0%, #cfd9df 50%, #e2ebf0 100%);
+      min-height: 100vh;
+      color: #333;
+      padding-bottom: 40px;
+    }
+
+    header {
+      background-color: #ffffff;
+      padding: 15px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #0d3b66;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #4a5568;
+      font-weight: 500;
+    }
+
+    nav a.active {
+      color: #007bff;
+    }
+
+    .main-title {
+      text-align: center;
+      margin: 30px 0;
+      color: #1e293b;
+      font-size: 28px;
+      font-weight: 600;
+      font-family: Georgia, serif;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section-card {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 25px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    }
+
+    .card-header {
+      padding: 14px 20px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .header-1 {
+      background: linear-gradient(90deg, #4a90e2, #63a4ff);
+    }
+
+    .header-2 {
+      background: linear-gradient(90deg, #008080, #20b2aa);
+    }
+
+    .header-3 {
+      background: linear-gradient(90deg, #6a4c93, #8a5aab);
+    }
+
+    .card-body {
+      padding: 22px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #334155;
+    }
+
+    label .req {
+      color: #e53e3e;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      padding: 10px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+
+    .file-upload {
+      border: 1px solid #cbd5e1;
+      padding: 8px;
+      border-radius: 8px;
+      background-color: #f8fafc;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(90deg, #2563eb, #1d4ed8);
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      transition: background 0.2s;
+    }
+
+    .btn-submit:hover {
+      background: linear-gradient(90deg, #1d4ed8, #1e40af);
+    }
+  </style>
 </head>
 <body>
 
-    <section class="hero-section">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1 class="hero-title">SKYLINE TRAVELS</h1>
-            <p class="hero-subtitle">Global Job Placement & Visa Agency</p>
-            
-            <div class="hero-lang-box">
-                <p class="hero-lang-label notranslate">🌐 Select Language:</p>
-                <div id="google_translate_element"></div>
+  <header>
+    <div class="logo">Skyline Travels</div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/" class="active">Register</a>
+      <a href="#">Jobs</a>
+      <a href="#">About Us</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <h1 class="main-title">Become Part of Our Global Travels Community</h1>
+
+  <div class="container">
+    <form id="registrationForm">
+      
+      <!-- Section 1 -->
+      <div class="section-card">
+        <div class="card-header header-1">
+          <span>1. Personal Details</span>
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="card-body">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Full Name <span class="req">*</span></label>
+              <input type="text" name="fullName" required>
             </div>
-
-            <div class="hero-btns">
-                <a href="#register-section" class="enter-btn apply-btn-hero">Apply Now &darr;</a>
-                <a href="#jobs-section" class="enter-btn-secondary">View Opportunities &darr;</a>
+            <div class="form-group">
+              <label>Email Address <span class="req">*</span></label>
+              <input type="email" name="email" required>
             </div>
-        </div>
-    </section>
-
-    <header id="main-header">
-        <div class="container navbar">
-            <div class="logo"><a href="index.html">Skyline Travels</a></div>
-            <nav>
-                <ul>
-                    <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="#register-section">Register</a></li>
-                    <li><a href="#jobs-section">Jobs</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <section id="register-section" class="form-section">
-        <div class="container">
-            <div class="form-container">
-                <h2 class="form-title">Global Job Registration Form</h2>
-                <p class="form-description">Apply for international employment opportunities in Canada, USA, Europe, Asia, and Gulf Countries.</p>
-
-                <form action="https://formspree.io/f/YOUR_FORMSPREE_FORM_ID" method="POST" enctype="multipart/form-data" class="job-application-form">
-                    
-                    <div class="form-group-heading">1. Personal Details</div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="fullName">Full Name *</label>
-                            <input type="text" id="fullName" name="Full Name" placeholder="Enter your full legal name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email Address *</label>
-                            <input type="email" id="email" name="Email" placeholder="example@email.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone / WhatsApp Number *</label>
-                            <input type="tel" id="phone" name="Phone Number" placeholder="+251 912 345 678" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="nationality">Current Country of Residence *</label>
-                            <input type="text" id="nationality" name="Current Country" placeholder="e.g., Ethiopia" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group-heading">2. Preferred Destination & Job Sector</div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="destination">Preferred Country *</label>
-                            <select id="destination" name="Preferred Destination" required>
-                                <option value="" disabled selected>Select destination country</option>
-                                <option value="Canada">Canada</option>
-                                <option value="USA">United States</option>
-                                <option value="Europe">Europe (Netherlands, Germany, UK, Poland)</option>
-                                <option value="Asia/Gulf">Asia / Gulf Region (Qatar, UAE, Saudi Arabia)</option>
-                                <option value="Any Country">Any Available Country</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="jobCategory">Job Industry / Sector *</label>
-                            <select id="jobCategory" name="Job Sector" required>
-                                <option value="" disabled selected>Select preferred sector</option>
-                                <option value="Agriculture & Farm Work">Agriculture & Farm Work</option>
-                                <option value="Healthcare & Nursing">Healthcare & Nursing</option>
-                                <option value="Truck Driving & Machinery">Truck Driving & Heavy Machinery</option>
-                                <option value="Hospitality & Hotel Staff">Hospitality & Hotel Staff</option>
-                                <option value="Construction & Skilled Labor">Construction & Skilled Labor</option>
-                                <option value="General Labor / Other">General Labor / Other</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group-heading">3. Qualification & Experience</div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="experience">Work Experience *</label>
-                            <select id="experience" name="Work Experience" required>
-                                <option value="" disabled selected>Select experience level</option>
-                                <option value="No Experience">No Experience / Entry Level</option>
-                                <option value="1-2 Years">1 - 2 Years</option>
-                                <option value="3-5 Years">3 - 5 Years</option>
-                                <option value="More than 5 Years">More than 5 Years</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="education">Education Level *</label>
-                            <select id="education" name="Education Level" required>
-                                <option value="" disabled selected>Select education level</option>
-                                <option value="High School">High School Diploma</option>
-                                <option value="Diploma / TVET">Technical Diploma / TVET</option>
-                                <option value="Bachelor Degree">Bachelor's Degree</option>
-                                <option value="Master Degree">Master's Degree or Higher</option>
-                            </select>
-                        </div>
-                        <div class="form-group full-width">
-                            <label for="resume">Upload Resume / CV / Documents (Optional)</label>
-                            <input type="file" id="resume" name="attachment" accept=".pdf,.doc,.docx,.jpg,.png">
-                        </div>
-                        <div class="form-group full-width">
-                            <label for="notes">Additional Information</label>
-                            <textarea id="notes" name="Additional Notes" rows="4" placeholder="Mention certifications, language proficiencies, or special skills..."></textarea>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="submit-btn">Submit Application</button>
-                </form>
+            <div class="form-group">
+              <label>Phone / WhatsApp Number <span class="req">*</span></label>
+              <input type="text" name="phone" required>
             </div>
+            <div class="form-group">
+              <label>Current Country of Residence <span class="req">*</span></label>
+              <input type="text" name="currentCountry" required>
+            </div>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <main id="jobs-section" class="container">
-        <h2 class="page-title">Current Job Openings & Opportunities</h2>
-        <div class="job-grid">
-            <article class="job-card">
-                <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=600&auto=format&fit=crop&q=60" alt="Farm Work Canada" class="job-img">
-                <div class="card-content">
-                    <span class="category">Canada</span>
-                    <h2>Farm Worker Positions in Canada</h2>
-                    <p>Agricultural opportunities with work permit sponsorship and accommodation assistance.</p>
-                    <a href="#register-section" class="read-more">Apply Now &rarr;</a>
-                </div>
-            </article>
-
-            <article class="job-card">
-                <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=600&auto=format&fit=crop&q=60" alt="Healthcare USA" class="job-img">
-                <div class="card-content">
-                    <span class="category">United States</span>
-                    <h2>Healthcare & Nursing Positions in USA</h2>
-                    <p>Placements for qualified healthcare staff with full visa processing support.</p>
-                    <a href="#register-section" class="read-more">Apply Now &rarr;</a>
-                </div>
-            </article>
-
-            <article class="job-card">
-                <img src="https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?w=600&auto=format&fit=crop&q=60" alt="Europe Skilled Jobs" class="job-img">
-                <div class="card-content">
-                    <span class="category">Europe</span>
-                    <h2>Skilled Labor & Logistics Jobs in Europe</h2>
-                    <p>Employment contracts across Western Europe with official visa processing.</p>
-                    <a href="#register-section" class="read-more">Apply Now &rarr;</a>
-                </div>
-            </article>
+      <!-- Section 2 -->
+      <div class="section-card">
+        <div class="card-header header-2">
+          <span>2. Preferred Destination & Job Sector</span>
+          <i class="fas fa-globe"></i>
         </div>
-    </main>
-
-    <section class="whatsapp-cta-section">
-        <div class="container">
-            <a href="https://wa.me/251911000000" target="_blank" rel="noopener noreferrer" class="whatsapp-cta-link">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="whatsapp-icon"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224-99.6 224-222 0-59.3-25.2-115-67-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
-                <span>Contact Us</span>
-            </a>
-            <p class="whatsapp-cta-subtext">Tap to chat with us on WhatsApp</p>
+        <div class="card-body">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Preferred Country <span class="req">*</span></label>
+              <select name="preferredCountry" required>
+                <option value="" disabled selected>Select destination country</option>
+                <option value="UAE">United Arab Emirates</option>
+                <option value="Saudi Arabia">Saudi Arabia</option>
+                <option value="Qatar">Qatar</option>
+                <option value="Canada">Canada</option>
+                <option value="Europe">Europe</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Job Industry / Sector <span class="req">*</span></label>
+              <select name="jobSector" required>
+                <option value="" disabled selected>Select preferred sector</option>
+                <option value="Hospitality">Hospitality & Tourism</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Construction">Construction & Engineering</option>
+                <option value="IT">Information Technology</option>
+                <option value="Driver">Driving & Logistics</option>
+              </select>
+            </div>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <footer>
-        <p>&copy; 2026 Skyline Travels. All Rights Reserved.</p>
-    </footer>
+      <!-- Section 3 -->
+      <div class="section-card">
+        <div class="card-header header-3">
+          <span>3. Qualification & Experience</span>
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <div class="card-body">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Work Experience <span class="req">*</span></label>
+              <select name="experience" required>
+                <option value="" disabled selected>Select experience level</option>
+                <option value="No Experience">No Experience</option>
+                <option value="1-2 Years">1 - 2 Years</option>
+                <option value="3-5 Years">3 - 5 Years</option>
+                <option value="5+ Years">5+ Years</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Education Level <span class="req">*</span></label>
+              <select name="education" required>
+                <option value="" disabled selected>Select education level</option>
+                <option value="High School">High School</option>
+                <option value="Diploma">Diploma</option>
+                <option value="Bachelor Degree">Bachelor's Degree</option>
+                <option value="Master Degree">Master's Degree</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <label>Upload Resume / CV / Documents (Optional)</label>
+              <input type="file" class="file-upload">
+            </div>
+            <div class="form-group full-width">
+              <label>Additional Information</label>
+              <textarea name="additionalInfo" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <button type="submit" class="btn-submit">Submit Application</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await response.json();
+        if (result.success) {
+          alert('Application submitted successfully!');
+          this.reset();
+        } else {
+          alert('Error: ' + result.message);
+        }
+      } catch (err) {
+        alert('Failed to submit application.');
+      }
+    });
+  </script>
 </body>
 </html>
