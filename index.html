@@ -175,3 +175,242 @@
       display: inline-block;
       margin-bottom: 20px;
       max-width: 100%;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .whatsapp-display-box a {
+      color: #25d366;
+      text-decoration: none;
+    }
+
+    /* Form Section */
+    .form-section {
+      max-width: 700px;
+      margin: -30px auto 50px auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .form-card {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border: 1px solid #e2e8f0;
+    }
+
+    .form-card h2 {
+      font-size: 22px;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    .form-subtitle {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 8px;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      border-color: #2563eb;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-submit:hover {
+      background: #1d4ed8;
+    }
+
+    .response-message {
+      margin-top: 15px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    /* Footer */
+    footer {
+      background: #0f172a;
+      color: #94a3b8;
+      text-align: center;
+      padding: 25px 20px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-info">
+      <span><i class="fa-solid fa-phone"></i> Support</span>
+    </div>
+    <div class="lang-container">
+      <i class="fa-solid fa-globe"></i>
+      <select id="langSelect" class="lang-select">
+        <option value="en">English</option>
+        <option value="am">አማርኛ</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <a href="index.html" class="logo">Skyline <span>Travels</span></a>
+    <button class="menu-btn" id="menuBtn">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <nav id="navMenu">
+      <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
+      <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+      <a href="admin.html"><i class="fa-solid fa-lock"></i> Admin</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Your Gateway to Global Opportunities</h1>
+    <p>Professional travel services, educational consultancy, and career placement solutions tailored just for you.</p>
+    <div class="whatsapp-display-box">
+      <i class="fa-brands fa-whatsapp"></i> Chat with us: <a href="https://wa.me/251900000000" target="_blank" id="whatsappLink">+251 900 000 000</a>
+    </div>
+  </section>
+
+  <!-- Application Form Section -->
+  <section class="form-section">
+    <div class="form-card">
+      <h2><i class="fa-solid fa-file-lines" style="color: #2563eb;"></i> Job & Travel Application Form</h2>
+      <p class="form-subtitle">Fill out the form below to start your application process.</p>
+      
+      <form id="applicationForm">
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="name@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="+251 9XXXXXXXX" required>
+        </div>
+        <div class="form-group">
+          <label for="destination">Preferred Destination</label>
+          <select id="destination" name="destination" required>
+            <option value="">Select Destination</option>
+            <option value="Europe">Europe</option>
+            <option value="Middle East">Middle East</option>
+            <option value="North America">North America</option>
+            <option value="Asia">Asia</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-submit">Submit Application</button>
+      </form>
+      <div id="formResponseMessage" class="response-message"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Skyline Travels & Educational Consultancy. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Mobile Menu Toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navMenu = document.getElementById('navMenu');
+
+    menuBtn.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+
+    // Form Submission Script
+    const applicationForm = document.getElementById('applicationForm');
+    const responseMessage = document.getElementById('formResponseMessage');
+
+    applicationForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = {
+        fullName: document.getElementById('fullName').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        destination: document.getElementById('destination').value
+      };
+
+      try {
+        const res = await fetch('/api/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          responseMessage.style.color = '#16a34a';
+          responseMessage.textContent = 'Application submitted successfully!';
+          applicationForm.reset();
+        } else {
+          responseMessage.style.color = '#dc2626';
+          responseMessage.textContent = 'Submission failed. Please try again.';
+        }
+      } catch (err) {
+        responseMessage.style.color = '#dc2626';
+        responseMessage.textContent = 'An error occurred. Please check your connection.';
+      }
+    });
+
+    // Fetch dynamic WhatsApp settings
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const res = await fetch('/api/settings');
+        const settings = await res.json();
+        if (settings.whatsapp) {
+          const waLink = document.getElementById('whatsappLink');
+          waLink.href = `https://wa.me/${settings.whatsapp}`;
+          waLink.textContent = `+${settings.whatsapp}`;
+        }
+      } catch (e) {
+        // Fallback default
+      }
+    });
+  </script>
+</body>
+</html>
