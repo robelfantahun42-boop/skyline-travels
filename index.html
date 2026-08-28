@@ -29,10 +29,11 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
 
-    .logo {
+    .logo a {
       font-size: 24px;
       font-weight: bold;
       color: #0d3b66;
+      text-decoration: none;
     }
 
     nav a {
@@ -40,10 +41,16 @@
       text-decoration: none;
       color: #4a5568;
       font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: #007bff;
     }
 
     nav a.active {
       color: #007bff;
+      font-weight: 600;
     }
 
     .main-title {
@@ -167,13 +174,13 @@
 <body>
 
   <header>
-    <div class="logo">Skyline Travels</div>
+    <div class="logo"><a href="/">Skyline Travels</a></div>
     <nav>
       <a href="/">Home</a>
-      <a href="/" class="active">Register</a>
+      <a href="/index.html" class="active">Register</a>
       <a href="#">Jobs</a>
-      <a href="#">About Us</a>
-      <a href="#">Contact</a>
+      <a href="/about.html">About Us</a>
+      <a href="/contact.html">Contact</a>
     </nav>
   </header>
 
