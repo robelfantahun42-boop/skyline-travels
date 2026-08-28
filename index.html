@@ -43,7 +43,7 @@
       font-weight: 600;
     }
 
-    /* Prominent Language Selector */
+    /* Language Selector */
     .lang-container {
       display: flex;
       align-items: center;
@@ -52,7 +52,6 @@
       border: 1.5px solid #2563eb;
       padding: 5px 12px;
       border-radius: 20px;
-      box-shadow: 0 0 10px rgba(37, 99, 235, 0.3);
     }
 
     .lang-container i {
@@ -75,7 +74,7 @@
       color: #ffffff;
     }
 
-    /* Header & Mobile Menu Setup */
+    /* Header */
     header {
       background: #ffffff;
       padding: 15px 5%;
@@ -93,14 +92,12 @@
       font-weight: 800;
       color: #0f172a;
       text-decoration: none;
-      letter-spacing: 0.5px;
     }
 
     .logo span {
       color: #2563eb;
     }
 
-    /* Hamburger Menu Button */
     .menu-btn {
       font-size: 24px;
       color: #0f172a;
@@ -110,7 +107,6 @@
       outline: none;
     }
 
-    /* Dropdown Nav Styling */
     nav {
       display: none;
       position: absolute;
@@ -135,7 +131,6 @@
       color: #334155;
       font-weight: 600;
       font-size: 15px;
-      transition: background 0.2s, color 0.2s;
     }
 
     nav a:hover {
@@ -155,15 +150,13 @@
       font-size: 28px;
       font-weight: 800;
       margin-bottom: 12px;
-      letter-spacing: 0.5px;
     }
 
     .hero p {
       font-size: 15px;
       max-width: 600px;
-      margin: 0 auto 25px auto;
+      margin: 0 auto 20px auto;
       color: #cbd5e1;
-      line-height: 1.5;
     }
 
     /* WhatsApp Box */
@@ -173,8 +166,7 @@
       border-radius: 12px;
       padding: 12px 20px;
       display: inline-block;
-      margin-bottom: 20px;
-      max-width: 100%;
+      margin-top: 10px;
       color: #ffffff;
       font-weight: 600;
     }
@@ -184,83 +176,76 @@
       text-decoration: none;
     }
 
-    /* Form Section */
-    .form-section {
-      max-width: 700px;
-      margin: -30px auto 50px auto;
+    /* Jobs Section */
+    .jobs-section {
+      max-width: 1200px;
+      margin: 40px auto;
       padding: 0 20px;
-      position: relative;
-      z-index: 10;
     }
 
-    .form-card {
-      background: #ffffff;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      border: 1px solid #e2e8f0;
-    }
-
-    .form-card h2 {
-      font-size: 22px;
+    .jobs-section h2 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 30px;
       color: #0f172a;
-      margin-bottom: 8px;
     }
 
-    .form-subtitle {
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .job-card {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      border: 1px solid #e2e8f0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .job-card h3 {
+      font-size: 18px;
+      color: #0f172a;
+      margin-bottom: 10px;
+    }
+
+    .job-card p {
       font-size: 14px;
       color: #64748b;
-      margin-bottom: 25px;
+      margin-bottom: 15px;
     }
 
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 14px;
+    .job-tag {
+      display: inline-block;
+      background: #eff6ff;
+      color: #2563eb;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
       font-weight: 600;
-      color: #334155;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
-    .form-group input, .form-group select {
-      width: 100%;
-      padding: 12px 15px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      font-size: 15px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .form-group input:focus, .form-group select:focus {
-      border-color: #2563eb;
-    }
-
-    .btn-submit {
-      width: 100%;
+    .btn-apply {
+      display: block;
+      text-align: center;
       background: #2563eb;
       color: white;
-      border: none;
-      padding: 14px;
-      font-size: 16px;
-      font-weight: 700;
-      border-radius: 8px;
-      cursor: pointer;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
       transition: background 0.2s;
     }
 
-    .btn-submit:hover {
+    .btn-apply:hover {
       background: #1d4ed8;
-    }
-
-    .response-message {
-      margin-top: 15px;
-      text-align: center;
-      font-weight: 600;
-      font-size: 14px;
     }
 
     /* Footer */
@@ -270,15 +255,16 @@
       text-align: center;
       padding: 25px 20px;
       font-size: 14px;
+      margin-top: 50px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Bar -->
+  <!-- Top Bar with Language Selector -->
   <div class="top-bar">
     <div class="top-info">
-      <span><i class="fa-solid fa-phone"></i> Support</span>
+      <span><i class="fa-solid fa-phone"></i> Support Hotline</span>
     </div>
     <div class="lang-container">
       <i class="fa-solid fa-globe"></i>
@@ -297,53 +283,72 @@
     </button>
     <nav id="navMenu">
       <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="register.html"><i class="fa-solid fa-user-plus"></i> Register</a>
       <a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
       <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
       <a href="admin.html"><i class="fa-solid fa-lock"></i> Admin</a>
     </nav>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero Section with WhatsApp Info -->
   <section class="hero">
     <h1>Your Gateway to Global Opportunities</h1>
-    <p>Professional travel services, educational consultancy, and career placement solutions tailored just for you.</p>
+    <p>Explore verified international job vacancies and educational consultancy placements.</p>
     <div class="whatsapp-display-box">
-      <i class="fa-brands fa-whatsapp"></i> Chat with us: <a href="https://wa.me/251900000000" target="_blank" id="whatsappLink">+251 900 000 000</a>
+      <i class="fa-brands fa-whatsapp"></i> Contact via WhatsApp: <a href="https://wa.me/251900000000" target="_blank" id="whatsappLink">+251 900 000 000</a>
     </div>
   </section>
 
-  <!-- Application Form Section -->
-  <section class="form-section">
-    <div class="form-card">
-      <h2><i class="fa-solid fa-file-lines" style="color: #2563eb;"></i> Job & Travel Application Form</h2>
-      <p class="form-subtitle">Fill out the form below to start your application process.</p>
-      
-      <form id="applicationForm">
-        <div class="form-group">
-          <label for="fullName">Full Name</label>
-          <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
-        </div>
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="name@example.com" required>
-        </div>
-        <div class="form-group">
-          <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" name="phone" placeholder="+251 9XXXXXXXX" required>
-        </div>
-        <div class="form-group">
-          <label for="destination">Preferred Destination</label>
-          <select id="destination" name="destination" required>
-            <option value="">Select Destination</option>
-            <option value="Europe">Europe</option>
-            <option value="Middle East">Middle East</option>
-            <option value="North America">North America</option>
-            <option value="Asia">Asia</option>
-          </select>
-        </div>
-        <button type="submit" class="btn-submit">Submit Application</button>
-      </form>
-      <div id="formResponseMessage" class="response-message"></div>
+  <!-- Job & Education Opportunities Listings (Over 22 items) -->
+  <section class="jobs-section">
+    <h2>Current Job Openings & Educational Opportunities</h2>
+    <div class="jobs-grid">
+      <!-- 1 -->
+      <div class="job-card"><div><span class="job-tag">Canada</span><h3>Farm Worker Positions</h3><p>Agricultural opportunities with work permit and accommodation support.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 2 -->
+      <div class="job-card"><div><span class="job-tag">USA</span><h3>Healthcare & Nursing Jobs</h3><p>Registered nurse and healthcare assistant roles available in hospitals.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 3 -->
+      <div class="job-card"><div><span class="job-tag">Europe</span><h3>Skilled Labor & Logistics</h3><p>Warehouse, packaging, and driving positions across major logistics hubs.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 4 -->
+      <div class="job-card"><div><span class="job-tag">Germany</span><h3>IT & Software Engineering</h3><p>Tech positions for developers with relocation sponsorship packages.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 5 -->
+      <div class="job-card"><div><span class="job-tag">Middle East</span><h3>Hospitality & Hotel Staff</h3><p>Waiters, chefs, and front desk personnel needed for luxury hotels.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 6 -->
+      <div class="job-card"><div><span class="job-tag">UK</span><h3>Caregiver & Social Work</h3><p>Elderly care positions with full training and visa sponsorship.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 7 -->
+      <div class="job-card"><div><span class="job-tag">Australia</span><h3>Construction & Carpentry</h3><p>Experienced builders and carpenters required for urban development projects.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 8 -->
+      <div class="job-card"><div><span class="job-tag">Japan</span><h3>English Teaching & Education</h3><p>Assistant language teachers and corporate trainers for schools.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 9 -->
+      <div class="job-card"><div><span class="job-tag">Poland</span>Manufacturing & Factory Jobs</div><p>Assembly line and quality control operators in modern industrial plants.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 10 -->
+      <div class="job-card"><div><span class="job-tag">Canada</span><h3>Master’s Degree Scholarship</h3><p>Full tuition and living stipend scholarships for international students.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 11 -->
+      <div class="job-card"><div><span class="job-tag">Sweden</span><h3>Engineering Consultancy Roles</h3><p>Civil and mechanical engineering jobs with top Scandinavian firms.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 12 -->
+      <div class="job-card"><div><span class="job-tag">UAE</span><h3>Customer Service Representatives</h3><p>Multilingual customer support roles in international corporations.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 13 -->
+      <div class="job-card"><div><span class="job-tag">New Zealand</span><h3>Agricultural Farm Management</h3><p>Dairy and crop farm supervisors needed with competitive salaries.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 14 -->
+      <div class="job-card"><div><span class="job-tag">Germany</span><h3>Vocational Training (Ausbildung)</h3><p>Paid technical training programs leading to permanent residency.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 15 -->
+      <div class="job-card"><div><span class="job-tag">Romania</span><h3>Restaurant & Culinary Staff</h3><p>Cooks, bakers, and kitchen assistants for booming food sectors.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 16 -->
+      <div class="job-card"><div><span class="job-tag">Qatar</span><h3>Aviation & Ground Crew</h3><p>Airport operations, baggage handlers, and customer service staff.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 17 -->
+      <div class="job-card"><div><span class="job-tag">France</span><h3>Hospitality Management Roles</h3><p>Hotel management positions in Paris and regional tourist centers.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 18 -->
+      <div class="job-card"><div><span class="job-tag">Finland</span><h3>Bachelor’s Study Programs</h3><p>Affordable university degrees taught in English with work rights.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 19 -->
+      <div class="job-card"><div><span class="job-tag">Lithuania</span><h3>Transport & Truck Driving</h3><p>International long-haul driving positions for certified license holders.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 20 -->
+      <div class="job-card"><div><span class="job-tag">South Korea</span><h3>Manufacturing & Tech Assembly</h3><p>Electronics assembly and factory worker opportunities.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 21 -->
+      <div class="job-card"><div><span class="job-tag">Italy</span><h3>Tourism & Guide Services</h3><p>Tour guides and hospitality assistants for historic regional sites.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 22 -->
+      <div class="job-card"><div><span class="job-tag">Global</span><h3>Remote Digital Marketing Jobs</h3><p>Work-from-home social media and digital content specialist roles.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
+      <!-- 23 -->
+      <div class="job-card"><div><span class="job-tag">Norway</span><h3>Marine & Fisheries Work</h3><p>Seafood processing and maritime logistics personnel wanted.</p></div><a href="register.html" class="btn-apply">Apply Now</a></div>
     </div>
   </section>
 
@@ -356,45 +361,8 @@
     // Mobile Menu Toggle
     const menuBtn = document.getElementById('menuBtn');
     const navMenu = document.getElementById('navMenu');
-
     menuBtn.addEventListener('click', () => {
       navMenu.classList.toggle('active');
-    });
-
-    // Form Submission Script
-    const applicationForm = document.getElementById('applicationForm');
-    const responseMessage = document.getElementById('formResponseMessage');
-
-    applicationForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const formData = {
-        fullName: document.getElementById('fullName').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        destination: document.getElementById('destination').value
-      };
-
-      try {
-        const res = await fetch('/api/submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const data = await res.json();
-
-        if (data.success) {
-          responseMessage.style.color = '#16a34a';
-          responseMessage.textContent = 'Application submitted successfully!';
-          applicationForm.reset();
-        } else {
-          responseMessage.style.color = '#dc2626';
-          responseMessage.textContent = 'Submission failed. Please try again.';
-        }
-      } catch (err) {
-        responseMessage.style.color = '#dc2626';
-        responseMessage.textContent = 'An error occurred. Please check your connection.';
-      }
     });
 
     // Fetch dynamic WhatsApp settings
