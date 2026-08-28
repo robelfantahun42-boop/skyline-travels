@@ -1,147 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
-    <style>
-        body { font-family: Arial, sans-serif; background: #f4f7f6; margin: 0; padding: 20px; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        input { padding: 8px 12px; margin: 5px 0; border: 1px solid #ccc; border-radius: 4px; width: 300px; display: block; }
-        button { padding: 8px 15px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 5px; }
-        button:hover { background: #0056b3; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; font-size: 14px; }
-        th { background: #f8f9fa; }
-        .details-box { background: #f9f9f9; padding: 5px; border-radius: 4px; font-size: 12px; color: #555; margin-top: 4px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Skyline Travels</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background: #f1f5f9; color: #1e293b; padding: 30px 20px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    header { display: flex; justify-content: space-between; align-items: center; background: #ffffff; padding: 20px 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 25px; }
+    h1 { font-size: 22px; color: #1e3a8a; display: flex; align-items: center; gap: 10px; }
+    .nav-links a { text-decoration: none; color: #2563eb; font-weight: 600; margin-left: 20px; font-size: 14px; }
+    
+    .card { background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 25px; }
+    .card h3 { margin-bottom: 15px; font-size: 18px; color: #334155; }
+    
+    .settings-form { display: flex; gap: 15px; align-items: center; }
+    .settings-form input { flex: 1; padding: 12px 16px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 14px; outline: none; }
+    .settings-form button { padding: 12px 24px; background: #2563eb; color: #fff; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
+    .settings-form button:hover { background: #1d4ed8; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; background: #fff; border-radius: 8px; overflow: hidden; }
+    th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
+    th { background: #f8fafc; color: #475569; font-weight: 700; }
+    tr:hover { background: #f8fafc; }
+  </style>
 </head>
 <body>
-<div class="container">
-    
-    <!-- Settings Card -->
+  <div class="container">
+    <header>
+      <h1><i class="fa-solid fa-gauge"></i> Skyline Travels Admin Dashboard</h1>
+      <div class="nav-links">
+        <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="register.html"><i class="fa-solid fa-user-plus"></i> Register Form</a>
+      </div>
+    </header>
+
+    <!-- WhatsApp Settings Card -->
     <div class="card">
-        <h3>⚙️ Contact & WhatsApp Settings</h3>
-        <form id="settingsForm">
-            <label>WhatsApp Number:</label>
-            <input type="text" id="whatsapp" required>
-            
-            <label>Phone Number:</label>
-            <input type="text" id="phone" required>
-            
-            <button type="button" onclick="saveSettings()">Save Settings</button>
-        </form>
+      <h3><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> Update Customer Service WhatsApp Number</h3>
+      <form id="settingsForm" class="settings-form">
+        <input type="text" id="whatsappInput" placeholder="e.g. 251911223344 (Country code + number without +)" required>
+        <button type="submit">Save Number</button>
+      </form>
     </div>
 
-    <!-- Applicants Table Card -->
+    <!-- Registrations Table Card -->
     <div class="card">
-        <h3>📋 Applicants List (ሙሉ የደንበኛ መረጃ)</h3>
-        <button onclick="loadData()">Refresh List</button>
+      <h3><i class="fa-solid fa-users"></i> Registered Applicants List</h3>
+      <div style="overflow-x: auto;">
         <table>
-            <thead>
-                <tr>
-                    <th>ID / Date</th>
-                    <th>Full Name & Country</th>
-                    <th>Contact Info</th>
-                    <th>Job & Destination</th>
-                    <th>Qualification</th>
-                    <th>Documents</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody">
-                <tr><td colspan="6" style="text-align:center;">Loading...</td></tr>
-            </tbody>
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Phone / WhatsApp</th>
+              <th>Nationality</th>
+              <th>Target Country</th>
+              <th>Category</th>
+              <th>Education</th>
+              <th>Message</th>
+              <th>Date</th>
+            </tr>
+          <tbody id="regTableBody">
+            <tr><td colspan="9" style="text-align: center; color: #64748b;">Loading registrations...</td></tr>
+          </tbody>
         </table>
+      </div>
     </div>
+  </div>
 
-</div>
-
-<script>
-    async function loadData() {
-        const tbody = document.getElementById('tableBody');
-        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">Loading data from server...</td></tr>`;
-
-        try {
-            // Settings ማምጣት
-            const setRes = await fetch('/api/settings');
-            if (setRes.ok) {
-                const settings = await setRes.json();
-                document.getElementById('whatsapp').value = settings.whatsapp_number || '';
-                document.getElementById('phone').value = settings.phone || '';
-            }
-
-            // Applicants ማምጣት
-            const appRes = await fetch('/api/applicants');
-            if (!appRes.ok) throw new Error('Failed to fetch applicants from server');
-            
-            const applicants = await appRes.json();
-            tbody.innerHTML = '';
-
-            if (!applicants || applicants.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:red;">No applicants found yet. Please make a test registration from the main website.</td></tr>`;
-                return;
-            }
-
-            applicants.forEach(app => {
-                const dateStr = app.created_at ? new Date(app.created_at).toLocaleString() : 'N/A';
-
-                tbody.innerHTML += `
-                    <tr>
-                        <td>${app.id}<br><small style="color:gray;">${dateStr}</small></td>
-                        <td>
-                            <strong>${app.full_name || 'N/A'}</strong><br>
-                            <small>መኖሪያ: ${app.current_country || 'N/A'}</small>
-                        </td>
-                        <td>
-                            📞 ${app.phone || 'N/A'}<br>
-                            ✉️ ${app.email || 'N/A'}
-                        </td>
-                        <td>
-                            <b>ሀገር:</b> ${app.preferred_destination || 'N/A'}<br>
-                            <b>ዘርፍ:</b> ${app.job_sector || 'N/A'}
-                        </td>
-                        <td>
-                            <b>ልምድ:</b> ${app.experience || 'N/A'}<br>
-                            <b>ትምህርት:</b> ${app.education || 'N/A'}
-                            ${app.notes ? `<div class="details-box"><b>ማስታወሻ:</b> ${app.notes}</div>` : ''}
-                        </td>
-                        <td>
-                            ${app.passport_photo ? `<a href="/uploads/${app.passport_photo}" target="_blank">[ፋስፖርት ፎቶ]</a><br>` : 'ፎቶ የለም<br>'}
-                            ${app.resume ? `<a href="/uploads/${app.resume}" target="_blank" style="color:green;">[ሲቪ/ሰነድ]</a>` : ''}
-                        </td>
-                    </tr>
-                `;
-            });
-        } catch (e) {
-            console.error(e);
-            tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:red;">Error connecting to server! Please make sure you open this page via: <b>http://localhost:3000/admin/</b></td></tr>`;
+  <script>
+    // Fetch Settings and Registrations on load
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const resSet = await fetch('/api/settings');
+        const settings = await resSet.json();
+        if (settings.whatsapp) {
+          document.getElementById('whatsappInput').value = settings.whatsapp;
         }
-    }
 
-    async function saveSettings() {
-        const whatsapp_number = document.getElementById('whatsapp').value;
-        const phone = document.getElementById('phone').value;
-
-        try {
-            const res = await fetch('/api/settings', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ whatsapp_number, phone })
-            });
-            
-            if (res.ok) {
-                alert('Settings updated successfully!');
-                loadData();
-            } else {
-                alert('Failed to update settings.');
-            }
-        } catch (err) {
-            alert('Error connecting to server.');
-            console.error(err);
+        const resReg = await fetch('/api/registrations');
+        const regs = await resReg.json();
+        const tbody = document.getElementById('regTableBody');
+        
+        if (regs.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: #64748b;">No registrations found yet.</td></tr>`;
+          return;
         }
-    }
 
-    window.onload = loadData;
-</script>
+        tbody.innerHTML = regs.reverse().map(r => `
+          <tr>
+            <td><strong>${r.fullName}</strong></td>
+            <td>${r.email}</td>
+            <td><a href="https://wa.me/${r.phone}" target="_blank" style="color:#25d366; font-weight:700;"><i class="fa-brands fa-whatsapp"></i> ${r.phone}</a></td>
+            <td>${r.nationality}</td>
+            <td><span style="background:#eff6ff; color:#2563eb; padding:4px 8px; border-radius:6px; font-weight:600;">${r.targetCountry}</span></td>
+            <td>${r.category}</td>
+            <td>${r.education}</td>
+            <td>${r.message || '-'}</td>
+            <td>${new Date(r.date).toLocaleString()}</td>
+          </tr>
+        `).join('');
+      } catch (e) {
+        document.getElementById('regTableBody').innerHTML = `<tr><td colspan="9" style="text-align: center; color: #ef4444;">Failed to load data.</td></tr>`;
+      }
+    });
+
+    // Save WhatsApp settings
+    document.getElementById('settingsForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const whatsapp = document.getElementById('whatsappInput').value;
+      try {
+        const res = await fetch('/api/settings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ whatsapp })
+        });
+        const result = await res.json();
+        if (result.success) {
+          alert('WhatsApp number updated successfully!');
+        } else {
+          alert('Failed to update number.');
+        }
+      } catch (err) {
+        alert('Network error.');
+      }
+    });
+  </script>
 </body>
 </html>
