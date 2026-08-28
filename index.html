@@ -23,7 +23,7 @@
     .top-bar {
       background-color: #0f172a;
       color: #f8fafc;
-      padding: 8px 5%;
+      padding: 10px 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -43,21 +43,36 @@
       font-weight: 600;
     }
 
+    /* Prominent Language Selector */
     .lang-container {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      background: rgba(37, 99, 235, 0.2);
+      border: 1.5px solid #2563eb;
+      padding: 5px 12px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(37, 99, 235, 0.3);
+    }
+
+    .lang-container i {
+      color: #60a5fa;
+      font-size: 14px;
     }
 
     .lang-select {
-      background: #1e293b;
+      background: transparent;
       color: #ffffff;
-      border: 1px solid #334155;
-      padding: 4px 8px;
-      border-radius: 6px;
+      border: none;
       outline: none;
       cursor: pointer;
-      font-size: 12px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .lang-select option {
+      background: #0f172a;
+      color: #ffffff;
     }
 
     /* Header & Mobile Menu Setup */
@@ -396,19 +411,33 @@
 </head>
 <body>
 
-  <!-- Top Bar -->
+  <!-- Top Bar with Prominent Expanded Language Selector -->
   <div class="top-bar">
     <div class="top-info">
       <a href="https://wa.me/251900000000" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp Direct</a>
     </div>
+
+    <!-- Highlighted & Expanded Language Box -->
     <div class="lang-container">
-      <label for="lang"><i class="fas fa-globe"></i></label>
+      <i class="fas fa-globe"></i>
       <select id="lang" class="lang-select">
-        <option value="en">English</option>
-        <option value="am">አማርኛ</option>
+        <option value="am">አማርኛ (Amharic)</option>
+        <option value="en" selected>English</option>
         <option value="om">Afaan Oromoo</option>
-        <option value="ti">ትግርኛ</option>
-        <option value="ar">العربية</option>
+        <option value="ti">ትግርኛ (Tigrinya)</option>
+        <option value="so">Soomaali (Somali)</option>
+        <option value="ar">العربية (Arabic)</option>
+        <option value="ur">اردو (Urdu)</option>
+        <option value="hi">हिन्दी (Hindi)</option>
+        <option value="zh">中文 (Mandarin Chinese)</option>
+        <option value="fr">Français (French)</option>
+        <option value="de">Deutsch (German)</option>
+        <option value="es">Español (Spanish)</option>
+        <option value="ru">Русский (Russian)</option>
+        <option value="pt">Português (Portuguese)</option>
+        <option value="bn">বাংলা (Bengali)</option>
+        <option value="sw">Kiswahili (Swahili)</option>
+        <option value="tr">Türkçe (Turkish)</option>
       </select>
     </div>
   </div>
