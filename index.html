@@ -14,46 +14,65 @@
     }
 
     body {
-      background-color: #f4f7f6;
-      color: #333;
+      background-color: #f8fafc;
+      color: #1e293b;
     }
 
-    /* Top Utility Bar */
+    /* Top Bar */
     .top-bar {
-      background-color: #0b2545;
-      color: #fff;
-      padding: 8px 5%;
+      background-color: #0f172a;
+      color: #f8fafc;
+      padding: 10px 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-size: 14px;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .top-info {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .top-info span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .top-info a {
       color: #25d366;
       text-decoration: none;
-      font-weight: bold;
-      margin-left: 15px;
+      font-weight: 600;
+    }
+
+    .lang-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .lang-select {
-      background: #134074;
-      color: #fff;
-      border: 1px solid #8da9c4;
-      padding: 4px 8px;
-      border-radius: 4px;
+      background: #1e293b;
+      color: #ffffff;
+      border: 1px solid #334155;
+      padding: 6px 12px;
+      border-radius: 6px;
       outline: none;
       cursor: pointer;
+      font-weight: 500;
     }
 
     /* Header & Nav */
     header {
       background: #ffffff;
-      padding: 15px 5%;
+      padding: 18px 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
       position: sticky;
       top: 0;
       z-index: 1000;
@@ -62,57 +81,101 @@
     .logo {
       font-size: 26px;
       font-weight: 800;
-      color: #134074;
+      color: #0f172a;
       text-decoration: none;
       letter-spacing: 0.5px;
     }
 
+    .logo span {
+      color: #2563eb;
+    }
+
     nav a {
-      margin-left: 20px;
+      margin-left: 24px;
       text-decoration: none;
-      color: #4a5568;
+      color: #475569;
       font-weight: 600;
       transition: color 0.2s;
     }
 
     nav a:hover, nav a.active {
-      color: #007bff;
+      color: #2563eb;
     }
 
     /* Hero Section */
     .hero {
-      background: linear-gradient(rgba(11, 37, 69, 0.75), rgba(11, 37, 69, 0.75)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1200') center/cover no-repeat;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.88)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1200') center/cover no-repeat;
       color: #fff;
       text-align: center;
-      padding: 80px 20px;
+      padding: 90px 20px;
     }
 
     .hero h1 {
-      font-size: 42px;
+      font-size: 44px;
       font-weight: 800;
       margin-bottom: 15px;
-      text-transform: uppercase;
       letter-spacing: 1px;
     }
 
     .hero p {
       font-size: 18px;
       max-width: 700px;
-      margin: 0 auto 25px auto;
-      color: #e0e6ed;
+      margin: 0 auto 30px auto;
+      color: #cbd5e1;
+    }
+
+    /* WhatsApp Highlight Box */
+    .whatsapp-display-box {
+      background: rgba(37, 211, 102, 0.15);
+      border: 2px solid #25d366;
+      border-radius: 12px;
+      padding: 15px 25px;
+      display: inline-block;
+      margin-bottom: 25px;
+      backdrop-filter: blur(5px);
+    }
+
+    .whatsapp-display-box label {
+      display: block;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #86efac;
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+
+    .whatsapp-number {
+      font-size: 24px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .hero-btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
     }
 
     .btn-apply-main {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       background: #2563eb;
       color: #fff;
       padding: 14px 32px;
       border-radius: 30px;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 700;
       font-size: 16px;
       box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
-      transition: 0.3s;
+      transition: all 0.3s ease;
     }
 
     .btn-apply-main:hover {
@@ -120,52 +183,75 @@
       transform: translateY(-2px);
     }
 
+    .btn-whatsapp-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #25d366;
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .btn-whatsapp-main:hover {
+      background: #20ba5a;
+      transform: translateY(-2px);
+    }
+
     /* Opportunities Grid */
     .section-title {
       text-align: center;
-      margin: 40px 0 10px 0;
-      font-size: 30px;
-      color: #0b2545;
+      margin: 50px 0 10px 0;
+      font-size: 32px;
+      color: #0f172a;
+      font-weight: 800;
     }
 
     .section-subtitle {
       text-align: center;
       color: #64748b;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
+      font-size: 16px;
     }
 
     .grid-container {
-      max-width: 1200px;
+      max-width: 1240px;
       margin: 0 auto;
-      padding: 0 20px 60px 20px;
+      padding: 0 20px 80px 20px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
     }
 
     .card {
       background: #ffffff;
-      border-radius: 12px;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      border: 1px solid #e2e8f0;
       transition: transform 0.3s, box-shadow 0.3s;
       display: flex;
       flex-direction: column;
     }
 
     .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
     }
 
     .card img {
       width: 100%;
-      height: 180px;
+      height: 190px;
       object-fit: cover;
     }
 
     .card-body {
-      padding: 20px;
+      padding: 22px;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
@@ -174,11 +260,11 @@
 
     .badge {
       display: inline-block;
-      padding: 4px 10px;
+      padding: 5px 12px;
       font-size: 12px;
-      font-weight: bold;
-      border-radius: 4px;
-      margin-bottom: 10px;
+      font-weight: 700;
+      border-radius: 20px;
+      margin-bottom: 12px;
       width: fit-content;
     }
 
@@ -187,83 +273,103 @@
     .badge-visa { background: #dcfce7; color: #15803d; }
 
     .card-title {
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 700;
-      margin-bottom: 8px;
-      color: #1e293b;
+      margin-bottom: 10px;
+      color: #0f172a;
     }
 
     .card-text {
       font-size: 14px;
       color: #64748b;
-      margin-bottom: 15px;
-      line-height: 1.5;
+      margin-bottom: 20px;
+      line-height: 1.6;
     }
 
     .btn-card {
       text-align: center;
-      background: #0b2545;
-      color: #fff;
-      padding: 10px;
-      border-radius: 6px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px;
+      border-radius: 8px;
       text-decoration: none;
       font-weight: 600;
       font-size: 14px;
+      transition: background 0.2s;
     }
 
     .btn-card:hover {
-      background: #134074;
+      background: #2563eb;
     }
 
     /* Footer */
     footer {
-      background: #0b2545;
-      color: #8da9c4;
+      background: #0f172a;
+      color: #94a3b8;
       text-align: center;
-      padding: 20px;
+      padding: 25px;
       font-size: 14px;
+      border-top: 1px solid #1e293b;
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Bar -->
+  <!-- Top Bar with Language Selector -->
   <div class="top-bar">
     <div class="top-info">
       <span><i class="fas fa-phone-alt"></i> +251 900 000 000</span>
-      <a href="https://wa.me/251900000000" target="_blank"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+      <a href="https://wa.me/251900000000" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp Direct</a>
     </div>
-    <div>
-      <label for="lang" style="margin-right: 5px;"><i class="fas fa-globe"></i></label>
+    <div class="lang-container">
+      <label for="lang"><i class="fas fa-globe"></i></label>
       <select id="lang" class="lang-select">
         <option value="en">English</option>
-        <option value="am">አማርኛ</option>
-        <option value="ar">العربية</option>
+        <option value="am">አማርኛ (Amharic)</option>
+        <option value="om">Afaan Oromoo</option>
+        <option value="ti">ትግርኛ (Tigrinya)</option>
+        <option value="ar">العربية (Arabic)</option>
+        <option value="fr">Français (French)</option>
+        <option value="de">Deutsch (German)</option>
+        <option value="es">Español (Spanish)</option>
       </select>
     </div>
   </div>
 
   <!-- Header -->
   <header>
-    <a href="/" class="logo">SKYLINE TRAVELS</a>
+    <a href="/" class="logo">SKYLINE <span>TRAVELS</span></a>
     <nav>
       <a href="/" class="active">Home</a>
-      <a href="#opportunities">Jobs & Scholarships</a>
-      <a href="#about">About Us</a>
-      <a href="https://wa.me/251900000000">Contact</a>
+      <a href="#opportunities">Opportunities</a>
+      <a href="contact.html">Registration Form</a>
+      <a href="https://wa.me/251900000000">Contact Us</a>
     </nav>
   </header>
 
   <!-- Hero Section -->
   <section class="hero">
     <h1>SKYLINE TRAVELS & CONSULTANCY</h1>
-    <p>Your Trusted Partner for International Employment, Fully Funded University Scholarships, and Worldwide Visa Services.</p>
-    <a href="https://wa.me/251900000000" class="btn-apply-main"><i class="fab fa-whatsapp"></i> Apply Now via WhatsApp</a>
+    <p>Your Gateway to Overseas Employment, Fully Funded University Scholarships, and Visa Services.</p>
+
+    <!-- Prominently Displayed WhatsApp Number -->
+    <div class="whatsapp-display-box">
+      <label>Official Customer Service WhatsApp</label>
+      <div class="whatsapp-number">
+        <i class="fab fa-whatsapp"></i> +251 900 000 000
+      </div>
+    </div>
+    <br>
+
+    <div class="hero-btn-group">
+      <a href="contact.html" class="btn-apply-main"><i class="fas fa-user-edit"></i> Apply via Registration Form</a>
+      <a href="https://wa.me/251900000000" class="btn-whatsapp-main" target="_blank"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+    </div>
   </section>
 
   <!-- Opportunities Section -->
-  <h2 class="section-title" id="opportunities">Latest International Opportunities</h2>
-  <p class="section-subtitle">Explore 15+ Job Openings, Scholarships, and Travel Packages</p>
+  <h2 class="section-title" id="opportunities">Featured International Opportunities</h2>
+  <p class="section-subtitle">Select an Opportunity below to Register and Apply directly</p>
 
   <div class="grid-container">
 
@@ -276,7 +382,7 @@
           <h3 class="card-title">Hospitality Staff - Dubai (UAE)</h3>
           <p class="card-text">5-Star Luxury Hotels hiring Waiters, Receptionists, and Cleaners. Accommodation provided.</p>
         </div>
-        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Dubai%20Hospitality%20Jobs" class="btn-card">Apply via WhatsApp</a>
+        <a href="contact.html" class="btn-card">Apply Now (Register)</a>
       </div>
     </div>
 
@@ -289,7 +395,7 @@
           <h3 class="card-title">Full Master's Scholarship - Europe</h3>
           <p class="card-text">Fully funded government scholarships covering tuition, living stipend, and airfare.</p>
         </div>
-        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Europe%20Scholarship" class="btn-card">Apply via WhatsApp</a>
+        <a href="contact.html" class="btn-card">Apply Now (Register)</a>
       </div>
     </div>
 
@@ -302,7 +408,7 @@
           <h3 class="card-title">Warehouse & Drivers - Qatar</h3>
           <p class="card-text">Urgently needed Heavy & Light Drivers and Logistics Handlers with attractive salaries.</p>
         </div>
-        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Qatar%20Logistics%20Jobs" class="btn-card">Apply via WhatsApp</a>
+        <a href="contact.html" class="btn-card">Apply Now (Register)</a>
       </div>
     </div>
 
@@ -315,7 +421,7 @@
           <h3 class="card-title">Healthcare & Nursing - Saudi Arabia</h3>
           <p class="card-text">Nurses, Medical Technicians, and Caregivers wanted for leading hospitals in Riyadh.</p>
         </div>
-        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Saudi%20Healthcare%20Jobs" class="btn-card">Apply via WhatsApp</a>
+        <a href="contact.html" class="btn-card">Apply Now (Register)</a>
       </div>
     </div>
 
@@ -328,7 +434,7 @@
           <h3 class="card-title">Undergraduate Grants - Canada</h3>
           <p class="card-text">Partial and full tuition waivers for international students in STEM and Business.</p>
         </div>
-        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Canada%20Undergraduate%20Scholarship" class="btn-card">Apply via WhatsApp</a>
+        <a href="contact.html" class="btn-card">Apply Now (Register)</a>
       </div>
     </div>
 
@@ -341,7 +447,7 @@
           <h3 class="card-title">Construction Engineers - Kuwait</h3>
           <p class="card-text">Civil Engineers, Electricians, and Technicians needed for high-rise infrastructure projects.</p>
         </div>
-        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Kuwait%20Construction%20Jobs" class="btn-card">Apply via WhatsApp</a>
+        <a href="contact.html" class="btn-card">Apply Now (Register)</a>
       </div>
     </div>
 
@@ -354,7 +460,7 @@
           <h3 class="card-title">Schengen Express Tourist Visa</h3>
           <p class="card-text">Fast-track documentation and appointment assistance for European Schengen visas.</p>
         </div>
-        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Schengen%20Visa%20Services" class="btn-card">Apply via WhatsApp</a>
+        <a href="contact.html" class="btn-card">Apply Now (Register)</a>
       </div>
     </div>
 
@@ -367,7 +473,7 @@
           <h3 class="card-title">IT & Software Developers - Remote/UAE</h3>
           <p class="card-text">Web developers and IT support specialists needed for top tech companies in Abu Dhabi.</p>
         </div>
-        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20IT%20Jobs" class="btn-card">Apply via WhatsApp</a>
+        <a href="contact.html" class="btn-card">Apply Now (Register)</a>
       </div>
     </div>
 
@@ -380,7 +486,7 @@
           <h3 class="card-title">PhD Fellowship Program - China</h3>
           <p class="card-text">Fully funded doctoral research positions with monthly living allowance and accommodation.</p>
         </div>
-        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20China%20PhD%20Fellowship" class="btn-card">Apply via WhatsApp</a>
+        <a href="contact.html" class="btn-card">Apply Now (Register)</a>
       </div>
     </div>
 
@@ -393,7 +499,7 @@
           <h3 class="card-title">Beauty & Wellness Staff - Oman</h3>
           <p class="card-text">Barbers, Hair Stylists, and Spa Therapists needed for high-end beauty lounges.</p>
         </div>
-        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Oman%20Beauty%20Jobs" class="btn-card">Apply via WhatsApp</a>
+        <a href="contact.html" class="btn-card">Apply Now (Register)</a>
       </div>
     </div>
 
@@ -406,7 +512,7 @@
           <h3 class="card-title">Factory Workers & Packers - Poland</h3>
           <p class="card-text">Food packaging and manufacturing jobs with official European work permits.</p>
         </div>
-        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Poland%20Factory%20Jobs" class="btn-card">Apply via WhatsApp</a>
+        <a href="contact.html" class="btn-card">Apply Now (Register)</a>
       </div>
     </div>
 
@@ -419,7 +525,7 @@
           <h3 class="card-title">Sales & Marketing Reps - Bahrain</h3>
           <p class="card-text">Dynamic retail and corporate sales representatives with tax-free salary and bonuses.</p>
         </div>
-        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Bahrain%20Sales%20Jobs" class="btn-card">Apply via WhatsApp</a>
+        <a href="contact.html" class="btn-card">Apply Now (Register)</a>
       </div>
     </div>
 
@@ -432,7 +538,7 @@
           <h3 class="card-title">English & Science Teachers - Asia</h3>
           <p class="card-text">Primary and Secondary school teachers needed. Flight ticket and housing included.</p>
         </div>
-        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Teaching%20Jobs" class="btn-card">Apply via WhatsApp</a>
+        <a href="contact.html" class="btn-card">Apply Now (Register)</a>
       </div>
     </div>
 
@@ -445,7 +551,7 @@
           <h3 class="card-title">Canada Work Permit Assistance</h3>
           <p class="card-text">Guaranteed guidance through LMIA application and Canada Express Entry system.</p>
         </div>
-        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Canada%20Work%20Permits" class="btn-card">Apply via WhatsApp</a>
+        <a href="contact.html" class="btn-card">Apply Now (Register)</a>
       </div>
     </div>
 
@@ -458,7 +564,7 @@
           <h3 class="card-title">US & UK Business & Travel Visas</h3>
           <p class="card-text">Professional interview preparation, invitation letters, and file processing.</p>
         </div>
-        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20US/UK%20Visa%20Services" class="btn-card">Apply via WhatsApp</a>
+        <a href="contact.html" class="btn-card">Apply Now (Register)</a>
       </div>
     </div>
 
