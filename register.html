@@ -14,25 +14,37 @@
     }
 
     body {
-      background-color: #f8fafc;
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #38bdf8 100%);
       color: #1e293b;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 30px 20px;
+      padding: 40px 20px;
     }
 
     .form-card {
       background: #ffffff;
       width: 100%;
-      max-width: 650px;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-      border: 1px solid #e2e8f0;
-      padding: 40px;
+      max-width: 680px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 45px;
       position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative top colorful header banner */
+    .form-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #f59e0b, #ef4444, #8b5cf6, #3b82f6, #10b981);
     }
 
     .form-header {
@@ -40,20 +52,33 @@
       margin-bottom: 30px;
     }
 
+    .form-header .icon-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #eff6ff, #dbeafe);
+      color: #2563eb;
+      border-radius: 50%;
+      margin-bottom: 12px;
+      box-shadow: 0 8px 16px rgba(37, 99, 235, 0.15);
+    }
+
     .form-header h2 {
-      font-size: 24px;
+      font-size: 26px;
       color: #0f172a;
       font-weight: 800;
-      margin-top: 10px;
+      letter-spacing: -0.5px;
     }
 
     .form-header p {
       font-size: 14px;
       color: #64748b;
-      margin-top: 5px;
+      margin-top: 6px;
     }
 
-    /* Big and prominent Back to Home button */
+    /* Big and colorful Back to Home button */
     .back-btn-container {
       margin-bottom: 25px;
     }
@@ -62,21 +87,22 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      background: #f1f5f9;
-      color: #1e293b;
+      background: #eff6ff;
+      color: #2563eb;
       padding: 10px 18px;
-      border-radius: 8px;
+      border-radius: 10px;
       text-decoration: none;
       font-weight: 700;
-      font-size: 15px;
-      border: 1px solid #cbd5e1;
-      transition: background 0.2s, color 0.2s;
+      font-size: 14px;
+      border: 1.5px solid #bfdbfe;
+      transition: all 0.3s ease;
     }
 
     .back-link:hover {
       background: #2563eb;
       color: #ffffff;
-      border-color: #2563eb;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      transform: translateY(-1px);
     }
 
     .form-group {
@@ -99,18 +125,20 @@
 
     input, select, textarea {
       width: 100%;
-      padding: 12px 15px;
+      padding: 13px 16px;
       border: 1.5px solid #cbd5e1;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 14px;
       outline: none;
-      background: #fff;
+      background: #f8fafc;
       color: #0f172a;
-      transition: border-color 0.2s;
+      transition: all 0.3s ease;
     }
 
     input:focus, select:focus, textarea:focus {
       border-color: #2563eb;
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
     }
 
     textarea {
@@ -120,20 +148,23 @@
 
     .submit-btn {
       width: 100%;
-      background: #2563eb;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
       color: #ffffff;
       border: none;
-      padding: 14px;
-      border-radius: 8px;
+      padding: 15px;
+      border-radius: 10px;
       font-size: 16px;
       font-weight: 700;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: all 0.3s ease;
       margin-top: 10px;
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
     }
 
     .submit-btn:hover {
-      background: #1d4ed8;
+      background: linear-gradient(135deg, #1d4ed8, #1e40af);
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
+      transform: translateY(-2px);
     }
 
     /* Success Overlay Modal replacing form area */
@@ -145,75 +176,101 @@
       width: 100%;
       height: 100%;
       background: #ffffff;
-      border-radius: 16px;
+      border-radius: 20px;
       z-index: 100;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 30px;
+      padding: 40px;
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     .success-overlay i.fa-circle-check {
-      font-size: 64px;
-      color: #22c55e;
-      margin-bottom: 15px;
+      font-size: 72px;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 8px 16px rgba(34, 197, 94, 0.3));
     }
 
     .success-overlay h2 {
-      font-size: 26px;
+      font-size: 28px;
       color: #0f172a;
       font-weight: 800;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .success-overlay p {
       font-size: 16px;
       color: #475569;
-      line-height: 1.5;
-      margin-bottom: 20px;
+      line-height: 1.6;
+      margin-bottom: 25px;
     }
 
     .admin-whatsapp-box {
-      background: #f0fdf4;
+      background: linear-gradient(135deg, #f0fdf4, #dcfce7);
       border: 2px solid #22c55e;
-      padding: 15px 25px;
-      border-radius: 12px;
-      font-size: 18px;
-      font-weight: 700;
+      padding: 16px 28px;
+      border-radius: 14px;
+      font-size: 20px;
+      font-weight: 800;
       color: #166534;
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       text-decoration: none;
+      box-shadow: 0 8px 20px rgba(34, 197, 94, 0.2);
+      transition: transform 0.2s ease;
+    }
+
+    .admin-whatsapp-box:hover {
+      transform: scale(1.03);
     }
 
     .admin-whatsapp-box i {
-      font-size: 24px;
+      font-size: 28px;
       color: #25d366;
+    }
+
+    @media (max-width: 640px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      .form-card {
+        padding: 25px;
+      }
     }
   </style>
 </head>
 <body>
 
   <div class="form-card">
-    <!-- Success Overlay Screen that covers the form completely -->
+    <!-- Success Overlay Screen -->
     <div id="successOverlay" class="success-overlay">
       <i class="fa-solid fa-circle-check"></i>
       <h2>ምዝገባህን ጨርሰሃል! እንኳን ደስ አለህ!</h2>
-      <p>ቀሪውን የቪዛ እና የጉዞ ፕሮሰስ ለመከታተል እባክዎ ከታች ባለው የዋትሰድ ቁጥር የደንበኞች አገልግሎትን በአስቸኳይ ያነጋግሩ።</p>
+      <p>ቀሪውን የቪዛ እና የጉዞ ፕሮሰስ ለመከታተል እባክዎ ከታች ባለው የዋትስአፕ ቁጥር የደንበኞች አገልግሎትን በአስቸኳይ ያነጋግሩ።</p>
       <a id="adminWaBtn" href="#" target="_blank" class="admin-whatsapp-box">
         <i class="fa-brands fa-whatsapp"></i> <span id="adminWaText">+251 900 000 000</span>
       </a>
     </div>
 
-    <!-- Prominent Back to Home Link directing strictly to index.html -->
+    <!-- Back to Home Button -->
     <div class="back-btn-container">
-      <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left-long" style="font-size: 18px;"></i> Back to Home</a>
+      <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left-long"></i> Back to Home</a>
     </div>
     
     <div class="form-header">
-      <i class="fa-solid fa-passport" style="font-size: 36px; color: #2563eb;"></i>
+      <div class="icon-box">
+        <i class="fa-solid fa-passport" style="font-size: 30px;"></i>
+      </div>
       <h2>Global Opportunity Application</h2>
       <p>Fill out your comprehensive details to apply for international jobs or scholarships.</p>
     </div>
@@ -237,7 +294,7 @@
         </div>
       </div>
 
-      <!-- Row: Nationality & Target Country (Free Text Input) -->
+      <!-- Row: Nationality & Target Country -->
       <div class="form-row">
         <div class="form-group">
           <label for="nationality">Your Nationality *</label>
@@ -249,7 +306,7 @@
         </div>
       </div>
 
-      <!-- Row: Category (Job / Scholarship - English only) & Education Level -->
+      <!-- Row: Category & Education Level -->
       <div class="form-row">
         <div class="form-group">
           <label for="category">Application Category *</label>
@@ -282,7 +339,7 @@
   </div>
 
   <script>
-    // Load Admin WhatsApp setting dynamically to show big on completion board
+    // Load Admin WhatsApp setting dynamically
     window.addEventListener('DOMContentLoaded', async () => {
       try {
         const res = await fetch('/api/settings');
