@@ -53,17 +53,30 @@
       margin-top: 5px;
     }
 
-    .back-link {
-      display: inline-block;
-      margin-bottom: 20px;
-      color: #2563eb;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
+    /* Big and prominent Back to Home button */
+    .back-btn-container {
+      margin-bottom: 25px;
     }
 
-    .back-link i {
-      margin-right: 5px;
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #f1f5f9;
+      color: #1e293b;
+      padding: 10px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      border: 1px solid #cbd5e1;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .back-link:hover {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #2563eb;
     }
 
     .form-group {
@@ -194,7 +207,10 @@
       </a>
     </div>
 
-    <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+    <!-- Prominent Back to Home Link directing strictly to index.html -->
+    <div class="back-btn-container">
+      <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left-long" style="font-size: 18px;"></i> Back to Home</a>
+    </div>
     
     <div class="form-header">
       <i class="fa-solid fa-passport" style="font-size: 36px; color: #2563eb;"></i>
@@ -203,7 +219,7 @@
     </div>
 
     <form id="applyForm">
-      <!-- Full Name (No placeholder hints) -->
+      <!-- Full Name -->
       <div class="form-group">
         <label for="fullName">Full Name *</label>
         <input type="text" id="fullName" name="fullName" required>
@@ -221,44 +237,26 @@
         </div>
       </div>
 
-      <!-- Row: Nationality & Target Country -->
+      <!-- Row: Nationality & Target Country (Free Text Input) -->
       <div class="form-row">
         <div class="form-group">
           <label for="nationality">Your Nationality *</label>
-          <select id="nationality" name="nationality" required>
-            <option value="">-- Select Country --</option>
-            <option value="Ethiopian">Ethiopian</option>
-            <option value="Kenyan">Kenyan</option>
-            <option value="Eritrean">Eritrean</option>
-            <option value="Somali">Somali</option>
-            <option value="Sudanese">Sudanese</option>
-            <option value="Other">Other</option>
-          </select>
+          <input type="text" id="nationality" name="nationality" required>
         </div>
         <div class="form-group">
           <label for="targetCountry">Target Destination Country *</label>
-          <select id="targetCountry" name="targetCountry" required>
-            <option value="">-- Select Destination --</option>
-            <option value="Canada">Canada</option>
-            <option value="USA">USA</option>
-            <option value="Germany">Germany</option>
-            <option value="UK">UK</option>
-            <option value="Australia">Australia</option>
-            <option value="Japan">Japan</option>
-            <option value="Middle East">Middle East</option>
-            <option value="Other Europe">Other Europe</option>
-          </select>
+          <input type="text" id="targetCountry" name="targetCountry" required>
         </div>
       </div>
 
-      <!-- Row: Category (Job / Scholarship) & Education Level -->
+      <!-- Row: Category (Job / Scholarship - English only) & Education Level -->
       <div class="form-row">
         <div class="form-group">
           <label for="category">Application Category *</label>
           <select id="category" name="category" required>
             <option value="">-- Select Category --</option>
-            <option value="Job Opportunity">Job Opportunity (ስራ)</option>
-            <option value="Scholarship">Educational Scholarship (ስኮላርሺፕ)</option>
+            <option value="Job Opportunity">Job Opportunity</option>
+            <option value="Scholarship">Educational Scholarship</option>
           </select>
         </div>
         <div class="form-group">
@@ -296,7 +294,6 @@
           waText.textContent = `+${settings.whatsapp}`;
         }
       } catch (e) {
-        // Fallback default
         document.getElementById('adminWaBtn').href = `https://wa.me/251900000000`;
       }
     });
@@ -325,7 +322,6 @@
         const result = await response.json();
 
         if (response.ok) {
-          // Show the big full-card success overlay covering the form
           document.getElementById('successOverlay').style.display = 'flex';
           window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
