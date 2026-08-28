@@ -1,8 +1,10 @@
 {
   "version": 2,
   "rewrites": [
-    { "source": "/", "destination": "/index.html" },
-    { "source": "/admin", "destination": "/admin.html" },
-    { "source": "/api/(.*)", "destination": "/server.js" }
+    { "source": "/admin.html", "destination": "/admin.html" },
+    { "source": "/register.html", "destination": "/register.html" },
+    { "source": "/about.html", "destination": "/about.html" },
+    { "source": "/contact.html", "destination": "/contact.html" },
+    { "source": "/(.*)", "destination": "/server.js" }
   ]
 }
