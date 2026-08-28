@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Application Form - Skyline Travels</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #f1f5f9; color: #1e293b; padding: 20px 10px; }
+    .form-container { max-width: 650px; margin: 30px auto; background: #ffffff; padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
+    .header { text-align: center; margin-bottom: 25px; }
+    .header h2 { font-size: 24px; color: #0f172a; font-weight: 800; }
+    .header p { color: #64748b; font-size: 14px; margin-top: 5px; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 14px; outline: none; transition: border-color 0.2s; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #2563eb; }
+    .btn-submit { width: 100%; background: #2563eb; color: white; padding: 14px; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+    .btn-submit:hover { background: #1d4ed8; }
+    .back-home { display: inline-block; margin-bottom: 15px; color: #2563eb; text-decoration: none; font-weight: 600; font-size: 14px; }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    
+    <div class="header">
+      <h2><i class="fas fa-file-signature" style="color:#2563eb;"></i> Skyline Travels Registration</h2>
+      <p>Fill in your details below to apply for international jobs or scholarships.</p>
+    </div>
+
+    <form id="applicantForm">
+      <div class="form-group">
+        <label><i class="fas fa-user"></i> Full Name *</label>
+        <input type="text" id="fullName" placeholder="e.g. Abebe Bikila" required>
+      </div>
+
+      <div class="form-group">
+        <label><i class="fas fa-envelope"></i> Email Address *</label>
+        <input type="email" id="email" placeholder="example@mail.com" required>
+      </div>
+
+      <div class="form-group">
+        <label><i class="fas fa-phone"></i> Phone / WhatsApp Number *</label>
+        <input type="tel" id="phone" placeholder="+251 9..." required>
+      </div>
+
+      <div class="form-group">
+        <label><i class="fas fa-briefcase"></i> Select Opportunity / Service *</label>
+        <select id="opportunity" required>
+          <option value="">-- Choose Option --</option>
+          <option value="Dubai Hospitality Staff">Hospitality Staff - Dubai</option>
+          <option value="Europe Scholarship">Full Master's Scholarship - Europe</option>
+          <option value="Qatar Warehouse & Driver">Warehouse & Drivers - Qatar</option>
+          <option value="Saudi Healthcare">Healthcare & Nursing - Saudi Arabia</option>
+          <option value="Canada Grant">Undergraduate Grants - Canada</option>
+          <option value="Kuwait Construction">Construction Technicians - Kuwait</option>
+          <option value="Schengen Visa">Schengen Express Tourist Visa</option>
+          <option value="UAE IT Jobs">IT & Software Developers - UAE</option>
+          <option value="Poland Factory">Factory Packers - Poland</option>
+          <option value="Canada LMIA Permit">Canada LMIA Work Permit Guidance</option>
+          <option value="Other / General Inquiry">Other Services / General Inquiry</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label><i class="fas fa-graduation-cap"></i> Highest Education Level</label>
+        <select id="education">
+          <option value="High School">High School</option>
+          <option value="Diploma / TVET">Diploma / TVET</option>
+          <option value="Bachelor's Degree">Bachelor's Degree</option>
+          <option value="Master's Degree">Master's Degree / Higher</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label><i class="fas fa-comment-dots"></i> Additional Information or Message</label>
+        <textarea id="message" rows="4" placeholder="Mention your work experience or specific requests..."></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> Submit Application</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('applicantForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Thank you! Your application has been submitted successfully. Our team will contact you via WhatsApp or Email soon.');
+      this.reset();
+    });
+  </script>
+
+</body>
+</html>
