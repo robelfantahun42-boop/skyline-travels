@@ -189,6 +189,20 @@
       flex-wrap: wrap;
     }
 
+    .btn-apply-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #2563eb;
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    }
+
     .btn-whatsapp-main {
       display: inline-flex;
       align-items: center;
@@ -203,7 +217,7 @@
       box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
     }
 
-    /* Grid Layout for Mobile First */
+    /* Grid Layout */
     .section-title {
       text-align: center;
       margin: 35px 0 8px 0;
@@ -221,7 +235,7 @@
     }
 
     .grid-container {
-      max-width: 1200px;
+      max-width: 1240px;
       margin: 0 auto;
       padding: 0 15px 60px 15px;
       display: grid;
@@ -289,6 +303,11 @@
       text-decoration: none;
       font-weight: 600;
       font-size: 14px;
+      transition: background 0.2s;
+    }
+
+    .btn-card:hover {
+      background: #2563eb;
     }
 
     footer {
@@ -299,7 +318,6 @@
       font-size: 13px;
     }
 
-    /* Screen adjustment for desktop */
     @media (min-width: 768px) {
       .hero h1 { font-size: 40px; }
       .hero p { font-size: 18px; }
@@ -313,7 +331,7 @@
   <!-- Top Bar -->
   <div class="top-bar">
     <div class="top-info">
-      <a href="https://wa.me/251900000000" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      <a href="https://wa.me/251900000000" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp Direct</a>
     </div>
     <div class="lang-container">
       <label for="lang"><i class="fas fa-globe"></i></label>
@@ -336,10 +354,11 @@
       <i class="fas fa-bars"></i>
     </button>
 
-    <!-- Hidden Navigation Links -->
+    <!-- Hidden Navigation Links in Hamburger Menu -->
     <nav id="nav-menu">
       <a href="/">Home</a>
       <a href="#opportunities">Opportunities</a>
+      <a href="admin.html">Registration Form</a>
       <a href="https://wa.me/251900000000">Contact Us</a>
     </nav>
   </header>
@@ -359,13 +378,14 @@
     <br>
 
     <div class="hero-btn-group">
+      <a href="admin.html" class="btn-apply-main"><i class="fas fa-user-edit"></i> Register & Apply Now</a>
       <a href="https://wa.me/251900000000" class="btn-whatsapp-main" target="_blank"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
     </div>
   </section>
 
   <!-- Opportunities Section -->
-  <h2 class="section-title" id="opportunities">Featured Opportunities</h2>
-  <p class="section-subtitle">Select an opportunity below to contact us via WhatsApp</p>
+  <h2 class="section-title" id="opportunities">Featured International Opportunities</h2>
+  <p class="section-subtitle">Select an opportunity below to register and submit your application</p>
 
   <div class="grid-container">
 
@@ -376,9 +396,9 @@
         <div>
           <span class="badge badge-job">Job Opportunity</span>
           <h3 class="card-title">Hospitality Staff - Dubai (UAE)</h3>
-          <p class="card-text">5-Star Luxury Hotels hiring Waiters, Receptionists, and Cleaners.</p>
+          <p class="card-text">5-Star Luxury Hotels hiring Waiters, Receptionists, and Cleaners. Accommodation included.</p>
         </div>
-        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Dubai%20Jobs" class="btn-card">Apply via WhatsApp</a>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
       </div>
     </div>
 
@@ -389,9 +409,9 @@
         <div>
           <span class="badge badge-scholarship">Scholarship</span>
           <h3 class="card-title">Full Master's Scholarship - Europe</h3>
-          <p class="card-text">Fully funded government scholarships covering tuition and living stipend.</p>
+          <p class="card-text">Fully funded government scholarships covering tuition fees, living stipend, and air travel.</p>
         </div>
-        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Europe%20Scholarship" class="btn-card">Apply via WhatsApp</a>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
       </div>
     </div>
 
@@ -402,9 +422,9 @@
         <div>
           <span class="badge badge-job">Job Opportunity</span>
           <h3 class="card-title">Warehouse & Drivers - Qatar</h3>
-          <p class="card-text">Urgently needed Drivers and Logistics Handlers with attractive salaries.</p>
+          <p class="card-text">Heavy & Light Drivers and Logistics Handlers with attractive tax-free salary packages.</p>
         </div>
-        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Qatar%20Jobs" class="btn-card">Apply via WhatsApp</a>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
       </div>
     </div>
 
@@ -415,16 +435,250 @@
         <div>
           <span class="badge badge-job">Job Opportunity</span>
           <h3 class="card-title">Healthcare & Nursing - Saudi Arabia</h3>
-          <p class="card-text">Nurses and Caregivers wanted for leading hospitals in Riyadh.</p>
+          <p class="card-text">Registered Nurses, Lab Techs, and Caregivers for top hospitals in Riyadh & Jeddah.</p>
         </div>
-        <a href="https://wa.me/251900000000?text=I%20am%20interested%20in%20Saudi%20Healthcare%20Jobs" class="btn-card">Apply via WhatsApp</a>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=400" alt="Canada Studies">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-scholarship">Scholarship</span>
+          <h3 class="card-title">Undergraduate Grants - Canada</h3>
+          <p class="card-text">Partial and full tuition waivers for international students in STEM, IT, and Business.</p>
+        </div>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?q=80&w=400" alt="Construction">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-job">Job Opportunity</span>
+          <h3 class="card-title">Construction Technicians - Kuwait</h3>
+          <p class="card-text">Electricians, Plumbers, Civil Supervisors, and Construction Labourers wanted.</p>
+        </div>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 7 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=400" alt="Tourist Visa">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-visa">Visa Service</span>
+          <h3 class="card-title">Schengen Express Tourist Visa</h3>
+          <p class="card-text">Fast-track documentation, hotel reservation, and appointment assistance for Europe.</p>
+        </div>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 8 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=400" alt="IT Jobs">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-job">Job Opportunity</span>
+          <h3 class="card-title">IT & Software Developers - UAE</h3>
+          <p class="card-text">Frontend Developers, Network Engineers, and IT Support Officers needed in Abu Dhabi.</p>
+        </div>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 9 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=400" alt="PhD Fellowship">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-scholarship">Scholarship</span>
+          <h3 class="card-title">PhD Research Fellowship - China</h3>
+          <p class="card-text">Fully funded doctoral research programs with monthly stipend and campus housing.</p>
+        </div>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 10 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=400" alt="Salon">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-job">Job Opportunity</span>
+          <h3 class="card-title">Beauty & Salon Specialists - Oman</h3>
+          <p class="card-text">Barbers, Hair Stylists, and Spa Specialists needed for luxury centers in Muscat.</p>
+        </div>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 11 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?q=80&w=400" alt="Poland Factory">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-job">Job Opportunity</span>
+          <h3 class="card-title">Factory Packers - Poland</h3>
+          <p class="card-text">Food processing and packaging jobs with official European Union work permits.</p>
+        </div>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 12 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=400" alt="Sales">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-job">Job Opportunity</span>
+          <h3 class="card-title">Retail Sales Representatives - Bahrain</h3>
+          <p class="card-text">Luxury retail brand sales associates with attractive monthly commission plans.</p>
+        </div>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 13 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=400" alt="Teaching">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-job">Job Opportunity</span>
+          <h3 class="card-title">School Teachers - Vietnam</h3>
+          <p class="card-text">Primary and Secondary English & Science teachers wanted. Free flight and accommodation.</p>
+        </div>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 14 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1569154941061-e231b4725ef1?q=80&w=400" alt="Canada Permit">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-visa">Visa Service</span>
+          <h3 class="card-title">Canada LMIA Work Permit Guidance</h3>
+          <p class="card-text">Professional legal processing and Express Entry consultancy services for Canada.</p>
+        </div>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 15 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=400" alt="US UK Visa">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-visa">Visa Service</span>
+          <h3 class="card-title">US & UK Business / Visitor Visa</h3>
+          <p class="card-text">File preparation, invitation letter verification, and embassy interview coaching.</p>
+        </div>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 16 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=400" alt="Australia Student">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-scholarship">Scholarship</span>
+          <h3 class="card-title">Australia University Admission & Visa</h3>
+          <p class="card-text">Subclass 500 Student Visa guidance with up to 30% scholarship support.</p>
+        </div>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 17 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=400" alt="Electricians">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-job">Job Opportunity</span>
+          <h3 class="card-title">Maintenance Engineers - Malaysia</h3>
+          <p class="card-text">Factory maintenance technicians, HVAC repairmen, and industrial electricians.</p>
+        </div>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 18 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=400" alt="Doctors">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-job">Job Opportunity</span>
+          <h3 class="card-title">General Practitioners & Dentists - UAE</h3>
+          <p class="card-text">DHA/MOH licensed doctors and dental assistants for private clinics in Dubai.</p>
+        </div>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 19 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=400" alt="Security">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-job">Job Opportunity</span>
+          <h3 class="card-title">Security Personnel - Qatar & UAE</h3>
+          <p class="card-text">SIRA & DPS certified male/female security guards needed for luxury malls and events.</p>
+        </div>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 20 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=400" alt="Germany Visa">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-visa">Visa Service</span>
+          <h3 class="card-title">Germany Opportunity Card (Chancenkarte)</h3>
+          <p class="card-text">Points-based job seeker visa application and documentation processing for Germany.</p>
+        </div>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 21 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=400" alt="Fitness Trainers">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-job">Job Opportunity</span>
+          <h3 class="card-title">Fitness Trainers & Gym Staff - Saudi Arabia</h3>
+          <p class="card-text">Certified personal trainers and gym instructors for high-end fitness clubs.</p>
+        </div>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
+      </div>
+    </div>
+
+    <!-- Card 22 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=400" alt="Call Center">
+      <div class="card-body">
+        <div>
+          <span class="badge badge-job">Job Opportunity</span>
+          <h3 class="card-title">Customer Support Agents - Egypt</h3>
+          <p class="card-text">Fluent English/Arabic customer service representatives for global BPO centers in Cairo.</p>
+        </div>
+        <a href="admin.html" class="btn-card">Register & Apply</a>
       </div>
     </div>
 
   </div>
 
   <footer>
-    <p>&copy; 2026 Skyline Travels & Educational Consultancy.</p>
+    <p>&copy; 2026 Skyline Travels & Educational Consultancy. All rights reserved.</p>
   </footer>
 
   <!-- JavaScript for Toggle Menu -->
