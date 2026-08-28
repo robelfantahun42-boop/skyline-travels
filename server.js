@@ -11,12 +11,18 @@ let applicantsData = [];
 let settingsData = { whatsapp: "251900000000" };
 
 // HTML Routes
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'admin.html'));
-});
-
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// አዲሱ የምዝገባ ገጽ (ለ /register እና /register.html እንዲሰራ የተጨመረ)
+app.get(['/register', '/register.html'], (req, res) => {
+  res.sendFile(path.join(__dirname, 'register.html'));
+});
+
+// የአድሚን ገጽ (ለ /admin እና /admin.html እንዲሰራ የተጨመረ)
+app.get(['/admin', '/admin.html'], (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
 // Admin Login API
