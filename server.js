@@ -10,17 +10,17 @@ app.use(express.static(path.join(__dirname)));
 let applicantsData = [];
 let settingsData = { whatsapp: "251900000000" };
 
-// HTML Routes
+// Home Page Route
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// አዲሱ የምዝገባ ገጽ (ለ /register እና /register.html እንዲሰራ የተጨመረ)
+// Register Page Route (አዲሱ የምዝገባ ገጽ ራውት)
 app.get(['/register', '/register.html'], (req, res) => {
   res.sendFile(path.join(__dirname, 'register.html'));
 });
 
-// የአድሚን ገጽ (ለ /admin እና /admin.html እንዲሰራ የተጨመረ)
+// Admin Page Route
 app.get(['/admin', '/admin.html'], (req, res) => {
   res.sendFile(path.join(__dirname, 'admin.html'));
 });
@@ -28,25 +28,10 @@ app.get(['/admin', '/admin.html'], (req, res) => {
 // Admin Login API
 app.post('/api/admin/login', (req, res) => {
   const { username, password } = req.body;
-  if (username === 'admin' && password === 'ChangeMe123!') {
-    return res.json({ success: true, message: 'Logged in successfully' });
-  }
-  return res.status(401).json({ success: false, message: 'Invalid credentials' });
-});
-
-// Registration API
-app.post('/api/register', (req, res) => {
-  try {
-    const newApplicant = {
-      id: Date.now().toString(),
-      ...req.body,
-      status: 'Pending',
-      createdAt: new Date().toISOString()
-    };
-    applicantsData.push(newApplicant);
-    res.json({ success: true, message: 'Application submitted successfully!' });
-  } catch (error) {
-    res.status(500).json({ success: false, message: 'Error saving application' });
+  if (username === 'admin' && password === 'admin123') {
+    res.json({ success: true, token: 'fake-jwt-token' });
+  } else {
+    res.status(401).json({ success: false, message: 'Invalid credentials' });
   }
 });
 
@@ -55,14 +40,34 @@ app.get('/api/applicants', (req, res) => {
   res.json(applicantsData);
 });
 
-// Settings API
+// Submit Application API
+app.post('/api/submit', (req, res) => {
+  const newApplicant = {
+    id: Date.now(),
+    ...req.body,
+    date: new Date().toISOString()
+  };
+  applicantsData.push(newApplicant);
+  res.json({ success: true, message: 'Application submitted successfully' });
+});
+
+// Get Settings API
 app.get('/api/settings', (req, res) => {
   res.json(settingsData);
 });
 
+// Update Settings API
 app.post('/api/settings', (req, res) => {
-  settingsData = { ...settingsData, ...req.body };
-  res.json({ success: true, message: 'Settings updated' });
+  const { whatsapp } = req.body;
+  if (whatsapp) {
+    settingsData.whatsapp = whatsapp;
+    res.json({ success: true, message: 'Settings updated successfully' });
+  } else {
+    res.status(400).json({ success: false, message: 'Invalid data' });
+  }
 });
 
-module.exports = app;
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
