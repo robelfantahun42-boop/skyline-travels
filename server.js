@@ -1,93 +1,79 @@
 const express = require('express');
-const fs = require('fs');
 const path = require('path');
+const fs = require('fs');
+const multer = require('multer');
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname)));
 
-const DB_FILE = path.join(__dirname, 'database.json');
+// ፎልደሮች
+const publicPath = path.join(__dirname, 'public');
+const adminPath = path.join(__dirname, 'admin');
+const uploadsPath = path.join(__dirname, 'uploads');
+const dbFile = path.join(__dirname, 'database.json');
 
-// Helper to read DB
-function readDB() {
-  if (!fs.existsSync(DB_FILE)) {
-    return { settings: { whatsapp: "251900000000" }, registrations: [] };
-  }
-  try {
-    const data = fs.readFileSync(DB_FILE, 'utf8');
-    return JSON.parse(data);
-  } catch (e) {
-    return { settings: { whatsapp: "251900000000" }, registrations: [] };
-  }
-}
+if (!fs.existsSync(uploadsPath)) fs.mkdirSync(uploadsPath, { recursive: true });
 
-// Helper to write DB
-function writeDB(data) {
-  fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
-}
+app.use(express.static(publicPath));
+app.use('/admin', express.static(adminPath));
+app.use('/uploads', express.static(uploadsPath));
 
-// API: Get Settings (WhatsApp number)
-app.get('/api/settings', (req, res) => {
-  const db = readDB();
-  res.json(db.settings || { whatsapp: "251900000000" });
+// Multer ለፋይል አፕሎድ
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => cb(null, uploadsPath),
+    filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
 });
+const upload = multer({ storage: storage });
 
-// API: Update Settings (Admin can change WhatsApp)
+// Database Functions
+function getDb() {
+    if (!fs.existsSync(dbFile)) {
+        const initial = { settings: { whatsapp_number: '+251911000000', phone: '+251911000000' }, applicants: [] };
+        fs.writeFileSync(dbFile, JSON.stringify(initial, null, 2));
+        return initial;
+    }
+    return JSON.parse(fs.readFileSync(dbFile, 'utf8'));
+}
+
+function saveDb(data) {
+    fs.writeFileSync(dbFile, JSON.stringify(data, null, 2));
+}
+
+// Routes
+app.get('/api/settings', (req, res) => res.json(getDb().settings));
+app.get('/api/public/settings', (req, res) => res.json(getDb().settings)); // ለ Frontend ተስማሚ እንዲሆን
+
 app.post('/api/settings', (req, res) => {
-  const { whatsapp } = req.body;
-  if (!whatsapp) {
-    return res.status(400).json({ success: false, message: 'WhatsApp number is required' });
-  }
-  const db = readDB();
-  db.settings = { whatsapp: whatsapp.replace(/[^0-9]/g, '') };
-  writeDB(db);
-  res.json({ success: true, message: 'Settings updated successfully' });
+    const db = getDb();
+    db.settings = { whatsapp_number: req.body.whatsapp_number, phone: req.body.phone };
+    saveDb(db);
+    res.json({ success: true });
 });
 
-// API: Register User
-app.post('/api/register', (req, res) => {
-  const { fullName, email, phone, nationality, targetCountry, category, education, message } = req.body;
-  
-  if (!fullName || !phone) {
-    return res.status(400).json({ success: false, message: 'Full name and phone are required' });
-  }
+app.get('/api/applicants', (req, res) => res.json(getDb().applicants || []));
 
-  const db = readDB();
-  if (!db.registrations) db.registrations = [];
-
-  // Check duplicate phone
-  const existing = db.registrations.find(r => r.phone === phone);
-  if (existing) {
-    return res.status(400).json({ success: false, message: 'This phone number is already registered!' });
-  }
-
-  const newReg = {
-    id: Date.now(),
-    fullName,
-    email: email || '',
-    phone,
-    nationality: nationality || '',
-    targetCountry: targetCountry || '',
-    category: category || '',
-    education: education || '',
-    message: message || '',
-    date: new Date().toISOString()
-  };
-
-  db.registrations.push(newReg);
-  writeDB(db);
-
-  res.json({ success: true, message: 'Registration successful!' });
+// ፎርሙ ከሚልክባቸው የፋይል ስሞች (passportPhoto እና resume) ጋር የተስተካከለ
+app.post('/api/register', upload.fields([{ name: 'passportPhoto', maxCount: 1 }, { name: 'resume', maxCount: 1 }]), (req, res) => {
+    const db = getDb();
+    const newApplicant = {
+        id: Date.now(),
+        full_name: req.body.fullName || 'N/A',
+        email: req.body.email || 'N/A',
+        phone: req.body.phone || 'N/A',
+        current_country: req.body.currentCountry || 'N/A',
+        preferred_destination: req.body.destination || 'N/A',
+        job_sector: req.body.jobSector || 'N/A',
+        experience: req.body.experience || 'N/A',
+        education: req.body.education || 'N/A',
+        notes: req.body.notes || '',
+        passport_photo: req.files && req.files.passportPhoto ? req.files.passportPhoto[0].filename : null,
+        resume: req.files && req.files.resume ? req.files.resume[0].filename : null,
+        created_at: new Date().toISOString()
+    };
+    db.applicants.unshift(newApplicant);
+    saveDb(db);
+    res.json({ success: true, message: 'Saved successfully' });
 });
 
-// API: Get All Registrations for Admin Panel
-app.get('/api/registrations', (req, res) => {
-  const db = readDB();
-  res.json(db.registrations || []);
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.listen(3000, () => console.log('Server running on http://localhost:3000'));
