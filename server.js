@@ -8,72 +8,65 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve all static files (HTML, CSS, JS) from the root directory
 app.use(express.static(path.join(__dirname)));
 
 const DB_FILE = path.join(__dirname, 'database.json');
 
-// Explicit route for the homepage
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+// In-memory data store for Vercel deployment
+let memoryRegistrations = [];
+let siteSettings = { phone: '+251 911 000 000' };
+
+// --- Routes ---
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+app.get('/about.html', (req, res) => res.sendFile(path.join(__dirname, 'about.html')));
+app.get('/admin.html', (req, res) => res.sendFile(path.join(__dirname, 'admin.html')));
+app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'admin.html')));
+
+// --- Settings API (Phone Number) ---
+app.get('/api/settings', (req, res) => {
+  res.json(siteSettings);
 });
 
-// Explicit route for the About Us page (ይህ አዲሱ ማስተካከያ ነው)
-app.get('/about.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'about.html'));
+app.post('/api/settings', (req, res) => {
+  if (req.body.phone) {
+    siteSettings.phone = req.body.phone;
+  }
+  res.json({ success: true, settings: siteSettings });
 });
 
-// Explicit route for the Admin Dashboard (አዲሱ የተጨመረው ማስተካከያ)
-app.get('/admin.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'admin.html'));
-});
-
-// '/admin' ብለው ብቻ ቢጽፉም እንዲከፍት ያደርጋል
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'admin.html'));
-});
-
-// API endpoint to get all registrations
+// --- Registrations API ---
 app.get('/api/registrations', (req, res) => {
-  if (!fs.existsSync(DB_FILE)) {
-    return res.json([]);
-  }
-  try {
-    const data = fs.readFileSync(DB_FILE, 'utf8');
-    res.json(JSON.parse(data));
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to read database' });
-  }
-});
-
-// API endpoint to handle new registrations
-app.post('/api/register', (req, res) => {
-  let registrations = [];
   if (fs.existsSync(DB_FILE)) {
     try {
       const data = fs.readFileSync(DB_FILE, 'utf8');
-      registrations = JSON.parse(data);
-    } catch (err) {
-      registrations = [];
-    }
+      return res.json(JSON.parse(data));
+    } catch (err) {}
   }
+  res.json(memoryRegistrations);
+});
 
+app.post('/api/register', (req, res) => {
   const newEntry = {
     id: Date.now(),
     ...req.body,
     date: new Date().toISOString()
   };
 
-  registrations.push(newEntry);
+  memoryRegistrations.push(newEntry);
 
   try {
-    fs.writeFileSync(DB_FILE, JSON.stringify(registrations, null, 2));
-    res.status(201).json({ success: true, message: 'Registration saved successfully!', entry: newEntry });
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to save registration' });
-  }
+    let currentData = memoryRegistrations;
+    if (fs.existsSync(DB_FILE)) {
+      try {
+        const fileContent = fs.readFileSync(DB_FILE, 'utf8');
+        currentData = JSON.parse(fileContent);
+        currentData.push(newEntry);
+      } catch(e) {}
+    }
+    fs.writeFileSync(DB_FILE, JSON.stringify(currentData, null, 2));
+  } catch (err) {}
+
+  res.status(201).json({ success: true, message: 'Registration saved successfully!', entry: newEntry });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
