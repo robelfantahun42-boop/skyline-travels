@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// 2. Serve Static Files (HTML, CSS, JS, Images) FIRST from root directory
+// 2. Serve Static Files
 app.use(express.static(path.join(__dirname)));
 
 // 3. Session Configuration
@@ -21,7 +21,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: { 
-        secure: false, // Set to true in production with HTTPS if needed
+        secure: false,
         maxAge: 24 * 60 * 60 * 1000 // 1 day
     }
 }));
@@ -33,11 +33,9 @@ if (MONGODB_URI) {
     mongoose.connect(MONGODB_URI)
         .then(() => console.log("Connected to MongoDB Atlas successfully"))
         .catch((err) => console.error("MongoDB connection error:", err));
-} else {
-    console.warn("MONGODB_URI environment variable is not defined!");
 }
 
-// 5. Database Schema & Model for Job Applications
+// 5. Database Schemas & Models
 const applicationSchema = new mongoose.Schema({
     fullName: { type: String, required: true },
     email: { type: String, required: true },
@@ -48,11 +46,28 @@ const applicationSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
+const settingsSchema = new mongoose.Schema({
+    key: { type: String, required: true, unique: true },
+    value: { type: String, required: true }
+});
+
 const Application = mongoose.models.Application || mongoose.model('Application', applicationSchema);
+const Settings = mongoose.models.Settings || mongoose.model('Settings', settingsSchema);
 
 // 6. PUBLIC API ROUTES
 
-// Submit Job Application
+// Get WhatsApp Number for Website Clients
+app.get('/api/settings/whatsapp', async (req, res) => {
+    try {
+        const setting = await Settings.findOne({ key: 'whatsappNumber' });
+        const number = setting ? setting.value : '251911000000'; // Default number
+        res.json({ success: true, whatsappNumber: number });
+    } catch (error) {
+        res.status(500).json({ success: false, whatsappNumber: '251911000000' });
+    }
+});
+
+// Submit Application
 app.post('/api/apply', async (req, res) => {
     try {
         const { fullName, email, phone, position, message } = req.body;
@@ -65,7 +80,6 @@ app.post('/api/apply', async (req, res) => {
 
         res.status(201).json({ success: true, message: 'ማመልከቻዎ በተሳካ ሁኔታ ተልኳል!' });
     } catch (error) {
-        console.error("Error submitting application:", error);
         res.status(500).json({ success: false, error: error.message });
     }
 });
@@ -75,10 +89,7 @@ app.post('/api/apply', async (req, res) => {
 // Admin Login
 app.post('/api/admin/login', (req, res) => {
     const { username, password } = req.body;
-    const adminUser = process.env.ADMIN_USERNAME;
-    const adminPass = process.env.ADMIN_PASSWORD;
-
-    if (adminUser && adminPass && username === adminUser && password === adminPass) {
+    if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
         req.session.isAdmin = true;
         res.json({ success: true, message: 'በተሳካ ሁኔታ ገብተዋል' });
     } else {
@@ -88,15 +99,12 @@ app.post('/api/admin/login', (req, res) => {
 
 // Admin Logout
 app.post('/api/admin/logout', (req, res) => {
-    req.session.destroy((err) => {
-        if (err) {
-            return res.status(500).json({ success: false, message: 'Logout failed' });
-        }
+    req.session.destroy(() => {
         res.json({ success: true, message: 'Logged out successfully' });
     });
 });
 
-// Check Admin Session Status
+// Check Session
 app.get('/api/admin/check-session', (req, res) => {
     if (req.session && req.session.isAdmin) {
         res.json({ isAuthenticated: true });
@@ -105,7 +113,7 @@ app.get('/api/admin/check-session', (req, res) => {
     }
 });
 
-// Get All Submitted Applications (Protected Route)
+// Get All Applications (Protected)
 app.get('/api/admin/applications', async (req, res) => {
     if (!req.session || !req.session.isAdmin) {
         return res.status(403).json({ success: false, message: 'Unauthorized access' });
@@ -118,29 +126,36 @@ app.get('/api/admin/applications', async (req, res) => {
     }
 });
 
+// Update WhatsApp Number (Protected Route)
+app.post('/api/admin/settings/whatsapp', async (req, res) => {
+    if (!req.session || !req.session.isAdmin) {
+        return res.status(403).json({ success: false, message: 'Unauthorized access' });
+    }
+    try {
+        const { whatsappNumber } = req.body;
+        // Clean number (remove spaces, +, or dashes)
+        const cleanNumber = whatsappNumber.replace(/[^0-9]/g, '');
+
+        await Settings.findOneAndUpdate(
+            { key: 'whatsappNumber' },
+            { value: cleanNumber },
+            { upsert: true, new: true }
+        );
+
+        res.json({ success: true, message: 'የ WhatsApp ስልክ ቁጥር በተሳካ ሁኔታ ተቀይሯል!' });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
 // 8. EXPLICIT PAGE ROUTES
+app.get('/admin.html', (req, res) => res.sendFile(path.join(__dirname, 'admin.html')));
+app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'admin.html')));
+app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
-// Serve Admin Page Explicitly
-app.get('/admin.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'admin.html'));
-});
-
-app.get('/admin', (req, res) => {
-    res.sendFile(path.join(__dirname, 'admin.html'));
-});
-
-// Catch-all route for Main Client Page
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-// 9. Export App for Vercel Serverless Functions
 module.exports = app;
 
-// 10. Local Server Listener
 if (require.main === module) {
     const PORT = process.env.PORT || 3000;
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    });
+    app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 }
