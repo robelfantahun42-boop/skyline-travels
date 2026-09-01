@@ -3,87 +3,116 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us - Skyline Travels</title>
+  <title>About Us - Skyline Travels & Educational Consultancy</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background: #f8fafc; color: #1e293b; line-height: 1.6; }
-    .top-bar { background: #0f172a; color: #f8fafc; padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 600; }
-    .top-bar a { color: #25d366; text-decoration: none; }
-    header { background: #ffffff; padding: 18px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); position: sticky; top: 0; z-index: 1000; }
-    .logo { font-size: 24px; font-weight: 800; color: #0f172a; text-decoration: none; }
-    .logo span { color: #2563eb; }
-    nav { display: flex; gap: 20px; }
-    nav a { text-decoration: none; color: #334155; font-weight: 600; font-size: 15px; }
-    nav a:hover, nav a.active { color: #2563eb; }
-    .about-hero { background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.85)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200') center/cover no-repeat; color: white; text-align: center; padding: 80px 20px; }
-    .about-hero h1 { font-size: 38px; margin-bottom: 15px; font-weight: 800; }
-    .about-hero p { font-size: 18px; max-width: 700px; margin: 0 auto; color: #cbd5e1; }
-    .container { max-width: 1100px; margin: 60px auto; padding: 0 20px; }
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-bottom: 60px; }
-    .about-text h2 { font-size: 30px; color: #0f172a; margin-bottom: 20px; font-weight: 800; }
-    .about-text p { color: #475569; margin-bottom: 15px; font-size: 16px; line-height: 1.7; }
-    .about-img img { width: 100%; border-radius: 16px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
-    .stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 40px; }
-    .stat-box { background: #ffffff; padding: 30px; border-radius: 16px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
-    .stat-box h3 { font-size: 36px; color: #2563eb; margin-bottom: 10px; font-weight: 800; }
-    .stat-box p { color: #64748b; font-size: 15px; font-weight: 600; }
-    footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 30px 20px; font-size: 14px; margin-top: 60px; }
-    @media(max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+      color: #1e293b;
+      line-height: 1.6;
+    }
+    header {
+      background: #ffffff;
+      padding: 18px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      color: #0f172a;
+      text-decoration: none;
+    }
+    .logo span {
+      color: #2563eb;
+    }
+    .back-home {
+      background: #2563eb;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .back-home:hover {
+      background: #1d4ed8;
+    }
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: #ffffff;
+      padding: 45px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      border: 1px solid #cbd5e1;
+    }
+    h1 {
+      color: #0f172a;
+      font-size: 32px;
+      margin-bottom: 20px;
+      font-weight: 800;
+    }
+    p {
+      margin-bottom: 20px;
+      color: #475569;
+      font-size: 16px;
+    }
+    .features-list {
+      list-style: none;
+      margin-top: 20px;
+    }
+    .features-list li {
+      margin-bottom: 12px;
+      font-weight: 600;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .features-list i {
+      color: #25d366;
+    }
+    footer {
+      background: #0f172a;
+      color: #94a3b8;
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 14px;
+      margin-top: 50px;
+    }
   </style>
 </head>
 <body>
 
-  <div class="top-bar">
-    <span><i class="fa-solid fa-phone"></i> Support Hotline: <a href="https://wa.me/251900000000" target="_blank">+251 900 000 000</a></span>
-    <span>Global Employment & Education Consultancy</span>
-  </div>
-
   <header>
     <a href="index.html" class="logo">Skyline <span>Travels</span></a>
-    <nav>
-      <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
-      <a href="about.html" class="active"><i class="fa-solid fa-circle-info"></i> About Us</a>
-      <a href="index.html#application-form"><i class="fa-solid fa-envelope"></i> Contact</a>
-    </nav>
+    <a href="index.html" class="back-home"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
   </header>
 
-  <section class="about-hero">
-    <h1>About Skyline Travels</h1>
-    <p>Connecting global talent with premier international employers and opening doors to world-class education for over 8 years.</p>
-  </section>
-
   <div class="container">
-    <div class="about-grid">
-      <div class="about-text">
-        <h2>8 Years of Excellence in Global Mobility & Consultancy</h2>
-        <p>For over <strong>8 years</strong>, Skyline Travels has stood at the forefront of international recruitment and educational consultancy. We take immense pride in being a trusted bridge connecting driven job seekers with verified international employers across various countries.</p>
-        <p>Beyond employment, we are passionately dedicated to empowering students. For nearly a decade, we have successfully assisted ambitious applicants in securing prestigious <strong>scholarships</strong> and university placements worldwide.</p>
-        <p>Our commitment is rooted in transparency, reliability, and personalized support—guiding you seamlessly from your initial application all the way to your successful placement.</p>
-      </div>
-      <div class="about-img">
-        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800" alt="About Us">
-      </div>
-    </div>
+    <h1>About Skyline Travels & Educational Consultancy</h1>
+    <p>Welcome to <strong>Skyline Travels</strong>, your trusted partner in unlocking global opportunities. We specialize in connecting ambitious individuals with verified international job vacancies, skilled labor placements, and prestigious educational consultancy services worldwide.</p>
+    
+    <p>Our mission is to provide transparent, reliable, and secure pathways for employment and education abroad, ensuring every applicant receives professional guidance from application to final departure.</p>
 
-    <div class="stats-container">
-      <div class="stat-box">
-        <h3>8+</h3>
-        <p>Years of Experience</p>
-      </div>
-      <div class="stat-box">
-        <h3>5,000+</h3>
-        <p>Workers Placed</p>
-      </div>
-      <div class="stat-box">
-        <h3>1,200+</h3>
-        <p>Scholarships Secured</p>
-      </div>
-      <div class="stat-box">
-        <h3>25+</h3>
-        <p>Destination Countries</p>
-      </div>
-    </div>
+    <h2 style="color: #0f172a; margin-top: 30px; font-size: 22px;">Why Choose Us?</h2>
+    <ul class="features-list">
+      <li><i class="fa-solid fa-check-circle"></i> Verified international job and university placements</li>
+      <li><i class="fa-solid fa-check-circle"></i> Transparent processing and dedicated customer support</li>
+      <li><i class="fa-solid fa-check-circle"></i> Direct communication channels via WhatsApp for real-time tracking</li>
+    </ul>
   </div>
 
   <footer>
