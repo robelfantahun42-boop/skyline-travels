@@ -17,7 +17,6 @@
       color: #f8fafc;
       line-height: 1.6;
     }
-    /* Top Bar */
     .top-bar {
       background: #020617;
       color: #94a3b8;
@@ -26,14 +25,11 @@
       justify-content: space-between;
       align-items: center;
       font-size: 14px;
-      flex-wrap: wrap;
-      gap: 10px;
     }
     .support-hotline span {
       color: #22c55e;
       font-weight: 700;
     }
-    /* Header / Navbar */
     header {
       background: #ffffff;
       padding: 15px 5%;
@@ -50,6 +46,7 @@
       font-weight: 800;
       color: #0f172a;
       text-decoration: none;
+      cursor: pointer;
     }
     .logo span {
       color: #2563eb;
@@ -68,7 +65,7 @@
       transition: color 0.3s;
       cursor: pointer;
     }
-    .nav-links a:hover {
+    .nav-links a:hover, .nav-links a.active {
       color: #2563eb;
     }
     .menu-toggle {
@@ -77,7 +74,14 @@
       color: #0f172a;
       cursor: pointer;
     }
-    /* Hero Section with Plane Background & Language Selector */
+    /* Views */
+    .view-section {
+      display: none;
+    }
+    .view-section.active {
+      display: block;
+    }
+    /* Hero Section */
     .hero {
       background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.85)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1200') no-repeat center center/cover;
       color: white;
@@ -149,7 +153,6 @@
     .outline-btn:hover {
       background: rgba(255,255,255,0.1);
     }
-    /* Main Content Containers */
     .container {
       max-width: 1200px;
       margin: 40px auto;
@@ -162,7 +165,6 @@
       text-align: center;
       margin-bottom: 30px;
     }
-    /* Jobs Grid */
     .jobs-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -204,7 +206,6 @@
       font-weight: 700;
       font-size: 13px;
     }
-    /* Registration Form Section */
     .form-section {
       background: #1e293b;
       max-width: 800px;
@@ -241,10 +242,6 @@
       border-radius: 8px;
       font-size: 14px;
       outline: none;
-      transition: border-color 0.3s;
-    }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-      border-color: #38bdf8;
     }
     .submit-btn {
       background: #2563eb;
@@ -256,12 +253,37 @@
       font-weight: 700;
       border-radius: 8px;
       cursor: pointer;
-      transition: background 0.3s;
     }
-    .submit-btn:hover {
-      background: #1d4ed8;
+    /* Static Pages Content Box */
+    .page-box {
+      background: #1e293b;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 40px;
+      border-radius: 16px;
+      border: 1px solid #334155;
+      text-align: center;
     }
-    /* Footer */
+    .page-box h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    .page-box p {
+      color: #94a3b8;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    .whatsapp-btn {
+      display: inline-block;
+      background: #22c55e;
+      color: white;
+      padding: 14px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+    }
     footer {
       background: #020617;
       color: #94a3b8;
@@ -290,127 +312,135 @@
       .form-grid {
         grid-template-columns: 1fr;
       }
-      .form-group.full-width {
-        grid-column: span 1;
-      }
-      .hero h1 {
-        font-size: 22px;
-      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Bar -->
   <div class="top-bar">
     <div class="support-hotline" id="supportHotlineText">
       <i class="fa-solid fa-headset"></i> Support Hotline: <span>+251 911 000 000</span>
     </div>
   </div>
 
-  <!-- Header -->
   <header>
-    <a href="#" class="logo" onclick="scrollToTop(event)">Skyline <span>Travels</span></a>
+    <a class="logo" onclick="switchView('home')">Skyline <span>Travels</span></a>
     <div class="menu-toggle" id="mobile-menu" onclick="toggleMenu()">
       <i class="fa-solid fa-bars"></i>
     </div>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#" onclick="scrollToTop(event)" id="navHome">Home</a></li>
-      <li><a href="#registrationForm" id="navRegister">Register</a></li>
-      <li><a href="#jobsContainer" id="navJobs">Jobs</a></li>
-      <li><a href="about.html" id="navAbout">About Us</a></li>
-      <li><a href="contact.html" id="navContact">Contact</a></li>
+      <li><a onclick="switchView('home')" id="navHome" class="active">Home</a></li>
+      <li><a onclick="switchView('home', 'registrationForm')" id="navRegister">Register</a></li>
+      <li><a onclick="switchView('home', 'jobsContainer')" id="navJobs">Jobs</a></li>
+      <li><a onclick="switchView('about')" id="navAbout">About Us</a></li>
+      <li><a onclick="switchView('contact')" id="navContact">Contact</a></li>
     </ul>
   </header>
 
-  <!-- Hero Section with Language Selector & Action Buttons -->
-  <section class="hero">
-    <h1 id="heroTitle">Global Job Placement & Visa Agency</h1>
-    
-    <div class="lang-box">
-      <label id="labelSelectLang"><i class="fa-solid fa-globe"></i> Select Language:</label>
-      <select id="languageSelect" onchange="changeLanguage()">
-        <option value="en">English (US)</option>
-        <option value="am">አማርኛ (Amharic)</option>
-        <option value="ar">العربية (Arabic)</option>
-      </select>
-    </div>
+  <!-- HOME VIEW -->
+  <div id="homeView" class="view-section active">
+    <section class="hero">
+      <h1 id="heroTitle">Global Job Placement & Visa Agency</h1>
+      
+      <div class="lang-box">
+        <label id="labelSelectLang"><i class="fa-solid fa-globe"></i> Select Language:</label>
+        <select id="languageSelect" onchange="changeLanguage()">
+          <option value="en">English (US)</option>
+          <option value="am">አማርኛ (Amharic)</option>
+          <option value="ar">العربية (Arabic)</option>
+        </select>
+      </div>
 
-    <div class="hero-buttons">
-      <a href="#registrationForm" class="primary-btn" id="btnApplyHero">Apply Now ↓</a>
-      <a href="#jobsContainer" class="outline-btn" id="btnViewJobs">View Opportunities ↓</a>
-    </div>
-  </section>
+      <div class="hero-buttons">
+        <a onclick="scrollToElement('registrationForm')" class="primary-btn" id="btnApplyHero" style="cursor: pointer;">Apply Now ↓</a>
+        <a onclick="scrollToElement('jobsContainer')" class="outline-btn" id="btnViewJobs" style="cursor: pointer;">View Opportunities ↓</a>
+      </div>
+    </section>
 
-  <!-- Main Container -->
-  <div class="container">
-    
-    <!-- 1. Featured Jobs Section (Over 30 Opportunities) -->
-    <h2 class="section-title" id="jobsTitle">Featured Global Job & Education Opportunities</h2>
-    <div class="jobs-grid" id="jobsContainer">
-      <!-- Dynamically injected via JavaScript -->
-    </div>
+    <div class="container">
+      <h2 class="section-title" id="jobsTitle">Featured Global Job & Education Opportunities</h2>
+      <div class="jobs-grid" id="jobsContainer"></div>
 
-    <!-- 2. Registration Form Section (Placed below jobs) -->
-    <div class="form-section" id="registrationForm">
-      <h2 class="section-title" id="formTitle" style="font-size: 22px; margin-bottom: 20px;">Application & Registration Form</h2>
-      <form onsubmit="handleRegistration(event)">
-        <div class="form-grid">
-          <div class="form-group">
-            <label id="labelName">Full Name *</label>
-            <input type="text" id="fullName" required placeholder="Enter your full name">
+      <div class="form-section" id="registrationForm">
+        <h2 class="section-title" id="formTitle" style="font-size: 22px; margin-bottom: 20px;">Application & Registration Form</h2>
+        <form onsubmit="handleRegistration(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label id="labelName">Full Name *</label>
+              <input type="text" id="fullName" required placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+              <label id="labelEmail">Email Address *</label>
+              <input type="email" id="email" required placeholder="Enter your email address">
+            </div>
+            <div class="form-group">
+              <label id="labelPhone">Phone / WhatsApp Number *</label>
+              <input type="tel" id="phone" required placeholder="Enter your phone number">
+            </div>
+            <div class="form-group">
+              <label id="labelOrigin">Current Country of Residence *</label>
+              <select id="originCountry" required>
+                <option value="" id="defaultOriginOption">-- Select Your Country --</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label id="labelTarget">Target Country (Destination) *</label>
+              <select id="targetCountry" required>
+                <option value="" id="defaultTargetOption">-- Select Target Country / Region --</option>
+                <option value="Canada">Canada</option>
+                <option value="USA">USA</option>
+                <option value="UK">United Kingdom</option>
+                <option value="UAE">United Arab Emirates</option>
+                <option value="Germany">Germany</option>
+                <option value="Australia">Australia</option>
+                <option value="Qatar">Qatar</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label id="labelPurpose">Purpose of Application *</label>
+              <select id="purpose" required onchange="updateSpecificFieldLabel()">
+                <option value="" id="defaultPurposeOption">-- Select Purpose --</option>
+                <option value="Job" id="optJob">International Job Placement</option>
+                <option value="Education" id="optEdu">Educational Consultancy</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <label id="labelSpecificField">Desired Job Title or Course of Study *</label>
+              <input type="text" id="specificField" required placeholder="e.g., Software Engineer or Master's in Data Science">
+            </div>
+            <div class="form-group full-width">
+              <label id="labelNotes">Additional Notes / Cover Message</label>
+              <textarea id="notes" rows="4" placeholder="Write any additional details..."></textarea>
+            </div>
           </div>
-          <div class="form-group">
-            <label id="labelEmail">Email Address *</label>
-            <input type="email" id="email" required placeholder="Enter your email address">
-          </div>
-          <div class="form-group">
-            <label id="labelPhone">Phone / WhatsApp Number *</label>
-            <input type="tel" id="phone" required placeholder="Enter your phone number">
-          </div>
-          <div class="form-group">
-            <label id="labelOrigin">Current Country of Residence *</label>
-            <select id="originCountry" required>
-              <option value="" id="defaultOriginOption">-- Select Your Country --</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label id="labelTarget">Target Country (Destination) *</label>
-            <select id="targetCountry" required>
-              <option value="" id="defaultTargetOption">-- Select Target Country / Region --</option>
-              <option value="Canada">Canada</option>
-              <option value="USA">USA</option>
-              <option value="UK">United Kingdom</option>
-              <option value="UAE">United Arab Emirates</option>
-              <option value="Germany">Germany</option>
-              <option value="Australia">Australia</option>
-              <option value="Qatar">Qatar</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label id="labelPurpose">Purpose of Application *</label>
-            <select id="purpose" required onchange="updateSpecificFieldLabel()">
-              <option value="" id="defaultPurposeOption">-- Select Purpose --</option>
-              <option value="Job" id="optJob">International Job Placement</option>
-              <option value="Education" id="optEdu">Educational Consultancy</option>
-            </select>
-          </div>
-          <div class="form-group full-width">
-            <label id="labelSpecificField">Desired Job Title or Course of Study *</label>
-            <input type="text" id="specificField" required placeholder="e.g., Software Engineer or Master's in Data Science">
-          </div>
-          <div class="form-group full-width">
-            <label id="labelNotes">Additional Notes / Cover Message</label>
-            <textarea id="notes" rows="4" placeholder="Write any additional details..."></textarea>
-          </div>
-        </div>
-        <button type="submit" class="submit-btn" id="submitBtnText">Submit Application</button>
-      </form>
+          <button type="submit" class="submit-btn" id="submitBtnText">Submit Application</button>
+        </form>
+      </div>
     </div>
-
   </div>
 
-  <!-- Footer -->
+  <!-- ABOUT US VIEW -->
+  <div id="aboutView" class="view-section">
+    <div class="page-box">
+      <h1>About Skyline Travels</h1>
+      <p>Skyline Travels & Educational Consultancy is a premier global job placement and educational consultancy agency dedicated to connecting ambitious individuals with life-changing opportunities across Canada, USA, Europe, Asia, and the Gulf Countries.</p>
+      <p>We handle professional visa processing, document verification, career guidance, and university admissions with utmost transparency and dedication.</p>
+      <a onclick="switchView('contact')" class="primary-btn" style="cursor: pointer; display: inline-block;">Contact Us</a>
+    </div>
+  </div>
+
+  <!-- CONTACT VIEW -->
+  <div id="contactView" class="view-section">
+    <div class="page-box">
+      <h1>Contact Us</h1>
+      <p><i class="fa-solid fa-phone" style="color: #22c55e;"></i> Support Hotline: <strong>+251 911 000 000</strong></p>
+      <p>Chat with us on WhatsApp; we will explain everything in detail!</p>
+      <a href="https://wa.me/251911000000?text=Hello%20Skyline%20Travels,%20I%20want%20to%20know%20more%20details." class="whatsapp-btn" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+      </a>
+    </div>
+  </div>
+
   <footer>
     <p>&copy; 2026 Skyline Travels & Educational Consultancy. All rights reserved.</p>
   </footer>
@@ -421,115 +451,101 @@
       nav.classList.toggle('active');
     }
 
-    function scrollToTop(e) {
-      if(e) e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    function switchView(viewName, targetScrollId) {
+      document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-links a').forEach(el => el.classList.remove('active'));
+
+      if (viewName === 'home') {
+        document.getElementById('homeView').classList.add('active');
+        document.getElementById('navHome').classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (targetScrollId) {
+          setTimeout(() => {
+            scrollToElement(targetScrollId);
+          }, 100);
+        }
+      } else if (viewName === 'about') {
+        document.getElementById('aboutView').classList.add('active');
+        document.getElementById('navAbout').classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (viewName === 'contact') {
+        document.getElementById('contactView').classList.add('active');
+        document.getElementById('navContact').classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      
+      const nav = document.getElementById('navLinks');
+      if(nav.classList.contains('active')) nav.classList.remove('active');
     }
 
-    // Translations Dictionary for Multi-language support
+    function scrollToElement(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Translations Dictionary
     const translations = {
       en: {
         supportText: "Support Hotline: ",
-        home: "Home",
-        register: "Register",
-        jobs: "Jobs",
-        about: "About Us",
-        contact: "Contact",
+        home: "Home", register: "Register", jobs: "Jobs", about: "About Us", contact: "Contact",
         heroTitle: "Global Job Placement & Visa Agency",
         selectLang: "Select Language:",
-        btnApply: "Apply Now ↓",
-        btnView: "View Opportunities ↓",
+        btnApply: "Apply Now ↓", btnView: "View Opportunities ↓",
         jobsTitle: "Featured Global Job & Education Opportunities",
         formTitle: "Application & Registration Form",
-        labelName: "Full Name *",
-        placeholderName: "Enter your full name",
-        labelEmail: "Email Address *",
-        placeholderEmail: "Enter your email address",
-        labelPhone: "Phone / WhatsApp Number *",
-        placeholderPhone: "Enter your phone number",
-        labelOrigin: "Current Country of Residence *",
-        selectOrigin: "-- Select Your Country --",
-        labelTarget: "Target Country (Destination) *",
-        selectTarget: "-- Select Target Country / Region --",
-        labelPurpose: "Purpose of Application *",
-        selectPurpose: "-- Select Purpose --",
-        purposeJob: "International Job Placement",
-        purposeEdu: "Educational Consultancy",
-        labelSpecificField: "Desired Job Title or Course of Study *",
-        placeholderSpecificField: "e.g., Software Engineer or Master's in Data Science",
-        labelNotes: "Additional Notes / Cover Message",
-        placeholderNotes: "Write any additional details...",
+        labelName: "Full Name *", placeholderName: "Enter your full name",
+        labelEmail: "Email Address *", placeholderEmail: "Enter your email address",
+        labelPhone: "Phone / WhatsApp Number *", placeholderPhone: "Enter your phone number",
+        labelOrigin: "Current Country of Residence *", selectOrigin: "-- Select Your Country --",
+        labelTarget: "Target Country (Destination) *", selectTarget: "-- Select Target Country / Region --",
+        labelPurpose: "Purpose of Application *", selectPurpose: "-- Select Purpose --",
+        purposeJob: "International Job Placement", purposeEdu: "Educational Consultancy",
+        labelSpecificField: "Desired Job Title or Course of Study *", placeholderSpecificField: "e.g., Software Engineer or Master's in Data Science",
+        labelNotes: "Additional Notes / Cover Message", placeholderNotes: "Write any additional details...",
         submitBtn: "Submit Application"
       },
       am: {
         supportText: "የድጋፍ መስመር: ",
-        home: "መነሻ",
-        register: "ይመዝገቡ",
-        jobs: "ሥራዎች",
-        about: "ስለ እኛ",
-        contact: "ያግኙን",
+        home: "መነሻ", register: "ይመዝገቡ", jobs: "ሥራዎች", about: "ስለ እኛ", contact: "ያግኙን",
         heroTitle: "ዓለም አቀፍ የሥራ ስምሪት እና ቪዛ ኤጀንሲ",
         selectLang: "ቋንቋ ይምረጡ:",
-        btnApply: "አሁን ያመልክቱ ↓",
-        btnView: "ዕድሎችን ይመልከቱ ↓",
+        btnApply: "አሁን ያመልክቱ ↓", btnView: "ዕድሎችን ይመልከቱ ↓",
         jobsTitle: "ከ30 በላይ ዓለም አቀፍ የሥራ እና የትምህርት ዕድሎች",
         formTitle: "የምዝገባ እና ማመልከቻ ፎርም",
-        labelName: "ሙሉ ስም *",
-        placeholderName: "ሙሉ ስምዎን ያስገቡ",
-        labelEmail: "የኢሜይል አድራሻ *",
-        placeholderEmail: "ኢሜይልዎን ያስገቡ",
-        labelPhone: "ስልክ / ዋትስአፕ ቁጥር *",
-        placeholderPhone: "ስልክ ቁጥርዎን ያስገቡ",
-        labelOrigin: "አሁን ያሉበት ሀገር *",
-        selectOrigin: "-- ሀገርዎን ይምረጡ --",
-        labelTarget: "የሚሄዱበት ሀገር (መድረሻ) *",
-        selectTarget: "-- የሚሄዱበትን ሀገር ይምረጡ --",
-        labelPurpose: "የማመልከቻው ዓላማ *",
-        selectPurpose: "-- ዓላማ ይምረጡ --",
-        purposeJob: "ዓለም አቀፍ የሥራ ስምሪት",
-        purposeEdu: "የትምህርት አማካሪ አገልግሎት",
-        labelSpecificField: "የሚፈልጉት የሥራ መደብ ወይም የትምህርት ዓይነት *",
-        placeholderSpecificField: "ለምሳሌ፦ ሶፍትዌር ኢንጂነር ወይም ማስተርስ",
-        labelNotes: "ተጨማሪ ማስታወሻዎች / መልእክት",
-        placeholderNotes: "ተጨማሪ ዝርዝሮችን ይጻፉ...",
+        labelName: "ሙሉ ስም *", placeholderName: "ሙሉ ስምዎን ያስገቡ",
+        labelEmail: "የኢሜይል አድራሻ *", placeholderEmail: "ኢሜይልዎን ያስገቡ",
+        labelPhone: "ስልክ / ዋትስአፕ ቁጥር *", placeholderPhone: "ስልክ ቁጥርዎን ያስገቡ",
+        labelOrigin: "አሁን ያሉበት ሀገር *", selectOrigin: "-- ሀገርዎን ይምረጡ --",
+        labelTarget: "የሚሄዱበት ሀገር (መድረሻ) *", selectTarget: "-- የሚሄዱበትን ሀገር ይምረጡ --",
+        labelPurpose: "የማመልከቻው ዓላማ *", selectPurpose: "-- ዓላማ ይምረጡ --",
+        purposeJob: "ዓለም አቀፍ የሥራ ስምሪት", purposeEdu: "የትምህርት አማካሪ አገልግሎት",
+        labelSpecificField: "የሚፈልጉት የሥራ መደብ ወይም የትምህርት ዓይነት *", placeholderSpecificField: "ለምሳሌ፦ ሶፍትዌር ኢንጂነር ወይም ማስተርስ",
+        labelNotes: "ተጨማሪ ማስታወሻዎች / መልእክት", placeholderNotes: "ተጨማሪ ዝርዝሮችን ይጻፉ...",
         submitBtn: "ማመልከቻ ላክ"
       },
       ar: {
         supportText: "خط الدعم: ",
-        home: "الرئيسية",
-        register: "التسجيل",
-        jobs: "الوظائف",
-        about: "من نحن",
-        contact: "اتصل بنا",
+        home: "الرئيسية", register: "التسجيل", jobs: "الوظائف", about: "من نحن", contact: "اتصل بنا",
         heroTitle: "وكالة توظيف وتأشيرات عالمية",
         selectLang: "اختر اللغة:",
-        btnApply: "قدم الآن ↓",
-        btnView: "عرض الفرص ↓",
+        btnApply: "قدم الآن ↓", btnView: "عرض الفرص ↓",
         jobsTitle: "أبرز 32 فرصة عمل وتعليم عالمية",
         formTitle: "استمارة التسجيل والطلب",
-        labelName: "الاسم الكامل *",
-        placeholderName: "أدخل اسمك الكامل",
-        labelEmail: "عنوان البريد الإلكتروني *",
-        placeholderEmail: "أدخل بريدك الإلكتروني",
-        labelPhone: "رقم الهاتف / الواتساب *",
-        placeholderPhone: "أدخل رقم هاتفك",
-        labelOrigin: "دولة الإقامة الحالية *",
-        selectOrigin: "-- اختر دولتك --",
-        labelTarget: "الدولة المستهدفة (الوجهة) *",
-        selectTarget: "-- اختر الدولة المستهدفة --",
-        labelPurpose: "غرض الطلب *",
-        selectPurpose: "-- اختر الغرض --",
-        purposeJob: "التوظيف الدولي",
-        purposeEdu: "استشارات تعليمية",
-        labelSpecificField: "المسمى الوظيفي المطلوب أو مجال الدراسة *",
-        placeholderSpecificField: "مثال: مهندس برمجيات أو ماجستير",
-        labelNotes: "ملاحظات إضافية / رسالة تغطية",
-        placeholderNotes: "اكتب أي تفاصيل إضافية...",
+        labelName: "الاسم الكامل *", placeholderName: "أدخل اسمك الكامل",
+        labelEmail: "عنوان البريد الإلكتروني *", placeholderEmail: "أدخل بريدك الإلكتروني",
+        labelPhone: "رقم الهاتف / الواتساب *", placeholderPhone: "أدخل رقم هاتفك",
+        labelOrigin: "دولة الإقامة الحالية *", selectOrigin: "-- اختر دولتك --",
+        labelTarget: "الدولة المستهدفة (الوجهة) *", selectTarget: "-- اختر الدولة المستهدفة --",
+        labelPurpose: "غرض الطلب *", selectPurpose: "-- اختر الغرض --",
+        purposeJob: "التوظيف الدولي", purposeEdu: "استشارات تعليمية",
+        labelSpecificField: "المسمى الوظيفي المطلوب أو مجال الدراسة *", placeholderSpecificField: "مثال: مهندس برمجيات أو ماجستير",
+        labelNotes: "ملاحظات إضافية / رسالة تغطية", placeholderNotes: "اكتب أي تفاصيل إضافية...",
         submitBtn: "إرسال الطلب"
       }
     };
 
-    // Countries List
     const countries = [
       "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
       "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia",
@@ -560,7 +576,6 @@
       originSelect.appendChild(option);
     });
 
-    // 32 Global Job & Education Opportunities
     const jobs = [
       { title: "Registered Nurse - Canada", loc: "Toronto, Canada", img: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=400" },
       { title: "Software Engineer - Germany", loc: "Berlin, Germany", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400" },
@@ -605,7 +620,7 @@
         <div class="job-content">
           <h3>${job.title}</h3>
           <p><i class="fa-solid fa-location-dot"></i> ${job.loc}</p>
-          <a href="#registrationForm" class="apply-link" onclick="selectJobPurpose('${job.title}')">Apply Now &rarr;</a>
+          <a onclick="scrollToElement('registrationForm')" class="apply-link" style="cursor: pointer;" onclick="selectJobPurpose('${job.title}')">Apply Now &rarr;</a>
         </div>
       `;
       jobsContainer.appendChild(card);
@@ -649,7 +664,6 @@
       }
     }
 
-    // Language Change Handler
     function changeLanguage() {
       const lang = document.getElementById('languageSelect').value;
       const t = translations[lang] || translations['en'];
@@ -697,7 +711,6 @@
       document.getElementById('submitBtnText').innerText = t.submitBtn;
     }
 
-    // Form Submission & Duplicate Prevention
     async function handleRegistration(event) {
       event.preventDefault();
 
