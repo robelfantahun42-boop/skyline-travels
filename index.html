@@ -20,7 +20,6 @@
       scroll-behavior: smooth;
     }
 
-    /* Top Bar with Prominent Language Selector */
     .top-bar {
       background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%);
       color: #f8fafc;
@@ -46,41 +45,6 @@
       text-decoration: none;
     }
 
-    /* Big Prominent Language Selector */
-    .lang-container {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(37, 99, 235, 0.25);
-      border: 2px solid #3b82f6;
-      padding: 8px 18px;
-      border-radius: 30px;
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-    }
-
-    .lang-container i {
-      color: #60a5fa;
-      font-size: 18px;
-    }
-
-    .lang-select {
-      background: transparent;
-      color: #ffffff;
-      border: none;
-      outline: none;
-      cursor: pointer;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
-    .lang-select option {
-      background: #0f172a;
-      color: #ffffff;
-      padding: 10px;
-    }
-
-    /* Header */
     header {
       background: #ffffff;
       padding: 18px 5%;
@@ -125,6 +89,7 @@
       flex-direction: column;
       padding: 10px 0;
       border: 1px solid #e2e8f0;
+      z-index: 1100;
     }
 
     nav.active {
@@ -144,7 +109,6 @@
       color: #2563eb;
     }
 
-    /* Hero Section */
     .hero {
       background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1200') center/cover no-repeat;
       color: #fff;
@@ -185,7 +149,6 @@
       text-decoration: none;
     }
 
-    /* Jobs Section */
     .jobs-section {
       max-width: 1200px;
       margin: 40px auto;
@@ -214,12 +177,6 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .job-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 30px -10px rgba(37, 99, 235, 0.15);
     }
 
     .job-img {
@@ -242,12 +199,11 @@
       font-size: 14px;
       color: #64748b;
       margin-bottom: 15px;
-      line-height: 1.4;
     }
 
     .job-tag {
       display: inline-block;
-      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+      background: #dbeafe;
       color: #1e40af;
       padding: 5px 12px;
       border-radius: 8px;
@@ -259,20 +215,14 @@
     .btn-apply {
       display: block;
       text-align: center;
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      background: #2563eb;
       color: white;
       text-decoration: none;
       padding: 14px;
       font-weight: 700;
       font-size: 14px;
-      transition: opacity 0.2s;
     }
 
-    .btn-apply:hover {
-      opacity: 0.9;
-    }
-
-    /* Advanced Colorful Application Form Section */
     .application-container {
       max-width: 800px;
       margin: 60px auto 40px auto;
@@ -290,9 +240,6 @@
       margin-bottom: 30px;
       font-size: 28px;
       font-weight: 800;
-      background: linear-gradient(90deg, #2563eb, #7c3aed);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
 
     .form-row {
@@ -324,14 +271,7 @@
       border-radius: 10px;
       font-size: 14px;
       outline: none;
-      transition: all 0.3s;
       background: #f8fafc;
-    }
-
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-      border-color: #2563eb;
-      background: #ffffff;
-      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
     }
 
     .btn-submit {
@@ -344,17 +284,9 @@
       font-weight: 700;
       border-radius: 12px;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
       margin-top: 10px;
-      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
     }
 
-    .btn-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 15px 25px rgba(37, 99, 235, 0.4);
-    }
-
-    /* Success Overlay Modal */
     #successOverlay {
       display: none;
       position: absolute;
@@ -363,7 +295,6 @@
       width: 100%;
       height: 100%;
       background: rgba(15, 23, 42, 0.96);
-      backdrop-filter: blur(8px);
       border-radius: 20px;
       z-index: 100;
       flex-direction: column;
@@ -372,28 +303,12 @@
       text-align: center;
       padding: 40px;
       color: #ffffff;
-      animation: fadeIn 0.4s ease-in-out;
     }
 
     #successOverlay i.fa-circle-check {
       font-size: 68px;
       color: #25d366;
       margin-bottom: 20px;
-    }
-
-    #successOverlay h3 {
-      font-size: 28px;
-      margin-bottom: 14px;
-      color: #ffffff;
-      font-weight: 800;
-    }
-
-    #successOverlay p {
-      font-size: 16px;
-      color: #cbd5e1;
-      margin-bottom: 25px;
-      line-height: 1.6;
-      max-width: 500px;
     }
 
     .whatsapp-big-btn {
@@ -407,20 +322,9 @@
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
-      transition: transform 0.2s;
+      margin-top: 20px;
     }
 
-    .whatsapp-big-btn:hover {
-      transform: scale(1.05);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    /* Footer */
     footer {
       background: #0f172a;
       color: #94a3b8;
@@ -431,20 +335,8 @@
     }
 
     @media (max-width: 768px) {
-      .form-row {
-        grid-template-columns: 1fr;
-      }
-      .form-group.full-width {
-        grid-column: span 1;
-      }
-      .application-container {
-        padding: 25px;
-        margin: 30px 15px;
-      }
-      .top-bar {
-        justify-content: center;
-        text-align: center;
-      }
+      .form-row { grid-template-columns: 1fr; }
+      .form-group.full-width { grid-column: span 1; }
     }
   </style>
 </head>
@@ -453,26 +345,6 @@
   <div class="top-bar">
     <div class="top-info">
       <span><i class="fa-solid fa-phone"></i> Support Hotline: <a href="https://wa.me/251900000000" target="_blank" id="topPhone">+251 900 000 000</a></span>
-    </div>
-    
-    <div class="lang-container">
-      <i class="fa-solid fa-globe"></i>
-      <select id="langSelect" class="lang-select">
-        <option value="en">English (Global)</option>
-        <option value="ur">اردو (Urdu)</option>
-        <option value="es">Español (Spanish)</option>
-        <option value="fr">Français (French)</option>
-        <option value="ar">العربية (Arabic)</option>
-        <option value="zh">中文 (Mandarin Chinese)</option>
-        <option value="de">Deutsch (German)</option>
-        <option value="pt">Português (Portuguese)</option>
-        <option value="ru">Русский (Russian)</option>
-        <option value="hi">हिन्दी (Hindi)</option>
-        <option value="ja">日本語 (Japanese)</option>
-        <option value="ko">한국어 (Korean)</option>
-        <option value="it">Italiano (Italian)</option>
-        <option value="tr">Türkçe (Turkish)</option>
-      </select>
     </div>
   </div>
 
@@ -484,7 +356,7 @@
     <nav id="navMenu">
       <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
       <a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
-      <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+      <a href="index.html#application-form"><i class="fa-solid fa-envelope"></i> Contact</a>
     </nav>
   </header>
 
@@ -496,289 +368,7 @@
     </div>
   </section>
 
-  <section class="jobs-section">
-    <h2>Current Job Openings & Educational Opportunities</h2>
-    <div class="jobs-grid">
-      
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=600" alt="Farm Worker" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">Canada</span>
-            <h3>Farm Worker Positions</h3>
-            <p>Agricultural opportunities with work permit and accommodation support.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Job', 'Farm Worker Positions')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?q=80&w=600" alt="Healthcare" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">USA</span>
-            <h3>Healthcare & Nursing Jobs</h3>
-            <p>Registered nurse and healthcare assistant roles available in hospitals.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Job', 'Healthcare & Nursing Jobs')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=600" alt="Logistics" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">Europe</span>
-            <h3>Skilled Labor & Logistics</h3>
-            <p>Warehouse, packaging, and driving positions across major logistics hubs.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Job', 'Skilled Labor & Logistics')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=600" alt="IT" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">Germany</span>
-            <h3>IT & Software Engineering</h3>
-            <p>Tech positions for developers with relocation sponsorship packages.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Job', 'IT & Software Engineering')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=600" alt="Hospitality" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">Middle East</span>
-            <h3>Hospitality & Hotel Staff</h3>
-            <p>Waiters, chefs, and front desk personnel needed for luxury hotels.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Job', 'Hospitality & Hotel Staff')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?q=80&w=600" alt="Caregiver" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">UK</span>
-            <h3>Caregiver & Social Work</h3>
-            <p>Elderly care positions with full training and visa sponsorship.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Job', 'Caregiver & Social Work')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1541888946425-d0fbb18fdb7b?q=80&w=600" alt="Construction" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">Australia</span>
-            <h3>Construction & Carpentry</h3>
-            <p>Experienced builders and carpenters required for urban development projects.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Job', 'Construction & Carpentry')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=600" alt="Teaching" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">Japan</span>
-            <h3>English Teaching & Education</h3>
-            <p>Assistant language teachers and corporate trainers for schools.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Job', 'English Teaching & Education')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600" alt="Manufacturing" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">Poland</span>
-            <h3>Manufacturing & Factory Jobs</h3>
-            <p>Assembly line and quality control operators in modern industrial plants.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Job', 'Manufacturing & Factory Jobs')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600" alt="Scholarship" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">Canada</span>
-            <h3>Master’s Degree Scholarship</h3>
-            <p>Full tuition and living stipend scholarships for international students.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Education', 'Master’s Degree Scholarship')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=600" alt="Engineering" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">Sweden</span>
-            <h3>Engineering Consultancy Roles</h3>
-            <p>Civil and mechanical engineering jobs with top Scandinavian firms.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Job', 'Engineering Consultancy Roles')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1534536281715-e28d76684b4d?q=80&w=600" alt="Customer Service" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">UAE</span>
-            <h3>Customer Service Representatives</h3>
-            <p>Multilingual customer support roles in international corporations.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Job', 'Customer Service Representatives')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?q=80&w=600" alt="Farm Management" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">New Zealand</span>
-            <h3>Agricultural Farm Management</h3>
-            <p>Dairy and crop farm supervisors needed with competitive salaries.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Job', 'Agricultural Farm Management')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600" alt="Vocational Training" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">Germany</span>
-            <h3>Vocational Training (Ausbildung)</h3>
-            <p>Paid technical training programs leading to permanent residency.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Education', 'Vocational Training (Ausbildung)')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=600" alt="Culinary" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">Romania</span>
-            <h3>Restaurant & Culinary Staff</h3>
-            <p>Cooks, bakers, and kitchen assistants for booming food sectors.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Job', 'Restaurant & Culinary Staff')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=600" alt="Aviation" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">Qatar</span>
-            <h3>Aviation & Ground Crew</h3>
-            <p>Airport operations, baggage handlers, and customer service staff.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Job', 'Aviation & Ground Crew')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=600" alt="Hotel Management" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">France</span>
-            <h3>Hospitality Management Roles</h3>
-            <p>Hotel management positions in Paris and regional tourist centers.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Job', 'Hospitality Management Roles')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600" alt="University" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">Finland</span>
-            <h3>Bachelor’s Study Programs</h3>
-            <p>Affordable university degrees taught in English with work rights.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Education', 'Bachelor’s Study Programs')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=600" alt="Truck Driving" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">Lithuania</span>
-            <h3>Transport & Truck Driving</h3>
-            <p>International long-haul driving positions for certified license holders.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Job', 'Transport & Truck Driving')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1563770660941-20978e870e26?q=80&w=600" alt="Tech Assembly" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">South Korea</span>
-            <h3>Manufacturing & Tech Assembly</h3>
-            <p>Electronics assembly and factory worker opportunities.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Job', 'Manufacturing & Tech Assembly')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=600" alt="Tourism" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">Italy</span>
-            <h3>Tourism & Guide Services</h3>
-            <p>Tour guides and hospitality assistants for historic regional sites.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Job', 'Tourism & Guide Services')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600" alt="Remote Work" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">Global</span>
-            <h3>Remote Digital Marketing Jobs</h3>
-            <p>Work-from-home social media and digital content specialist roles.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Job', 'Remote Digital Marketing Jobs')">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <div>
-          <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=600" alt="Marine" class="job-img">
-          <div class="job-content">
-            <span class="job-tag">Norway</span>
-            <h3>Marine & Fisheries Work</h3>
-            <p>Seafood processing and maritime logistics personnel wanted.</p>
-          </div>
-        </div>
-        <a href="#application-form" class="btn-apply" onclick="selectPosition('Job', 'Marine & Fisheries Work')">Apply Now</a>
-      </div>
-
-    </div>
-  </section>
-
+  <!-- Application Form Section -->
   <div id="application-form" class="application-container">
     <h2>Global Opportunity Application Form</h2>
     <form id="applyForm">
@@ -800,7 +390,7 @@
         </div>
         <div class="form-group">
           <label for="currentCountry">Current Country (Origin Country)</label>
-          <input type="text" id="currentCountry" name="currentCountry" required placeholder="">
+          <input type="text" id="currentCountry" name="currentCountry" required placeholder="e.g., Ethiopia">
         </div>
       </div>
 
@@ -813,14 +403,10 @@
             <option value="Canada">Canada</option>
             <option value="USA">USA</option>
             <option value="Australia">Australia</option>
-            <option value="Asia">Asia (Various Asian Countries)</option>
+            <option value="Asia">Asia</option>
             <option value="UK">United Kingdom</option>
             <option value="Germany">Germany</option>
-            <option value="Japan">Japan</option>
-            <option value="South Korea">South Korea</option>
             <option value="Middle East">Middle East</option>
-            <option value="New Zealand">New Zealand</option>
-            <option value="Other">Other Country</option>
           </select>
         </div>
         <div class="form-group">
@@ -837,5 +423,79 @@
         <label for="jobPosition">Job Details & Position</label>
         <select id="jobPosition" name="jobPosition">
           <option value="">-- Select Job Position --</option>
-          <option value="Farm Worker Positions">Farm Worker Positions (Canada)</option>
-          <option value="Healthcare & Nursing Jobs">Healthcare & Nursing Jobs (USA)</
+          <option value="Farm Worker">Farm Worker Positions</option>
+          <option value="Healthcare">Healthcare & Nursing Jobs</option>
+          <option value="Logistics">Skilled Labor & Logistics</option>
+        </select>
+      </div>
+
+      <div class="form-group full-width" id="eduDetailsGroup" style="display: none;">
+        <label for="eduProgram">Education Program Details</label>
+        <select id="eduProgram" name="eduProgram">
+          <option value="">-- Select Education Opportunity --</option>
+          <option value="Scholarship">Master’s Degree Scholarship</option>
+          <option value="Vocational">Vocational Training (Ausbildung)</option>
+        </select>
+      </div>
+
+      <div class="form-group full-width">
+        <label for="message">Additional Notes / Cover Message</label>
+        <textarea id="message" name="message" rows="3" placeholder="Write any additional details..."></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">Submit Application</button>
+    </form>
+
+    <div id="successOverlay">
+      <i class="fa-solid fa-circle-check"></i>
+      <h3>Registration Completed Successfully!</h3>
+      <p>Please contact customer service directly via WhatsApp now to track your process and get started.</p>
+      <a href="#" id="whatsappRedirectBtn" class="whatsapp-big-btn" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i> Contact via WhatsApp Now
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Skyline Travels & Educational Consultancy. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Menu Toggle Script
+    const menuBtn = document.getElementById('menuBtn');
+    const navMenu = document.getElementById('navMenu');
+    if (menuBtn && navMenu) {
+      menuBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+      });
+    }
+
+    // Purpose Dropdown Toggle Script
+    function togglePurposeDetails() {
+      const purpose = document.getElementById('purpose').value;
+      const jobGroup = document.getElementById('jobDetailsGroup');
+      const eduGroup = document.getElementById('eduDetailsGroup');
+
+      if (purpose === 'Job') {
+        jobGroup.style.display = 'block';
+        eduGroup.style.display = 'none';
+      } else if (purpose === 'Education') {
+        jobGroup.style.display = 'none';
+        eduGroup.style.display = 'block';
+      } else {
+        jobGroup.style.display = 'none';
+        eduGroup.style.display = 'none';
+      }
+    }
+
+    // Form Submit Script
+    document.getElementById('applyForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const textMessage = encodeURIComponent("Hello! I have completed my registration. What should I do next to track my process?");
+      const waButton = document.getElementById('whatsappRedirectBtn');
+      waButton.href = `https://wa.me/251900000000?text=${textMessage}`;
+      document.getElementById('successOverlay').style.display = 'flex';
+    });
+  </script>
+</body>
+</html>
