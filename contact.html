@@ -17,7 +17,6 @@
       color: #1e293b;
       line-height: 1.6;
     }
-    /* Top Bar */
     .top-bar {
       background: #0f172a;
       color: #94a3b8;
@@ -33,18 +32,6 @@
       color: #22c55e;
       font-weight: 700;
     }
-    /* Language Selector */
-    .lang-selector select {
-      background: #1e293b;
-      color: #ffffff;
-      border: 1px solid #334155;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 13px;
-      cursor: pointer;
-      outline: none;
-    }
-    /* Header / Navbar */
     header {
       background: #ffffff;
       padding: 15px 5%;
@@ -81,7 +68,6 @@
     .nav-links a:hover, .nav-links a.active {
       color: #2563eb;
     }
-    /* Contact Section Container */
     .contact-container {
       max-width: 1100px;
       margin: 50px auto;
@@ -132,7 +118,6 @@
       color: #38bdf8;
       text-decoration: underline;
     }
-    /* Contact Form */
     .contact-form-wrapper {
       background: #ffffff;
       padding: 40px;
@@ -183,7 +168,6 @@
     .submit-btn:hover {
       background: #1d4ed8;
     }
-    /* Footer */
     footer {
       background: #0f172a;
       color: #94a3b8;
@@ -201,21 +185,12 @@
 </head>
 <body>
 
-  <!-- Top Bar -->
   <div class="top-bar">
     <div class="support-hotline">
       <i class="fa-solid fa-headset"></i> Support Hotline: <span>+251 900 000 000</span>
     </div>
-    <div class="lang-selector">
-      <select id="languageSelect">
-        <option value="en">English (US)</option>
-        <option value="am">አማርኛ (Amharic)</option>
-        <option value="ar">العربية (Arabic)</option>
-      </select>
-    </div>
   </div>
 
-  <!-- Header -->
   <header>
     <a href="index.html" class="logo">Skyline <span>Travels</span></a>
     <ul class="nav-links">
@@ -225,9 +200,7 @@
     </ul>
   </header>
 
-  <!-- Contact Container -->
   <div class="contact-container">
-    <!-- Contact Details with Official Email -->
     <div class="contact-info">
       <h2>Get in Touch</h2>
       <p>Have questions regarding international jobs or educational placements? Reach out to our official support team anytime.</p>
@@ -266,7 +239,6 @@
       </div>
     </div>
 
-    <!-- Direct Message Form -->
     <div class="contact-form-wrapper">
       <h2>Send Us a Message</h2>
       <form id="contactForm" onsubmit="handleContact(event)">
@@ -292,24 +264,17 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <footer>
     <p>&copy; 2026 Skyline Travels & Educational Consultancy. All rights reserved.</p>
   </footer>
 
   <script>
-    async function handleContact(event) {
+    function handleContact(event) {
       event.preventDefault();
-      const name = document.getElementById('contactName').value;
-      const email = document.getElementById('contactEmail').value;
-      const subject = document.getElementById('contactSubject').value;
-      const message = document.getElementById('contactMessage').value;
-      
       const resMsg = document.getElementById('contactResponse');
       resMsg.style.color = '#2563eb';
       resMsg.textContent = 'Sending message...';
 
-      // Simulating message dispatch to support@skylinetravels.com
       setTimeout(() => {
         resMsg.style.color = 'green';
         resMsg.textContent = 'Message sent successfully to support@skylinetravels.com! We will get back to you soon.';
