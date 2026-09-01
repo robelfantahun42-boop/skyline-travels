@@ -33,17 +33,6 @@
       color: #22c55e;
       font-weight: 700;
     }
-    /* Language Selector */
-    .lang-selector select {
-      background: #1e293b;
-      color: #ffffff;
-      border: 1px solid #334155;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 13px;
-      cursor: pointer;
-      outline: none;
-    }
     /* Header / Navbar */
     header {
       background: #ffffff;
@@ -77,6 +66,7 @@
       font-weight: 600;
       font-size: 15px;
       transition: color 0.3s;
+      cursor: pointer;
     }
     .nav-links a:hover {
       color: #2563eb;
@@ -87,40 +77,77 @@
       color: #0f172a;
       cursor: pointer;
     }
-    /* Hero Section */
+    /* Hero Section with Plane Background & Language Selector */
     .hero {
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.85)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1200') no-repeat center center/cover;
       color: white;
       text-align: center;
-      padding: 60px 20px;
+      padding: 70px 20px;
     }
     .hero h1 {
-      font-size: 34px;
+      font-size: 32px;
       font-weight: 800;
-      margin-bottom: 10px;
+      margin-bottom: 25px;
     }
-    .hero p {
-      font-size: 15px;
-      max-width: 650px;
-      margin: 0 auto 20px auto;
+    .lang-box {
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid #475569;
+      max-width: 450px;
+      margin: 0 auto 25px auto;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .lang-box label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
       color: #cbd5e1;
     }
-    .whatsapp-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: #25d366;
+    .lang-box select {
+      width: 100%;
+      background: #0f172a;
+      color: #ffffff;
+      border: 1px solid #64748b;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      outline: none;
+    }
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .primary-btn {
+      background: #0284c7;
       color: white;
       padding: 12px 24px;
       border-radius: 50px;
       text-decoration: none;
       font-weight: 700;
-      font-size: 15px;
-      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+      font-size: 14px;
       transition: background 0.3s;
     }
-    .whatsapp-btn:hover {
-      background: #22bf5b;
+    .primary-btn:hover {
+      background: #0369a1;
+    }
+    .outline-btn {
+      background: transparent;
+      color: white;
+      border: 2px solid #ffffff;
+      padding: 10px 22px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+    .outline-btn:hover {
+      background: rgba(255,255,255,0.1);
     }
     /* Main Content Containers */
     .container {
@@ -267,7 +294,7 @@
         grid-column: span 1;
       }
       .hero h1 {
-        font-size: 24px;
+        font-size: 22px;
       }
     }
   </style>
@@ -279,23 +306,16 @@
     <div class="support-hotline" id="supportHotlineText">
       <i class="fa-solid fa-headset"></i> Support Hotline: <span>+251 911 000 000</span>
     </div>
-    <div class="lang-selector">
-      <select id="languageSelect" onchange="changeLanguage()">
-        <option value="en">English (US)</option>
-        <option value="am">አማርኛ (Amharic)</option>
-        <option value="ar">العربية (Arabic)</option>
-      </select>
-    </div>
   </div>
 
   <!-- Header -->
   <header>
-    <a href="index.html" class="logo">Skyline <span>Travels</span></a>
+    <a href="#" class="logo" onclick="scrollToTop(event)">Skyline <span>Travels</span></a>
     <div class="menu-toggle" id="mobile-menu" onclick="toggleMenu()">
       <i class="fa-solid fa-bars"></i>
     </div>
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html" id="navHome">Home</a></li>
+      <li><a href="#" onclick="scrollToTop(event)" id="navHome">Home</a></li>
       <li><a href="#registrationForm" id="navRegister">Register</a></li>
       <li><a href="#jobsContainer" id="navJobs">Jobs</a></li>
       <li><a href="about.html" id="navAbout">About Us</a></li>
@@ -303,13 +323,23 @@
     </ul>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero Section with Language Selector & Action Buttons -->
   <section class="hero">
-    <h1 id="heroTitle">Global Job & Education Registration Form</h1>
-    <p id="heroDesc">Apply for international employment and educational consultancy opportunities in Canada, USA, Europe, Asia, and Gulf Countries.</p>
-    <a href="https://wa.me/251911000000" class="whatsapp-btn" target="_blank">
-      <i class="fa-brands fa-whatsapp" style="font-size: 20px;"></i> <span id="whatsappText">Chat on WhatsApp</span>
-    </a>
+    <h1 id="heroTitle">Global Job Placement & Visa Agency</h1>
+    
+    <div class="lang-box">
+      <label id="labelSelectLang"><i class="fa-solid fa-globe"></i> Select Language:</label>
+      <select id="languageSelect" onchange="changeLanguage()">
+        <option value="en">English (US)</option>
+        <option value="am">አማርኛ (Amharic)</option>
+        <option value="ar">العربية (Arabic)</option>
+      </select>
+    </div>
+
+    <div class="hero-buttons">
+      <a href="#registrationForm" class="primary-btn" id="btnApplyHero">Apply Now ↓</a>
+      <a href="#jobsContainer" class="outline-btn" id="btnViewJobs">View Opportunities ↓</a>
+    </div>
   </section>
 
   <!-- Main Container -->
@@ -391,6 +421,11 @@
       nav.classList.toggle('active');
     }
 
+    function scrollToTop(e) {
+      if(e) e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     // Translations Dictionary for Multi-language support
     const translations = {
       en: {
@@ -400,9 +435,10 @@
         jobs: "Jobs",
         about: "About Us",
         contact: "Contact",
-        heroTitle: "Global Job & Education Registration Form",
-        heroDesc: "Apply for international employment and educational consultancy opportunities in Canada, USA, Europe, Asia, and Gulf Countries.",
-        whatsappText: "Chat on WhatsApp",
+        heroTitle: "Global Job Placement & Visa Agency",
+        selectLang: "Select Language:",
+        btnApply: "Apply Now ↓",
+        btnView: "View Opportunities ↓",
         jobsTitle: "Featured Global Job & Education Opportunities",
         formTitle: "Application & Registration Form",
         labelName: "Full Name *",
@@ -432,9 +468,10 @@
         jobs: "ሥራዎች",
         about: "ስለ እኛ",
         contact: "ያግኙን",
-        heroTitle: "ዓለም አቀፍ የሥራ እና ትምህርት ምዝገባ ፎርም",
-        heroDesc: "በካናዳ፣ አሜሪካ፣ አውሮፓ፣ እስያ እና በባህረ ሰላጤው አገሮች ውስጥ ለአለም አቀፍ የስራ እና የትምህርት አማካሪ እድሎች ያመልክቱ።",
-        whatsappText: "በዋትስአፕ ያነጋገሩን",
+        heroTitle: "ዓለም አቀፍ የሥራ ስምሪት እና ቪዛ ኤጀንሲ",
+        selectLang: "ቋንቋ ይምረጡ:",
+        btnApply: "አሁን ያመልክቱ ↓",
+        btnView: "ዕድሎችን ይመልከቱ ↓",
         jobsTitle: "ከ30 በላይ ዓለም አቀፍ የሥራ እና የትምህርት ዕድሎች",
         formTitle: "የምዝገባ እና ማመልከቻ ፎርም",
         labelName: "ሙሉ ስም *",
@@ -464,9 +501,10 @@
         jobs: "الوظائف",
         about: "من نحن",
         contact: "اتصل بنا",
-        heroTitle: "استمارة التسجيل العالمية للوظائف والتعليم",
-        heroDesc: "تقدم بطلب للحصول على فرص العمل الدولية والاستشارات التعليمية في كندا والولايات المتحدة وأوروبا وآسيا ودول الخليج.",
-        whatsappText: "تواصل عبر الواتساب",
+        heroTitle: "وكالة توظيف وتأشيرات عالمية",
+        selectLang: "اختر اللغة:",
+        btnApply: "قدم الآن ↓",
+        btnView: "عرض الفرص ↓",
         jobsTitle: "أبرز 32 فرصة عمل وتعليم عالمية",
         formTitle: "استمارة التسجيل والطلب",
         labelName: "الاسم الكامل *",
@@ -522,7 +560,7 @@
       originSelect.appendChild(option);
     });
 
-    // 32 Global Job & Education Opportunities (Over 30)
+    // 32 Global Job & Education Opportunities
     const jobs = [
       { title: "Registered Nurse - Canada", loc: "Toronto, Canada", img: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=400" },
       { title: "Software Engineer - Germany", loc: "Berlin, Germany", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400" },
@@ -597,7 +635,7 @@
           label.innerText = "المسمى الوظيفي المطلوب *";
           input.placeholder = "مثال: مهندس برمجيات، ممرضة";
         } else if (purpose === 'Education') {
-          label.innerText = "مجل الدراسة المطلوب *";
+          label.innerText = "مجال الدراسة المطلوب *";
           input.placeholder = "مثال: بكالوريوس تقنية المعلومات، ماجستير";
         }
       } else {
@@ -624,8 +662,9 @@
       document.getElementById('navContact').innerText = t.contact;
       
       document.getElementById('heroTitle').innerText = t.heroTitle;
-      document.getElementById('heroDesc').innerText = t.heroDesc;
-      document.getElementById('whatsappText').innerText = t.whatsappText;
+      document.getElementById('labelSelectLang').innerHTML = `<i class="fa-solid fa-globe"></i> ${t.selectLang}`;
+      document.getElementById('btnApplyHero').innerText = t.btnApply;
+      document.getElementById('btnViewJobs').innerText = t.btnView;
       
       document.getElementById('jobsTitle').innerText = t.jobsTitle;
       document.getElementById('formTitle').innerText = t.formTitle;
@@ -698,7 +737,6 @@
         }
       } catch (err) {
         console.error(err);
-        // Fallback for testing frontend directly without backend running
         localStorage.setItem('skyline_registered', 'true');
         alert("Registration saved! Redirecting to WhatsApp...");
         const whatsappMsg = encodeURIComponent("I have filled the form and what is the next step to follow the process?");
