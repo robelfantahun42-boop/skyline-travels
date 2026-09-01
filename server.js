@@ -1,72 +1,113 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
 const path = require('path');
-const fs = require('fs');
+require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
+// Middleware
+app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static(path.join(__dirname)));
+// static HTML ፋይሎችን ለማገልገል (index.html እና admin.html በ public ፎልደር ውስጥ ካሉ)
+app.use(express.static(path.join(__dirname, 'public')));
 
-const DB_FILE = path.join(__dirname, 'database.json');
+// MongoDB Atlas Connection
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/skyline_travels';
+mongoose.connect(MONGO_URI)
+  .then(() => console.log('✅ MongoDB Atlas Successfully Connected!'))
+  .catch(err => console.error('❌ MongoDB Connection Error:', err));
 
-// In-memory data store for Vercel deployment
-let memoryRegistrations = [];
-let siteSettings = { phone: '+251 911 000 000' };
-
-// --- Routes ---
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
-app.get('/about.html', (req, res) => res.sendFile(path.join(__dirname, 'about.html')));
-app.get('/admin.html', (req, res) => res.sendFile(path.join(__dirname, 'admin.html')));
-app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'admin.html')));
-
-// --- Settings API (Phone Number) ---
-app.get('/api/settings', (req, res) => {
-  res.json(siteSettings);
+// Schemas & Models
+const applicantSchema = new mongoose.Schema({
+  fullName: { type: String, required: true },
+  email: { type: String, required: true },
+  phone: { type: String, required: true },
+  originCountry: { type: String, default: 'Ethiopia' },
+  targetCountry: { type: String, required: true },
+  purpose: { type: String, required: true },
+  specificField: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now }
 });
 
-app.post('/api/settings', (req, res) => {
-  if (req.body.phone) {
-    siteSettings.phone = req.body.phone;
-  }
-  res.json({ success: true, settings: siteSettings });
+const settingsSchema = new mongoose.Schema({
+  waPhone: { type: String, default: '251911000000' }
 });
 
-// --- Registrations API ---
-app.get('/api/registrations', (req, res) => {
-  if (fs.existsSync(DB_FILE)) {
-    try {
-      const data = fs.readFileSync(DB_FILE, 'utf8');
-      return res.json(JSON.parse(data));
-    } catch (err) {}
-  }
-  res.json(memoryRegistrations);
-});
+const Applicant = mongoose.model('Applicant', applicantSchema);
+const Settings = mongoose.model('Settings', settingsSchema);
 
-app.post('/api/register', (req, res) => {
-  const newEntry = {
-    id: Date.now(),
-    ...req.body,
-    date: new Date().toISOString()
-  };
+// --- API ROUTES ---
 
-  memoryRegistrations.push(newEntry);
-
+// 1. አዲስ አመልካች መመዝገቢያ (ከ index.html የሚላክ)
+app.post('/api/register', async (req, res) => {
   try {
-    let currentData = memoryRegistrations;
-    if (fs.existsSync(DB_FILE)) {
-      try {
-        const fileContent = fs.readFileSync(DB_FILE, 'utf8');
-        currentData = JSON.parse(fileContent);
-        currentData.push(newEntry);
-      } catch(e) {}
-    }
-    fs.writeFileSync(DB_FILE, JSON.stringify(currentData, null, 2));
-  } catch (err) {}
+    const { fullName, email, phone, originCountry, targetCountry, purpose, specificField } = req.body;
 
-  res.status(201).json({ success: true, message: 'Registration saved successfully!', entry: newEntry });
+    if (!fullName || !email || !phone || !targetCountry || !purpose) {
+      return res.status(400).json({ error: 'እባክዎን አስፈላጊዎቹን መረጃዎች በሙሉ ይሙሉ!' });
+    }
+
+    const newApplicant = new Applicant({
+      fullName,
+      email,
+      phone,
+      originCountry: originCountry || 'Ethiopia',
+      targetCountry,
+      purpose,
+      specificField
+    });
+
+    await newApplicant.save();
+    res.status(201).json({ success: true, message: 'ምዝገባዎ በስኬት ተጠናቋል!' });
+  } catch (error) {
+    console.error('Registration error:', error);
+    res.status(500).json({ error: 'የሰርቨር ስህተት ተከሰቷል። እባክዎ ድጋሚ ይሞክሩ።' });
+  }
 });
 
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+// 2. የተመዘገቡ አመልካቾችን ዝርዝር ማምጫ (ለ admin.html)
+app.get('/api/admin/applicants', async (req, res) => {
+  try {
+    const applicants = await Applicant.find().sort({ createdAt: -1 });
+    res.json(applicants);
+  } catch (error) {
+    res.status(500).json({ error: 'መረጃዎችን ማምጣት አልተቻለም።' });
+  }
+});
+
+// 3. የዋትስአፕ ቁጥር ማምጫ እና ማስተካከያ
+app.get('/api/settings/whatsapp', async (req, res) => {
+  try {
+    let settings = await Settings.findOne();
+    if (!settings) {
+      settings = await Settings.create({ waPhone: '251911000000' });
+    }
+    res.json(settings);
+  } catch (error) {
+    res.status(500).json({ error: 'Settings fetch failed' });
+  }
+});
+
+app.post('/api/admin/settings/whatsapp', async (req, res) => {
+  try {
+    const { waPhone } = req.body;
+    let settings = await Settings.findOne();
+    if (settings) {
+      settings.waPhone = waPhone;
+      await settings.save();
+    } else {
+      await Settings.create({ waPhone });
+    }
+    res.json({ success: true, message: 'WhatsApp number updated successfully!' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update settings' });
+  }
+});
+
+// Server Listening
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Skyline Server is running on port ${PORT}`);
+});
