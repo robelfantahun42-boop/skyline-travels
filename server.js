@@ -48,23 +48,46 @@ app.get('/register.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'register.html'));
 });
 
-// API Routes
+// API Routes for Status
 app.get('/api/status', (req, res) => {
   res.json({ status: 'Server is running', connected: !!db });
 });
 
-// Job Application Endpoint
-app.post('/api/apply', async (req, res) => {
+// Fetch all applications for Admin Panel
+const getApplicationsHandler = async (req, res) => {
   try {
     await connectDB();
     if (!db) return res.status(500).json({ error: 'Database not connected' });
-    const application = req.body;
+    const applications = await db.collection('applications').find({}).toArray();
+    res.json(applications);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+app.get('/api/applications', getApplicationsHandler);
+app.get('/api/applicants', getApplicationsHandler);
+
+// Handle Registration / Job Application Submissions
+const handleApplicationSubmission = async (req, res) => {
+  try {
+    await connectDB();
+    if (!db) return res.status(500).json({ error: 'Database not connected' });
+    
+    const application = {
+      ...req.body,
+      date: req.body.date || new Date().toISOString().split('T')[0]
+    };
+    
     const result = await db.collection('applications').insertOne(application);
     res.status(201).json({ success: true, id: result.insertedId });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-});
+};
+
+app.post('/api/apply', handleApplicationSubmission);
+app.post('/api/register', handleApplicationSubmission);
 
 // Conditional listen for local development, export for Vercel
 if (process.env.NODE_ENV !== 'production') {
