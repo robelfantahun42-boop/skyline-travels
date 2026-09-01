@@ -774,6 +774,8 @@
 
       if (lang === 'am') {
         label.innerText = (purpose === 'Job') ? "የሚፈልጉት የሥራ መደብ *" : "የሚፈልጉት የትምህርት ዓይነት *";
+      } else if (lang === 'ar') {
+        label.innerText = (purpose === 'Job') ? "المسمى الوظيفي المطلوب *" : "مجال الدراسة المطلوب *";
       } else {
         label.innerText = (purpose === 'Job') ? "Desired Job Title / Position *" : "Desired Course / Field of Study *";
       }
@@ -781,113 +783,132 @@
 
     function changeLanguage() {
       const lang = document.getElementById('languageSelect').value;
-      const t = translations[lang] || translations['en'];
+      const t = translations[lang] || translations.en;
 
-      document.getElementById('supportHotlineText').innerHTML = `<i class="fa-solid fa-headset"></i> ${t.supportText}<span>+251 911 000 000</span>`;
+      // Update Top Bar & Nav
+      const hotlineSpan = document.querySelector('#supportHotlineText span').outerHTML;
+      document.getElementById('supportHotlineText').innerHTML = `<i class="fa-solid fa-headset"></i> ${t.supportText} ${hotlineSpan}`;
       document.getElementById('navHome').innerText = t.home;
       document.getElementById('navRegister').innerText = t.register;
       document.getElementById('navJobs').innerText = t.jobs;
       document.getElementById('navAbout').innerText = t.about;
       document.getElementById('navContact').innerText = t.contact;
-      
+
+      // Update Hero Section
       document.getElementById('heroTitle').innerText = t.heroTitle;
       document.getElementById('labelSelectLang').innerHTML = `<i class="fa-solid fa-globe"></i> ${t.selectLang}`;
       document.getElementById('btnApplyHero').innerText = t.btnApply;
       document.getElementById('btnViewJobs').innerText = t.btnView;
-      
+
+      // Update Titles
       document.getElementById('jobsTitle').innerText = t.jobsTitle;
-      
-      // Update form texts only if it's not locked
-      if (document.getElementById('mainRegistrationForm').style.display !== 'none') {
-        document.getElementById('formTitle').innerText = t.formTitle;
-        document.getElementById('labelName').innerText = t.labelName;
-        document.getElementById('fullName').placeholder = t.placeholderName;
-        document.getElementById('labelEmail').innerText = t.labelEmail;
-        document.getElementById('email').placeholder = t.placeholderEmail;
-        document.getElementById('labelPhone').innerText = t.labelPhone;
-        document.getElementById('phone').placeholder = t.placeholderPhone;
-        document.getElementById('labelOrigin').innerText = t.labelOrigin;
-        document.getElementById('defaultOriginOption').innerText = t.selectOrigin;
-        document.getElementById('labelTarget').innerText = t.labelTarget;
-        document.getElementById('defaultTargetOption').innerText = t.selectTarget;
-        document.getElementById('labelPurpose').innerText = t.labelPurpose;
-        document.getElementById('defaultPurposeOption').innerText = t.selectPurpose;
-        document.getElementById('optJob').innerText = t.purposeJob;
-        document.getElementById('optEdu').innerText = t.purposeEdu;
-        document.getElementById('labelSpecificField').innerText = t.labelSpecificField;
-        document.getElementById('specificField').placeholder = t.placeholderSpecificField;
-        document.getElementById('labelNotes').innerText = t.labelNotes;
-        document.getElementById('notes').placeholder = t.placeholderNotes;
-        document.getElementById('submitBtnText').innerText = t.submitBtn;
-      }
+      document.getElementById('formTitle').innerText = t.formTitle;
+
+      // Update Form Labels
+      document.getElementById('labelName').innerText = t.labelName;
+      document.getElementById('labelEmail').innerText = t.labelEmail;
+      document.getElementById('labelPhone').innerText = t.labelPhone;
+      document.getElementById('labelOrigin').innerText = t.labelOrigin;
+      document.getElementById('labelTarget').innerText = t.labelTarget;
+      document.getElementById('labelPurpose').innerText = t.labelPurpose;
+      updateSpecificFieldLabel();
+      document.getElementById('labelNotes').innerText = t.labelNotes;
+
+      // Update Placeholders & Select Options
+      document.getElementById('fullName').placeholder = t.placeholderName;
+      document.getElementById('email').placeholder = t.placeholderEmail;
+      document.getElementById('phone').placeholder = t.placeholderPhone;
+      document.getElementById('defaultOriginOption').innerText = t.selectOrigin;
+      document.getElementById('defaultTargetOption').innerText = t.selectTarget;
+      document.getElementById('defaultPurposeOption').innerText = t.selectPurpose;
+      document.getElementById('optJob').innerText = t.purposeJob;
+      document.getElementById('optEdu').innerText = t.purposeEdu;
+      document.getElementById('specificField').placeholder = t.placeholderSpecificField;
+      document.getElementById('notes').placeholder = t.placeholderNotes;
+      document.getElementById('submitBtnText').innerText = t.submitBtn;
     }
 
     async function handleRegistration(event) {
       event.preventDefault();
 
-      const fullName = document.getElementById('fullName').value;
-      const email = document.getElementById('email').value;
-      const phone = document.getElementById('phone').value;
-      const originCountry = document.getElementById('originCountry').value;
-      const targetCountry = document.getElementById('targetCountry').value;
-      const purpose = document.getElementById('purpose').value;
-      const specificField = document.getElementById('specificField').value;
-      const notes = document.getElementById('notes').value;
+      const submitBtn = document.getElementById('submitBtnText');
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Processing...';
 
-      if (localStorage.getItem('skyline_user_registered') === 'true') {
-        showModal('duplicate', fullName, phone, targetCountry, specificField);
-        return;
-      }
-
-      const formData = { fullName, email, phone, originCountry, targetCountry, purpose, specificField, notes };
+      const formData = {
+        fullName: document.getElementById('fullName').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        originCountry: document.getElementById('originCountry').value,
+        targetCountry: document.getElementById('targetCountry').value,
+        purpose: document.getElementById('purpose').value,
+        specificField: document.getElementById('specificField').value.trim(),
+        notes: document.getElementById('notes').value.trim()
+      };
 
       try {
-        await fetch('/api/register', {
+        const response = await fetch('/api/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)
         });
-      } catch (err) {
-        console.log("Database connection saved locally.");
-      }
 
-      // Mark user as registered
-      localStorage.setItem('skyline_user_registered', 'true');
-      
-      // Lock the form UI
-      checkRegistrationState();
-      
-      // Show English Popup
-      showModal('success', fullName, phone, targetCountry, specificField);
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          localStorage.setItem('skyline_user_registered', 'true');
+          showModal(
+            'success',
+            'Registration Successful!',
+            'Your application has been received successfully. Please click below to connect with our representative on WhatsApp.',
+            `https://wa.me/251911000000?text=Hello%20Skyline%20Travels,%20my%20name%20is%20${encodeURIComponent(formData.fullName)}.%20I%20submitted%20my%20application%20for%20${encodeURIComponent(formData.specificField)}.`
+          );
+          checkRegistrationState();
+        } else {
+          showModal(
+            'info',
+            data.title || 'Notice',
+            data.message || 'Something went wrong. Please try again or contact us on WhatsApp.',
+            'https://wa.me/251911000000?text=Hello%20Skyline%20Travels,%20I%20need%20assistance%20with%20my%20registration.'
+          );
+        }
+      } catch (err) {
+        localStorage.setItem('skyline_user_registered', 'true');
+        showModal(
+          'success',
+          'Registration Successful!',
+          'Your application details have been submitted. Click below to continue on WhatsApp.',
+          `https://wa.me/251911000000?text=Hello%20Skyline%20Travels,%20my%20name%20is%20${encodeURIComponent(formData.fullName)}.%20I%20completed%20the%20registration%20form.`
+        );
+        checkRegistrationState();
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = translations[document.getElementById('languageSelect').value]?.submitBtn || 'Submit Application';
+      }
     }
 
-    function showModal(type, fullName, phone, targetCountry, specificField) {
+    function showModal(type, title, desc, waLink) {
       const modal = document.getElementById('resultModal');
-      const icon = document.getElementById('modalIcon');
-      const title = document.getElementById('modalTitle');
-      const desc = document.getElementById('modalDesc');
+      const iconEl = document.getElementById('modalIcon');
+      const titleEl = document.getElementById('modalTitle');
+      const descEl = document.getElementById('modalDesc');
       const waBtn = document.getElementById('modalWaBtn');
 
-      const waMessage = encodeURIComponent(`Hello Skyline Travels!\nI have registered:\n• Name: ${fullName || 'Applicant'}\n• Phone: ${phone || ''}\n• Destination: ${targetCountry || ''}\n• Field: ${specificField || ''}\n\nHow do I complete the rest of the process?`);
-      waBtn.href = `https://wa.me/251911000000?text=${waMessage}`;
+      iconEl.className = `modal-icon ${type}`;
+      iconEl.innerHTML = type === 'success' 
+        ? '<i class="fa-solid fa-circle-check"></i>' 
+        : '<i class="fa-solid fa-circle-info"></i>';
 
-      if (type === 'success') {
-        icon.className = "modal-icon success";
-        icon.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
-        title.innerText = "Registration Successful!";
-        desc.innerText = "Your registration has been completed successfully. Please click the WhatsApp button below to finalize the process with our customer service.";
-      } else {
-        icon.className = "modal-icon info";
-        icon.innerHTML = '<i class="fa-solid fa-circle-info"></i>';
-        title.innerText = "You Have Already Registered!";
-        desc.innerText = "Since you have already completed your registration, please finish the remaining steps via customer service. Click the button below to contact us.";
-      }
+      titleEl.innerText = title;
+      descEl.innerText = desc;
+      waBtn.href = waLink;
 
       modal.classList.add('active');
     }
 
     function closeModal() {
-      document.getElementById('resultModal').classList.remove('active');
+      const modal = document.getElementById('resultModal');
+      modal.classList.remove('active');
     }
   </script>
 </body>
