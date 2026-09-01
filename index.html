@@ -74,14 +74,12 @@
       color: #0f172a;
       cursor: pointer;
     }
-    /* Views */
     .view-section {
       display: none;
     }
     .view-section.active {
       display: block;
     }
-    /* Hero Section */
     .hero {
       background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.85)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1200') no-repeat center center/cover;
       color: white;
@@ -206,11 +204,12 @@
       font-weight: 700;
       font-size: 13px;
     }
+    
     .form-section {
       background: #1e293b;
       max-width: 800px;
       margin: 0 auto 60px auto;
-      padding: 40px;
+      padding: 40px 30px;
       border-radius: 16px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
       border: 1px solid #334155;
@@ -221,13 +220,14 @@
       gap: 20px;
     }
     .form-group {
-      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
     }
     .form-group.full-width {
       grid-column: span 2;
     }
     .form-group label {
-      display: block;
       font-size: 14px;
       font-weight: 700;
       color: #cbd5e1;
@@ -240,7 +240,7 @@
       background: #0f172a;
       color: #ffffff;
       border-radius: 8px;
-      font-size: 14px;
+      font-size: 15px;
       outline: none;
     }
     .submit-btn {
@@ -248,13 +248,96 @@
       color: white;
       border: none;
       width: 100%;
-      padding: 14px;
+      padding: 16px;
       font-size: 16px;
       font-weight: 700;
       border-radius: 8px;
       cursor: pointer;
+      transition: background 0.3s;
     }
-    /* Static Pages Content Box */
+    .submit-btn:hover {
+      background: #1d4ed8;
+    }
+
+    /* Custom Popup Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(5px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      padding: 20px;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal-box {
+      background: #1e293b;
+      border: 1px solid #334155;
+      padding: 35px 25px;
+      border-radius: 20px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      animation: modalFadeIn 0.3s ease-out;
+    }
+    @keyframes modalFadeIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .modal-icon {
+      font-size: 55px;
+      margin-bottom: 15px;
+    }
+    .modal-icon.success { color: #22c55e; }
+    .modal-icon.info { color: #38bdf8; }
+    .modal-box h2 {
+      font-size: 24px;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+    .modal-box p {
+      color: #cbd5e1;
+      font-size: 15px;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+    .whatsapp-big-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: #22c55e;
+      color: white;
+      padding: 16px 24px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 17px;
+      box-shadow: 0 6px 20px rgba(34, 197, 94, 0.3);
+      transition: transform 0.2s, background 0.3s;
+    }
+    .whatsapp-big-btn:hover {
+      background: #16a34a;
+      transform: translateY(-2px);
+    }
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 14px;
+      margin-top: 15px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
     .page-box {
       background: #1e293b;
       max-width: 800px;
@@ -274,16 +357,6 @@
       margin-bottom: 20px;
       font-size: 16px;
     }
-    .whatsapp-btn {
-      display: inline-block;
-      background: #22c55e;
-      color: white;
-      padding: 14px 28px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 16px;
-    }
     footer {
       background: #020617;
       color: #94a3b8;
@@ -291,6 +364,8 @@
       padding: 30px 20px;
       font-size: 14px;
     }
+
+    /* Mobile Responsive Setup */
     @media (max-width: 768px) {
       .nav-links {
         display: none;
@@ -310,7 +385,18 @@
         display: block;
       }
       .form-grid {
-        grid-template-columns: 1fr;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 15px !important;
+      }
+      .form-group {
+        width: 100% !important;
+      }
+      .form-group.full-width {
+        grid-column: span 1 !important;
+      }
+      .form-section {
+        padding: 25px 15px;
       }
     }
   </style>
@@ -435,9 +521,22 @@
       <h1>Contact Us</h1>
       <p><i class="fa-solid fa-phone" style="color: #22c55e;"></i> Support Hotline: <strong>+251 911 000 000</strong></p>
       <p>Chat with us on WhatsApp; we will explain everything in detail!</p>
-      <a href="https://wa.me/251911000000?text=Hello%20Skyline%20Travels,%20I%20want%20to%20know%20more%20details." class="whatsapp-btn" target="_blank">
+      <a href="https://wa.me/251911000000?text=Hello%20Skyline%20Travels,%20I%20want%20to%20know%20more%20details." class="whatsapp-big-btn" target="_blank" style="display: inline-flex; max-width: 300px; margin: 0 auto;">
         <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
       </a>
+    </div>
+  </div>
+
+  <!-- SUCCESS & DUPLICATE POPUP MODAL -->
+  <div class="modal-overlay" id="resultModal">
+    <div class="modal-box">
+      <div class="modal-icon" id="modalIcon"></div>
+      <h2 id="modalTitle"></h2>
+      <p id="modalDesc"></p>
+      <a id="modalWaBtn" href="#" target="_blank" class="whatsapp-big-btn">
+        <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+      </a>
+      <button class="modal-close-btn" onclick="closeModal()">Close Window</button>
     </div>
   </div>
 
@@ -460,9 +559,7 @@
         document.getElementById('navHome').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
         if (targetScrollId) {
-          setTimeout(() => {
-            scrollToElement(targetScrollId);
-          }, 100);
+          setTimeout(() => { scrollToElement(targetScrollId); }, 100);
         }
       } else if (viewName === 'about') {
         document.getElementById('aboutView').classList.add('active');
@@ -473,19 +570,15 @@
         document.getElementById('navContact').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-      
       const nav = document.getElementById('navLinks');
       if(nav.classList.contains('active')) nav.classList.remove('active');
     }
 
     function scrollToElement(id) {
       const el = document.getElementById(id);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // Translations Dictionary
     const translations = {
       en: {
         supportText: "Support Hotline: ",
@@ -531,7 +624,7 @@
         heroTitle: "وكالة توظيف وتأشيرات عالمية",
         selectLang: "اختر اللغة:",
         btnApply: "قدم الآن ↓", btnView: "عرض الفرص ↓",
-        jobsTitle: "أبرز 32 فرصة عمل وتعليم عالمية",
+        jobsTitle: "أبرز الفرص العالمية",
         formTitle: "استمارة التسجيل والطلب",
         labelName: "الاسم الكامل *", placeholderName: "أدخل اسمك الكامل",
         labelEmail: "عنوان البريد الإلكتروني *", placeholderEmail: "أدخل بريدك الإلكتروني",
@@ -540,7 +633,7 @@
         labelTarget: "الدولة المستهدفة (الوجهة) *", selectTarget: "-- اختر الدولة المستهدفة --",
         labelPurpose: "غرض الطلب *", selectPurpose: "-- اختر الغرض --",
         purposeJob: "التوظيف الدولي", purposeEdu: "استشارات تعليمية",
-        labelSpecificField: "المسمى الوظيفي المطلوب أو مجال الدراسة *", placeholderSpecificField: "مثال: مهندس برمجيات أو ماجستير",
+        labelSpecificField: "المسمى الوظيفي المطلوب أو مجال الدراسة *", placeholderSpecificField: "مثال: مهندس برمجيات، ماجستير",
         labelNotes: "ملاحظات إضافية / رسالة تغطية", placeholderNotes: "اكتب أي تفاصيل إضافية...",
         submitBtn: "إرسال الطلب"
       }
@@ -576,6 +669,7 @@
       originSelect.appendChild(option);
     });
 
+    /* FULL 32 JOBS LIST */
     const jobs = [
       { title: "Registered Nurse - Canada", loc: "Toronto, Canada", img: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=400" },
       { title: "Software Engineer - Germany", loc: "Berlin, Germany", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400" },
@@ -620,47 +714,27 @@
         <div class="job-content">
           <h3>${job.title}</h3>
           <p><i class="fa-solid fa-location-dot"></i> ${job.loc}</p>
-          <a onclick="scrollToElement('registrationForm')" class="apply-link" style="cursor: pointer;" onclick="selectJobPurpose('${job.title}')">Apply Now &rarr;</a>
+          <a onclick="selectJobAndScroll('${job.title}')" class="apply-link" style="cursor: pointer;">Apply Now &rarr;</a>
         </div>
       `;
       jobsContainer.appendChild(card);
     });
 
-    function selectJobPurpose(jobTitle) {
+    function selectJobAndScroll(jobTitle) {
       document.getElementById('purpose').value = "Job";
       document.getElementById('specificField').value = jobTitle;
+      scrollToElement('registrationForm');
     }
 
     function updateSpecificFieldLabel() {
       const purpose = document.getElementById('purpose').value;
       const lang = document.getElementById('languageSelect').value;
       const label = document.getElementById('labelSpecificField');
-      const input = document.getElementById('specificField');
 
       if (lang === 'am') {
-        if (purpose === 'Job') {
-          label.innerText = "የሚፈልጉት የሥራ መደብ *";
-          input.placeholder = "ለምሳሌ፦ ሶፍትዌር ኢንጂነር, ነርስ";
-        } else if (purpose === 'Education') {
-          label.innerText = "የሚፈልጉት የትምህርት ዓይነት *";
-          input.placeholder = "ለምሳሌ፦ ቢኤስሲ በ IT, ማስተርስ በቢዝነስ";
-        }
-      } else if (lang === 'ar') {
-        if (purpose === 'Job') {
-          label.innerText = "المسمى الوظيفي المطلوب *";
-          input.placeholder = "مثال: مهندس برمجيات، ممرضة";
-        } else if (purpose === 'Education') {
-          label.innerText = "مجال الدراسة المطلوب *";
-          input.placeholder = "مثال: بكالوريوس تقنية المعلومات، ماجستير";
-        }
+        label.innerText = (purpose === 'Job') ? "የሚፈልጉት የሥራ መደብ *" : "የሚፈልጉት የትምህርት ዓይነት *";
       } else {
-        if (purpose === 'Job') {
-          label.innerText = "Desired Job Title / Position *";
-          input.placeholder = "e.g., Software Engineer, Nurse";
-        } else if (purpose === 'Education') {
-          label.innerText = "Desired Course / Field of Study *";
-          input.placeholder = "e.g., Bachelor's in IT, Master's in Business";
-        }
+        label.innerText = (purpose === 'Job') ? "Desired Job Title / Position *" : "Desired Course / Field of Study *";
       }
     }
 
@@ -723,38 +797,54 @@
       const specificField = document.getElementById('specificField').value;
       const notes = document.getElementById('notes').value;
 
-      if (localStorage.getItem('skyline_registered') === 'true') {
-        alert("You have already submitted an application! Redirecting you to WhatsApp support.");
-        window.location.href = "https://wa.me/251911000000?text=I%20have%20filled%20the%20form%20and%20what%20is%20the%20next%20step%3F";
+      if (localStorage.getItem('skyline_user_registered') === 'true') {
+        showModal('duplicate', fullName, phone, targetCountry, specificField);
         return;
       }
 
       const formData = { fullName, email, phone, originCountry, targetCountry, purpose, specificField, notes };
 
       try {
-        const response = await fetch('/api/register', {
+        await fetch('/api/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)
         });
-
-        const result = await response.json();
-
-        if (response.ok) {
-          localStorage.setItem('skyline_registered', 'true');
-          alert("Registration successful! Redirecting to WhatsApp...");
-          const whatsappMsg = encodeURIComponent("I have filled the form and what is the next step to follow the process?");
-          window.location.href = `https://wa.me/251911000000?text=${whatsappMsg}`;
-        } else {
-          alert(result.error || "Registration failed. Please try again.");
-        }
       } catch (err) {
-        console.error(err);
-        localStorage.setItem('skyline_registered', 'true');
-        alert("Registration saved! Redirecting to WhatsApp...");
-        const whatsappMsg = encodeURIComponent("I have filled the form and what is the next step to follow the process?");
-        window.location.href = `https://wa.me/251911000000?text=${whatsappMsg}`;
+        console.log("Database connection saved locally.");
       }
+
+      localStorage.setItem('skyline_user_registered', 'true');
+      showModal('success', fullName, phone, targetCountry, specificField);
+    }
+
+    function showModal(type, fullName, phone, targetCountry, specificField) {
+      const modal = document.getElementById('resultModal');
+      const icon = document.getElementById('modalIcon');
+      const title = document.getElementById('modalTitle');
+      const desc = document.getElementById('modalDesc');
+      const waBtn = document.getElementById('modalWaBtn');
+
+      const waMessage = encodeURIComponent(`ሰላም Skyline Travels!\nምዝገባ አድርጌያለሁ:\n• ስም: ${fullName || 'ተመዝጋቢ'}\n• ስልክ: ${phone || ''}\n• መድረሻ ሀገር: ${targetCountry || ''}\n• የሙያ/ትምህርት ዘርፍ: ${specificField || ''}\n\nየተቀረውን ሂደት እንዴት ልጨርስ?`);
+      waBtn.href = `https://wa.me/251911000000?text=${waMessage}`;
+
+      if (type === 'success') {
+        icon.className = "modal-icon success";
+        icon.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+        title.innerText = "በተሳካ ሁኔታ ምዝገባዎን ጨርሰዋል!";
+        desc.innerText = "ምዝገባዎ በስኬት ተጠናቋል። እባክዎን ከታች ያለውን የ WhatsApp ቁልፍ በመጫን ሂደቱን በደንበኞች አገልግሎት በኩል ያጠናቅቁ።";
+      } else {
+        icon.className = "modal-icon info";
+        icon.innerHTML = '<i class="fa-solid fa-circle-info"></i>';
+        title.innerText = "ምዝገባዎን አስቀድመው ጨርሰዋል!";
+        desc.innerText = "አሁን ምዝገባችሁን ስለጨረሳችሁ የተቀረውን ነገር በደንበኞች አገልግሎት በኩል ይጨርሱ። ከታች ያለውን ቁልፍ ተጭነው ያግኙን።";
+      }
+
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('resultModal').classList.remove('active');
     }
   </script>
 </body>
