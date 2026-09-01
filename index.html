@@ -23,7 +23,7 @@
     .top-bar {
       background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%);
       color: #f8fafc;
-      padding: 15px 5%;
+      padding: 12px 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -110,7 +110,7 @@
     }
 
     .hero {
-      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1200') center/cover no-repeat;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.88)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1200') center/cover no-repeat;
       color: #fff;
       text-align: center;
       padding: 80px 20px;
@@ -151,7 +151,7 @@
 
     .jobs-section {
       max-width: 1200px;
-      margin: 40px auto;
+      margin: 50px auto;
       padding: 0 20px;
     }
 
@@ -160,6 +160,7 @@
       font-size: 28px;
       margin-bottom: 35px;
       color: #0f172a;
+      font-weight: 800;
     }
 
     .jobs-grid {
@@ -193,6 +194,7 @@
       font-size: 18px;
       color: #0f172a;
       margin-bottom: 8px;
+      font-weight: 700;
     }
 
     .job-card p {
@@ -221,6 +223,11 @@
       padding: 14px;
       font-weight: 700;
       font-size: 14px;
+      transition: background 0.3s;
+    }
+
+    .btn-apply:hover {
+      background: #1d4ed8;
     }
 
     .application-container {
@@ -356,7 +363,8 @@
     <nav id="navMenu">
       <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
       <a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
-      <a href="index.html#application-form"><i class="fa-solid fa-envelope"></i> Contact</a>
+      <a href="#application-form"><i class="fa-solid fa-envelope"></i> Register</a>
+      <a href="#jobs-section"><i class="fa-solid fa-briefcase"></i> Jobs</a>
     </nav>
   </header>
 
@@ -367,6 +375,42 @@
       <i class="fa-brands fa-whatsapp"></i> Customer Support WhatsApp: <a href="https://wa.me/251900000000" target="_blank" id="whatsappLink">+251 900 000 000</a>
     </div>
   </section>
+
+  <!-- Jobs Section with Images -->
+  <div id="jobs-section" class="jobs-section">
+    <h2>Featured Global Opportunities</h2>
+    <div class="jobs-grid">
+      <div class="job-card">
+        <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=600" alt="Farm Worker" class="job-img">
+        <div class="job-content">
+          <span class="job-tag">Agriculture / Europe</span>
+          <h3>Modern Agricultural & Farm Work</h3>
+          <p>Verified seasonal and permanent agricultural positions with housing and benefits included.</p>
+        </div>
+        <a href="#application-form" class="btn-apply">Apply Now</a>
+      </div>
+
+      <div class="job-card">
+        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=600" alt="Healthcare" class="job-img">
+        <div class="job-content">
+          <span class="job-tag">Healthcare / Canada & UK</span>
+          <h3>Healthcare & Nursing Assistance</h3>
+          <p>Professional placement opportunities for nurses, caregivers, and medical support staff.</p>
+        </div>
+        <a href="#application-form" class="btn-apply">Apply Now</a>
+      </div>
+
+      <div class="job-card">
+        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=600" alt="Logistics" class="job-img">
+        <div class="job-content">
+          <span class="job-tag">Logistics / Middle East & Europe</span>
+          <h3>Skilled Labor & Warehouse Logistics</h3>
+          <p>Warehouse operations, packaging, supply chain, and general labor career opportunities.</p>
+        </div>
+        <a href="#application-form" class="btn-apply">Apply Now</a>
+      </div>
+    </div>
+  </div>
 
   <!-- Application Form Section -->
   <div id="application-form" class="application-container">
