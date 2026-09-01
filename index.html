@@ -365,7 +365,22 @@
       font-size: 14px;
     }
 
-    /* Mobile Responsive Setup */
+    /* Locked State Styling */
+    .locked-state {
+      text-align: center;
+      padding: 30px 10px;
+    }
+    .locked-state h2 {
+      color: #ffffff;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .locked-state p {
+      color: #94a3b8;
+      font-size: 15px;
+      margin-bottom: 25px;
+    }
+
     @media (max-width: 768px) {
       .nav-links {
         display: none;
@@ -416,7 +431,7 @@
     </div>
     <ul class="nav-links" id="navLinks">
       <li><a onclick="switchView('home')" id="navHome" class="active">Home</a></li>
-      <li><a onclick="switchView('home', 'registrationForm')" id="navRegister">Register</a></li>
+      <li><a onclick="switchView('home', 'registrationSection')" id="navRegister">Register</a></li>
       <li><a onclick="switchView('home', 'jobsContainer')" id="navJobs">Jobs</a></li>
       <li><a onclick="switchView('about')" id="navAbout">About Us</a></li>
       <li><a onclick="switchView('contact')" id="navContact">Contact</a></li>
@@ -438,7 +453,7 @@
       </div>
 
       <div class="hero-buttons">
-        <a onclick="scrollToElement('registrationForm')" class="primary-btn" id="btnApplyHero" style="cursor: pointer;">Apply Now ↓</a>
+        <a onclick="scrollToElement('registrationSection')" class="primary-btn" id="btnApplyHero" style="cursor: pointer;">Apply Now ↓</a>
         <a onclick="scrollToElement('jobsContainer')" class="outline-btn" id="btnViewJobs" style="cursor: pointer;">View Opportunities ↓</a>
       </div>
     </section>
@@ -447,9 +462,11 @@
       <h2 class="section-title" id="jobsTitle">Featured Global Job & Education Opportunities</h2>
       <div class="jobs-grid" id="jobsContainer"></div>
 
-      <div class="form-section" id="registrationForm">
-        <h2 class="section-title" id="formTitle" style="font-size: 22px; margin-bottom: 20px;">Application & Registration Form</h2>
-        <form onsubmit="handleRegistration(event)">
+      <div class="form-section" id="registrationSection">
+        
+        <!-- ACTIVE FORM -->
+        <form id="mainRegistrationForm" onsubmit="handleRegistration(event)">
+          <h2 class="section-title" id="formTitle" style="font-size: 22px; margin-bottom: 20px;">Application & Registration Form</h2>
           <div class="form-grid">
             <div class="form-group">
               <label id="labelName">Full Name *</label>
@@ -501,6 +518,17 @@
           </div>
           <button type="submit" class="submit-btn" id="submitBtnText">Submit Application</button>
         </form>
+
+        <!-- LOCKED STATE MESSAGE (Hidden by default) -->
+        <div id="lockedStateMessage" class="locked-state" style="display: none;">
+          <i class="fa-solid fa-circle-check" style="font-size: 60px; color: #22c55e; margin-bottom: 20px;"></i>
+          <h2>Registration Successful!</h2>
+          <p>You have already submitted your application. Please proceed via WhatsApp to complete your process.</p>
+          <a href="https://wa.me/251911000000?text=Hello%20Skyline%20Travels,%20I%20have%20already%20registered%20on%20your%20website.%20How%20do%20I%20complete%20the%20process?" class="whatsapp-big-btn" target="_blank" style="display: inline-flex; max-width: 300px; margin: 0 auto;">
+            <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+          </a>
+        </div>
+
       </div>
     </div>
   </div>
@@ -545,6 +573,16 @@
   </footer>
 
   <script>
+    // FORM LOCKING LOGIC
+    function checkRegistrationState() {
+      if (localStorage.getItem('skyline_user_registered') === 'true') {
+        document.getElementById('mainRegistrationForm').style.display = 'none';
+        document.getElementById('lockedStateMessage').style.display = 'block';
+      }
+    }
+    // Run immediately on page load
+    window.onload = checkRegistrationState;
+
     function toggleMenu() {
       const nav = document.getElementById('navLinks');
       nav.classList.toggle('active');
@@ -669,7 +707,6 @@
       originSelect.appendChild(option);
     });
 
-    /* FULL 32 JOBS LIST */
     const jobs = [
       { title: "Registered Nurse - Canada", loc: "Toronto, Canada", img: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=400" },
       { title: "Software Engineer - Germany", loc: "Berlin, Germany", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400" },
@@ -721,9 +758,13 @@
     });
 
     function selectJobAndScroll(jobTitle) {
+      if (localStorage.getItem('skyline_user_registered') === 'true') {
+        scrollToElement('registrationSection');
+        return;
+      }
       document.getElementById('purpose').value = "Job";
       document.getElementById('specificField').value = jobTitle;
-      scrollToElement('registrationForm');
+      scrollToElement('registrationSection');
     }
 
     function updateSpecificFieldLabel() {
@@ -755,34 +796,30 @@
       document.getElementById('btnViewJobs').innerText = t.btnView;
       
       document.getElementById('jobsTitle').innerText = t.jobsTitle;
-      document.getElementById('formTitle').innerText = t.formTitle;
-
-      document.getElementById('labelName').innerText = t.labelName;
-      document.getElementById('fullName').placeholder = t.placeholderName;
-
-      document.getElementById('labelEmail').innerText = t.labelEmail;
-      document.getElementById('email').placeholder = t.placeholderEmail;
-
-      document.getElementById('labelPhone').innerText = t.labelPhone;
-      document.getElementById('phone').placeholder = t.placeholderPhone;
-
-      document.getElementById('labelOrigin').innerText = t.labelOrigin;
-      document.getElementById('defaultOriginOption').innerText = t.selectOrigin;
-
-      document.getElementById('labelTarget').innerText = t.labelTarget;
-      document.getElementById('defaultTargetOption').innerText = t.selectTarget;
-
-      document.getElementById('labelPurpose').innerText = t.labelPurpose;
-      document.getElementById('defaultPurposeOption').innerText = t.selectPurpose;
-      document.getElementById('optJob').innerText = t.purposeJob;
-      document.getElementById('optEdu').innerText = t.purposeEdu;
-
-      document.getElementById('labelSpecificField').innerText = t.labelSpecificField;
-      document.getElementById('specificField').placeholder = t.placeholderSpecificField;
-
-      document.getElementById('labelNotes').innerText = t.labelNotes;
-      document.getElementById('notes').placeholder = t.placeholderNotes;
-      document.getElementById('submitBtnText').innerText = t.submitBtn;
+      
+      // Update form texts only if it's not locked
+      if (document.getElementById('mainRegistrationForm').style.display !== 'none') {
+        document.getElementById('formTitle').innerText = t.formTitle;
+        document.getElementById('labelName').innerText = t.labelName;
+        document.getElementById('fullName').placeholder = t.placeholderName;
+        document.getElementById('labelEmail').innerText = t.labelEmail;
+        document.getElementById('email').placeholder = t.placeholderEmail;
+        document.getElementById('labelPhone').innerText = t.labelPhone;
+        document.getElementById('phone').placeholder = t.placeholderPhone;
+        document.getElementById('labelOrigin').innerText = t.labelOrigin;
+        document.getElementById('defaultOriginOption').innerText = t.selectOrigin;
+        document.getElementById('labelTarget').innerText = t.labelTarget;
+        document.getElementById('defaultTargetOption').innerText = t.selectTarget;
+        document.getElementById('labelPurpose').innerText = t.labelPurpose;
+        document.getElementById('defaultPurposeOption').innerText = t.selectPurpose;
+        document.getElementById('optJob').innerText = t.purposeJob;
+        document.getElementById('optEdu').innerText = t.purposeEdu;
+        document.getElementById('labelSpecificField').innerText = t.labelSpecificField;
+        document.getElementById('specificField').placeholder = t.placeholderSpecificField;
+        document.getElementById('labelNotes').innerText = t.labelNotes;
+        document.getElementById('notes').placeholder = t.placeholderNotes;
+        document.getElementById('submitBtnText').innerText = t.submitBtn;
+      }
     }
 
     async function handleRegistration(event) {
@@ -814,7 +851,13 @@
         console.log("Database connection saved locally.");
       }
 
+      // Mark user as registered
       localStorage.setItem('skyline_user_registered', 'true');
+      
+      // Lock the form UI
+      checkRegistrationState();
+      
+      // Show English Popup
       showModal('success', fullName, phone, targetCountry, specificField);
     }
 
@@ -825,19 +868,19 @@
       const desc = document.getElementById('modalDesc');
       const waBtn = document.getElementById('modalWaBtn');
 
-      const waMessage = encodeURIComponent(`ሰላም Skyline Travels!\nምዝገባ አድርጌያለሁ:\n• ስም: ${fullName || 'ተመዝጋቢ'}\n• ስልክ: ${phone || ''}\n• መድረሻ ሀገር: ${targetCountry || ''}\n• የሙያ/ትምህርት ዘርፍ: ${specificField || ''}\n\nየተቀረውን ሂደት እንዴት ልጨርስ?`);
+      const waMessage = encodeURIComponent(`Hello Skyline Travels!\nI have registered:\n• Name: ${fullName || 'Applicant'}\n• Phone: ${phone || ''}\n• Destination: ${targetCountry || ''}\n• Field: ${specificField || ''}\n\nHow do I complete the rest of the process?`);
       waBtn.href = `https://wa.me/251911000000?text=${waMessage}`;
 
       if (type === 'success') {
         icon.className = "modal-icon success";
         icon.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
-        title.innerText = "በተሳካ ሁኔታ ምዝገባዎን ጨርሰዋል!";
-        desc.innerText = "ምዝገባዎ በስኬት ተጠናቋል። እባክዎን ከታች ያለውን የ WhatsApp ቁልፍ በመጫን ሂደቱን በደንበኞች አገልግሎት በኩል ያጠናቅቁ።";
+        title.innerText = "Registration Successful!";
+        desc.innerText = "Your registration has been completed successfully. Please click the WhatsApp button below to finalize the process with our customer service.";
       } else {
         icon.className = "modal-icon info";
         icon.innerHTML = '<i class="fa-solid fa-circle-info"></i>';
-        title.innerText = "ምዝገባዎን አስቀድመው ጨርሰዋል!";
-        desc.innerText = "አሁን ምዝገባችሁን ስለጨረሳችሁ የተቀረውን ነገር በደንበኞች አገልግሎት በኩል ይጨርሱ። ከታች ያለውን ቁልፍ ተጭነው ያግኙን።";
+        title.innerText = "You Have Already Registered!";
+        desc.innerText = "Since you have already completed your registration, please finish the remaining steps via customer service. Click the button below to contact us.";
       }
 
       modal.classList.add('active');
