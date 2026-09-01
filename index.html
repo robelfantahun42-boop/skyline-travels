@@ -150,14 +150,14 @@
     }
 
     .jobs-section {
-      max-width: 1200px;
+      max-width: 1300px;
       margin: 50px auto;
       padding: 0 20px;
     }
 
     .jobs-section h2 {
       text-align: center;
-      font-size: 28px;
+      font-size: 30px;
       margin-bottom: 35px;
       color: #0f172a;
       font-weight: 800;
@@ -165,7 +165,7 @@
 
     .jobs-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 25px;
     }
 
@@ -178,11 +178,16 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      transition: transform 0.3s ease;
+    }
+
+    .job-card:hover {
+      transform: translateY(-5px);
     }
 
     .job-img {
       width: 100%;
-      height: 180px;
+      height: 170px;
       object-fit: cover;
     }
 
@@ -191,14 +196,14 @@
     }
 
     .job-card h3 {
-      font-size: 18px;
+      font-size: 17px;
       color: #0f172a;
       margin-bottom: 8px;
       font-weight: 700;
     }
 
     .job-card p {
-      font-size: 14px;
+      font-size: 13px;
       color: #64748b;
       margin-bottom: 15px;
     }
@@ -207,11 +212,11 @@
       display: inline-block;
       background: #dbeafe;
       color: #1e40af;
-      padding: 5px 12px;
-      border-radius: 8px;
-      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .btn-apply {
@@ -220,7 +225,7 @@
       background: #2563eb;
       color: white;
       text-decoration: none;
-      padding: 14px;
+      padding: 12px;
       font-weight: 700;
       font-size: 14px;
       transition: background 0.3s;
@@ -364,7 +369,7 @@
       <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
       <a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
       <a href="#application-form"><i class="fa-solid fa-envelope"></i> Register</a>
-      <a href="#jobs-section"><i class="fa-solid fa-briefcase"></i> Jobs</a>
+      <a href="#jobs-section"><i class="fa-solid fa-briefcase"></i> Jobs (30)</a>
     </nav>
   </header>
 
@@ -376,39 +381,11 @@
     </div>
   </section>
 
-  <!-- Jobs Section with Images -->
+  <!-- Jobs Section with 30 Photos and Opportunities -->
   <div id="jobs-section" class="jobs-section">
-    <h2>Featured Global Opportunities</h2>
-    <div class="jobs-grid">
-      <div class="job-card">
-        <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=600" alt="Farm Worker" class="job-img">
-        <div class="job-content">
-          <span class="job-tag">Agriculture / Europe</span>
-          <h3>Modern Agricultural & Farm Work</h3>
-          <p>Verified seasonal and permanent agricultural positions with housing and benefits included.</p>
-        </div>
-        <a href="#application-form" class="btn-apply">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=600" alt="Healthcare" class="job-img">
-        <div class="job-content">
-          <span class="job-tag">Healthcare / Canada & UK</span>
-          <h3>Healthcare & Nursing Assistance</h3>
-          <p>Professional placement opportunities for nurses, caregivers, and medical support staff.</p>
-        </div>
-        <a href="#application-form" class="btn-apply">Apply Now</a>
-      </div>
-
-      <div class="job-card">
-        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=600" alt="Logistics" class="job-img">
-        <div class="job-content">
-          <span class="job-tag">Logistics / Middle East & Europe</span>
-          <h3>Skilled Labor & Warehouse Logistics</h3>
-          <p>Warehouse operations, packaging, supply chain, and general labor career opportunities.</p>
-        </div>
-        <a href="#application-form" class="btn-apply">Apply Now</a>
-      </div>
+    <h2>Featured 30 Global Job & Education Opportunities</h2>
+    <div class="jobs-grid" id="jobsGridContainer">
+      <!-- 30 Jobs will be rendered dynamically via JavaScript -->
     </div>
   </div>
 
@@ -513,6 +490,56 @@
         navMenu.classList.toggle('active');
       });
     }
+
+    // 30 Job Data Array with Individual Images
+    const jobsData = [
+      { title: "Modern Agricultural & Farm Work", tag: "Agriculture / Europe", desc: "Verified seasonal and permanent agricultural positions with housing included.", img: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=600" },
+      { title: "Healthcare & Nursing Assistance", tag: "Healthcare / Canada", desc: "Professional placement opportunities for nurses and medical support staff.", img: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=600" },
+      { title: "Skilled Labor & Warehouse Logistics", tag: "Logistics / UK", desc: "Warehouse operations, packaging, supply chain, and general career roles.", img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=600" },
+      { title: "Master’s Degree Full Scholarship", tag: "Education / Germany", desc: "Fully funded graduate programs across multiple technical and science faculties.", img: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600" },
+      { title: "Vocational Training (Ausbildung)", tag: "Education / Germany", desc: "Earn while you learn technical and trade skills with guaranteed employment.", img: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600" },
+      { title: "Hospitality & Hotel Management", tag: "Tourism / Australia", desc: "Front desk, culinary arts, and resort management positions in top hotels.", img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=600" },
+      { title: "Software Engineering & IT Roles", tag: "Technology / USA", desc: "Remote and on-site full-stack development and IT infrastructure roles.", img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600" },
+      { title: "Construction & Civil Engineering", tag: "Engineering / Middle East", desc: "Project managers, site supervisors, and specialized construction workers.", img: "https://images.unsplash.com/photo-1541888946425-d0fbb18f1f7d?q=80&w=600" },
+      { title: "Marine & Fisheries Work", tag: "Maritime / Europe", desc: "Seafood processing and maritime logistics personnel wanted for seasonal contracts.", img: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=600" },
+      { title: "Culinary Arts & Chef Positions", tag: "Hospitality / Canada", desc: "Experienced international chefs and kitchen assistants for restaurants.", img: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=600" },
+      { title: "Automotive Mechanics & Technicians", tag: "Engineering / Germany", desc: "Vehicle assembly, repair, and diagnostic technicians needed.", img: "https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=600" },
+      { title: "Aviation Ground Crew & Logistics", tag: "Aviation / UAE", desc: "Airport baggage handling, passenger assistance, and cargo operations.", img: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=600" },
+      { title: "Renewable Energy Installation", tag: "Green Energy / Europe", desc: "Solar panel and wind turbine installation technicians and support crew.", img: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=600" },
+      { title: "Early Childhood Education & Teaching", tag: "Education / UK", desc: "Certified kindergarten teachers and assistant educators wanted.", img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=600" },
+      { title: "Mining & Geological Technicians", tag: "Resources / Australia", desc: "Field operations and mineral processing support workers.", img: "https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?q=80&w=600" },
+      { title: "Food Processing & Quality Control", tag: "Manufacturing / Canada", desc: "Packaging operators and food safety inspection personnel.", img: "https://images.unsplash.com/photo-1584744982491-665216d95f8b?q=80&w=600" },
+      { title: "Electricians & Wiring Specialists", tag: "Trades / Europe", desc: "Licensed commercial and residential electrical contractors.", img: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=600" },
+      { title: "Plumbing & Pipefitting Experts", tag: "Trades / USA", desc: "Industrial and residential plumbing installation specialists.", img: "https://images.unsplash.com/photo-1542013936693-843d5ba2634d?q=80&w=600" },
+      { title: "Customer Support & Remote Call Center", tag: "Remote / Global", desc: "Multilingual customer service representatives for global brands.", img: "https://images.unsplash.com/photo-1534536281715-e28d76689b4d?q=80&w=600" },
+      { title: "Digital Marketing & Content Specialists", tag: "Remote / Europe", desc: "Social media managers and content creators for digital agencies.", img: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?q=80&w=600" },
+      { title: "Accounting & Financial Assistants", tag: "Finance / Canada", desc: "Bookkeepers and junior financial analysts for corporate firms.", img: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600" },
+      { title: "Security & Facility Management", tag: "Security / UK", desc: "Commercial building safety personnel and supervisors.", img: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=600" },
+      { title: "Veterinary & Animal Care Assistants", tag: "Agriculture / Australia", desc: "Livestock management and veterinary clinic support workers.", img: "https://images.unsplash.com/photo-1548767797-d8c844163c4c?q=80&w=600" },
+      { title: "Textile & Garment Production Leads", tag: "Manufacturing / Asia", desc: "Quality inspectors and production line supervisors.", img: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=600" },
+      { title: "Commercial Truck Drivers (Class A/CDL)", tag: "Logistics / USA", desc: "Long-haul freight and distribution delivery drivers.", img: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=600" },
+      { title: "Pharmacy & Laboratory Technicians", tag: "Healthcare / Europe", desc: "Medical testing and pharmaceutical packaging assistants.", img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=600" },
+      { title: "Architecture & CAD Design Staff", tag: "Design / UAE", desc: "Drafting technicians and architectural design assistants.", img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=600" },
+      { title: "Cleaning & Environmental Services", tag: "Hospitality / Canada", desc: "Commercial facility sanitation and housekeeping management.", img: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=600" },
+      { title: "Sports Coaching & Recreation Leaders", tag: "Education / Australia", desc: "Youth sports trainers and fitness facility instructors.", img: "https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=600" },
+      { title: "Research & Development Internships", tag: "Science / Germany", desc: "University graduate research placements and scientific assistants.", img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=600" }
+    ];
+
+    const gridContainer = document.getElementById('jobsGridContainer');
+    jobsData.forEach(job => {
+      const card = document.createElement('div');
+      card.className = 'job-card';
+      card.innerHTML = `
+        <img src="${job.img}" alt="${job.title}" class="job-img">
+        <div class="job-content">
+          <span class="job-tag">${job.tag}</span>
+          <h3>${job.title}</h3>
+          <p>${job.desc}</p>
+        </div>
+        <a href="#application-form" class="btn-apply">Apply Now</a>
+      `;
+      gridContainer.appendChild(card);
+    });
 
     // Purpose Dropdown Toggle Script
     function togglePurposeDetails() {
