@@ -23,6 +23,16 @@ app.get('/about.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'about.html'));
 });
 
+// Explicit route for the Admin Dashboard (አዲሱ የተጨመረው ማስተካከያ)
+app.get('/admin.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin.html'));
+});
+
+// '/admin' ብለው ብቻ ቢጽፉም እንዲከፍት ያደርጋል
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin.html'));
+});
+
 // API endpoint to get all registrations
 app.get('/api/registrations', (req, res) => {
   if (!fs.existsSync(DB_FILE)) {
