@@ -8,12 +8,12 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// **ይህንን መስመር ማካተት በቂ ነው፦ ሁሉንም የስታቲክ ፋይሎች (HTML, CSS, JS) እንዲያነብ ያደርጋል**
+// Serve all static files (HTML, CSS, JS, Images) from the root directory
 app.use(express.static(path.join(__dirname)));
 
 const DB_FILE = path.join(__dirname, 'database.json');
 
-// Existing API endpoints (ምንም አልተነኩም)
+// API endpoint to get all registrations
 app.get('/api/registrations', (req, res) => {
   if (!fs.existsSync(DB_FILE)) {
     return res.json([]);
@@ -26,6 +26,7 @@ app.get('/api/registrations', (req, res) => {
   }
 });
 
+// API endpoint to handle new registrations
 app.post('/api/register', (req, res) => {
   let registrations = [];
   if (fs.existsSync(DB_FILE)) {
