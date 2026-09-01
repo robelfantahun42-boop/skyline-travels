@@ -17,6 +17,7 @@
       background-color: #f8fafc;
       color: #1e293b;
       overflow-x: hidden;
+      scroll-behavior: smooth;
     }
 
     /* Top Bar */
@@ -35,12 +36,6 @@
       display: flex;
       align-items: center;
       gap: 15px;
-    }
-
-    .top-info a {
-      color: #25d366;
-      text-decoration: none;
-      font-weight: 600;
     }
 
     /* Language Selector */
@@ -131,6 +126,9 @@
       color: #334155;
       font-weight: 600;
       font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     nav a:hover {
@@ -166,7 +164,7 @@
       border-radius: 12px;
       padding: 12px 20px;
       display: inline-block;
-      margin-top: 10px;
+      margin-bottom: 15px;
       color: #ffffff;
       font-weight: 600;
     }
@@ -174,6 +172,29 @@
     .whatsapp-display-box a {
       color: #25d366;
       text-decoration: none;
+    }
+
+    /* Hero Register Button */
+    .hero-register-btn-container {
+      margin-top: 10px;
+    }
+
+    .btn-hero-register {
+      display: inline-block;
+      background: #2563eb;
+      color: #ffffff;
+      padding: 14px 35px;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-hero-register:hover {
+      background: #1d4ed8;
+      transform: translateY(-2px);
     }
 
     /* Jobs Section */
@@ -263,6 +284,68 @@
       background: #1d4ed8;
     }
 
+    /* Application Section Form */
+    .application-container {
+      max-width: 700px;
+      margin: 60px auto 20px auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      border: 1px solid #e2e8f0;
+    }
+
+    .application-container h2 {
+      text-align: center;
+      color: #0f172a;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #334155;
+      font-size: 14px;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: #2563eb;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 10px;
+    }
+
+    .btn-submit:hover {
+      background: #1d4ed8;
+    }
+
     /* Footer */
     footer {
       background: #0f172a;
@@ -290,7 +373,7 @@
     </div>
   </div>
 
-  <!-- Header (Admin removed) -->
+  <!-- Header with Menu (Register included) -->
   <header>
     <a href="index.html" class="logo">Skyline <span>Travels</span></a>
     <button class="menu-btn" id="menuBtn">
@@ -298,18 +381,23 @@
     </button>
     <nav id="navMenu">
       <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
-      <a href="register.html"><i class="fa-solid fa-user-plus"></i> Register</a>
+      <a href="#application-form"><i class="fa-solid fa-user-plus"></i> Register</a>
       <a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
       <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
     </nav>
   </header>
 
-  <!-- Hero Section with WhatsApp Info -->
+  <!-- Hero Section with WhatsApp and Register Button -->
   <section class="hero">
     <h1>Your Gateway to Global Opportunities</h1>
     <p>Explore verified international job vacancies and educational consultancy placements.</p>
+    
     <div class="whatsapp-display-box">
       <i class="fa-brands fa-whatsapp"></i> Contact via WhatsApp: <a href="https://wa.me/251900000000" target="_blank" id="whatsappLink">+251 900 000 000</a>
+    </div>
+
+    <div class="hero-register-btn-container">
+      <a href="#application-form" class="btn-hero-register"><i class="fa-solid fa-user-plus"></i> Register Now</a>
     </div>
   </section>
 
@@ -328,7 +416,7 @@
             <p>Agricultural opportunities with work permit and accommodation support.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('Farm Worker Positions')">Apply Now</a>
       </div>
 
       <!-- 2 -->
@@ -341,7 +429,7 @@
             <p>Registered nurse and healthcare assistant roles available in hospitals.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('Healthcare & Nursing Jobs')">Apply Now</a>
       </div>
 
       <!-- 3 -->
@@ -354,7 +442,7 @@
             <p>Warehouse, packaging, and driving positions across major logistics hubs.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('Skilled Labor & Logistics')">Apply Now</a>
       </div>
 
       <!-- 4 -->
@@ -367,7 +455,7 @@
             <p>Tech positions for developers with relocation sponsorship packages.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('IT & Software Engineering')">Apply Now</a>
       </div>
 
       <!-- 5 -->
@@ -380,7 +468,7 @@
             <p>Waiters, chefs, and front desk personnel needed for luxury hotels.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('Hospitality & Hotel Staff')">Apply Now</a>
       </div>
 
       <!-- 6 -->
@@ -393,7 +481,7 @@
             <p>Elderly care positions with full training and visa sponsorship.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('Caregiver & Social Work')">Apply Now</a>
       </div>
 
       <!-- 7 -->
@@ -406,7 +494,7 @@
             <p>Experienced builders and carpenters required for urban development projects.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('Construction & Carpentry')">Apply Now</a>
       </div>
 
       <!-- 8 -->
@@ -419,7 +507,7 @@
             <p>Assistant language teachers and corporate trainers for schools.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('English Teaching & Education')">Apply Now</a>
       </div>
 
       <!-- 9 -->
@@ -432,7 +520,7 @@
             <p>Assembly line and quality control operators in modern industrial plants.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('Manufacturing & Factory Jobs')">Apply Now</a>
       </div>
 
       <!-- 10 -->
@@ -445,7 +533,7 @@
             <p>Full tuition and living stipend scholarships for international students.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('Master’s Degree Scholarship')">Apply Now</a>
       </div>
 
       <!-- 11 -->
@@ -458,7 +546,7 @@
             <p>Civil and mechanical engineering jobs with top Scandinavian firms.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('Engineering Consultancy Roles')">Apply Now</a>
       </div>
 
       <!-- 12 -->
@@ -471,7 +559,7 @@
             <p>Multilingual customer support roles in international corporations.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('Customer Service Representatives')">Apply Now</a>
       </div>
 
       <!-- 13 -->
@@ -484,7 +572,7 @@
             <p>Dairy and crop farm supervisors needed with competitive salaries.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('Agricultural Farm Management')">Apply Now</a>
       </div>
 
       <!-- 14 -->
@@ -497,7 +585,7 @@
             <p>Paid technical training programs leading to permanent residency.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('Vocational Training (Ausbildung)')">Apply Now</a>
       </div>
 
       <!-- 15 -->
@@ -510,7 +598,7 @@
             <p>Cooks, bakers, and kitchen assistants for booming food sectors.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('Restaurant & Culinary Staff')">Apply Now</a>
       </div>
 
       <!-- 16 -->
@@ -523,7 +611,7 @@
             <p>Airport operations, baggage handlers, and customer service staff.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('Aviation & Ground Crew')">Apply Now</a>
       </div>
 
       <!-- 17 -->
@@ -536,7 +624,7 @@
             <p>Hotel management positions in Paris and regional tourist centers.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('Hospitality Management Roles')">Apply Now</a>
       </div>
 
       <!-- 18 -->
@@ -549,7 +637,7 @@
             <p>Affordable university degrees taught in English with work rights.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('Bachelor’s Study Programs')">Apply Now</a>
       </div>
 
       <!-- 19 -->
@@ -562,7 +650,7 @@
             <p>International long-haul driving positions for certified license holders.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('Transport & Truck Driving')">Apply Now</a>
       </div>
 
       <!-- 20 -->
@@ -575,7 +663,7 @@
             <p>Electronics assembly and factory worker opportunities.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('Manufacturing & Tech Assembly')">Apply Now</a>
       </div>
 
       <!-- 21 -->
@@ -588,7 +676,7 @@
             <p>Tour guides and hospitality assistants for historic regional sites.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('Tourism & Guide Services')">Apply Now</a>
       </div>
 
       <!-- 22 -->
@@ -601,7 +689,7 @@
             <p>Work-from-home social media and digital content specialist roles.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('Remote Digital Marketing Jobs')">Apply Now</a>
       </div>
 
       <!-- 23 -->
@@ -614,11 +702,39 @@
             <p>Seafood processing and maritime logistics personnel wanted.</p>
           </div>
         </div>
-        <a href="register.html" class="btn-apply">Apply Now</a>
+        <a href="#application-form" class="btn-apply" onclick="selectPosition('Marine & Fisheries Work')">Apply Now</a>
       </div>
 
     </div>
   </section>
+
+  <!-- Application Form Section (Placed at the bottom of Homepage) -->
+  <div id="application-form" class="application-container">
+    <h2>Job & Opportunity Application Form</h2>
+    <form id="applyForm">
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required placeholder="Enter your email">
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="text" id="phone" name="phone" required placeholder="Enter your phone number">
+      </div>
+      <div class="form-group">
+        <label for="selectedJob">Selected Position / Opportunity</label>
+        <input type="text" id="selectedJob" name="selectedJob" readonly placeholder="Click 'Apply Now' on any card above">
+      </div>
+      <div class="form-group">
+        <label for="message">Additional Notes / Cover Message</label>
+        <textarea id="message" name="message" rows="4" placeholder="Write any additional details..."></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Submit Application</button>
+    </form>
+  </div>
 
   <!-- Footer -->
   <footer>
@@ -631,6 +747,28 @@
     const navMenu = document.getElementById('navMenu');
     menuBtn.addEventListener('click', () => {
       navMenu.classList.toggle('active');
+    });
+
+    // Close menu when clicking a nav link
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+      });
+    });
+
+    // Function to auto-select the job position when 'Apply Now' is clicked
+    function selectPosition(jobTitle) {
+      const jobInput = document.getElementById('selectedJob');
+      if (jobInput) {
+        jobInput.value = jobTitle;
+      }
+    }
+
+    // Handle form submission
+    document.getElementById('applyForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      alert('Application submitted successfully! We will contact you soon.');
+      e.target.reset();
     });
 
     // Fetch dynamic WhatsApp settings
