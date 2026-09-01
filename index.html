@@ -5,7 +5,217 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Skyline Travels & Educational Consultancy</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Integrated Styles to Prevent Any Design Loss */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background-color: #f8fafc;
+      color: #1e293b;
+      line-height: 1.6;
+    }
+    .top-bar {
+      background: #0f172a;
+      color: #cbd5e1;
+      padding: 8px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+    }
+    .support-hotline i {
+      color: #38bdf8;
+      margin-right: 5px;
+    }
+    header {
+      background: #ffffff;
+      padding: 15px 5%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      color: #0f172a;
+      text-decoration: none;
+    }
+    .logo span {
+      color: #2563eb;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+      align-items: center;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #475569;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    nav ul li a:hover {
+      color: #2563eb;
+    }
+    .hero-section {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: white;
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .hero-content h1 {
+      font-size: 38px;
+      font-weight: 800;
+      margin-bottom: 15px;
+    }
+    .hero-content p {
+      font-size: 18px;
+      color: #cbd5e1;
+      margin-bottom: 25px;
+    }
+    .whatsapp-hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #22c55e;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+      transition: background 0.3s;
+    }
+    .whatsapp-hero-btn:hover {
+      background: #16a34a;
+    }
+    .section-title {
+      text-align: center;
+      margin: 50px 0 30px 0;
+    }
+    .section-title h2 {
+      font-size: 26px;
+      color: #0f172a;
+    }
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      margin-bottom: 60px;
+    }
+    .job-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      border: 1px solid #e2e8f0;
+      transition: transform 0.3s;
+    }
+    .job-card:hover {
+      transform: translateY(-5px);
+    }
+    .job-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .job-info {
+      padding: 20px;
+    }
+    .job-info h3 {
+      font-size: 17px;
+      color: #0f172a;
+      margin-bottom: 10px;
+    }
+    .job-info p {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 15px;
+    }
+    .apply-btn {
+      display: inline-block;
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .apply-btn:hover {
+      text-decoration: underline;
+    }
+    .registration-container {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      max-width: 700px;
+      margin: 0 auto 80px auto;
+      border: 1px solid #e2e8f0;
+    }
+    .registration-container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #0f172a;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #334155;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: #2563eb;
+    }
+    .submit-btn {
+      width: 100%;
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .submit-btn:hover {
+      background: #1d4ed8;
+    }
+    footer {
+      background: #0f172a;
+      color: #94a3b8;
+      text-align: center;
+      padding: 30px;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
 
@@ -142,7 +352,7 @@
 
         <button type="submit" class="submit-btn">Submit Application</button>
       </form>
-      <div id="responseMessage" style="margin-top: 15px; font-weight: bold;"></div>
+      <div id="responseMessage" style="margin-top: 15px; font-weight: bold; text-align: center;"></div>
     </section>
   </main>
 
