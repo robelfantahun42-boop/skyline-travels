@@ -1,469 +1,356 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="am">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Skyline Travels - Admin Dashboard</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    body {
-      background: #0f172a;
-      color: #f8fafc;
-      display: flex;
-      min-height: 100vh;
-    }
-    /* Sidebar */
-    .sidebar {
-      width: 260px;
-      background: #020617;
-      border-right: 1px solid #1e293b;
-      padding: 25px 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .brand {
-      font-size: 20px;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 40px;
-    }
-    .brand span {
-      color: #2563eb;
-    }
-    .nav-menu {
-      list-style: none;
-    }
-    .nav-item {
-      margin-bottom: 10px;
-    }
-    .nav-link {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 15px;
-      color: #94a3b8;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 600;
-      transition: all 0.3s;
-      cursor: pointer;
-    }
-    .nav-link:hover, .nav-link.active {
-      background: #1e293b;
-      color: #38bdf8;
-    }
-    /* Main Content */
-    .main-content {
-      flex: 1;
-      padding: 30px;
-      overflow-y: auto;
-    }
-    .top-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-    }
-    .top-header h1 {
-      font-size: 26px;
-      color: #fff;
-    }
-    .action-btns {
-      display: flex;
-      gap: 12px;
-    }
-    .btn {
-      padding: 10px 18px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      transition: 0.3s;
-    }
-    .btn-primary { background: #2563eb; color: #fff; }
-    .btn-primary:hover { background: #1d4ed8; }
-    .btn-success { background: #22c55e; color: #fff; }
-    .btn-success:hover { background: #16a34a; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skyline Travels - Admin Dashboard</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        /* Login Card Styling */
+        #login-section {
+            max-width: 400px;
+            margin: 80px auto;
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            text-align: center;
+            border: 1px solid #334155;
+        }
+        #login-section h2 {
+            margin-bottom: 20px;
+            color: #38bdf8;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #94a3b8;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: #fff;
+            font-size: 15px;
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background: #0284c7;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #0369a1;
+        }
 
-    /* Stats Grid */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-    .stat-card {
-      background: #1e293b;
-      border: 1px solid #334155;
-      padding: 20px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .stat-info h3 {
-      font-size: 13px;
-      color: #94a3b8;
-      text-transform: uppercase;
-      margin-bottom: 5px;
-    }
-    .stat-info p {
-      font-size: 28px;
-      font-weight: 800;
-      color: #fff;
-    }
-    .stat-icon {
-      font-size: 32px;
-      color: #38bdf8;
-      background: rgba(56, 189, 248, 0.1);
-      padding: 12px;
-      border-radius: 10px;
-    }
+        /* Dashboard Layout */
+        #dashboard-section {
+            display: none;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #334155;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            font-size: 24px;
+            color: #38bdf8;
+        }
+        .btn-logout {
+            background: #ef4444;
+            width: auto;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+        .btn-logout:hover {
+            background: #dc2626;
+        }
 
-    /* Filters Section */
-    .filter-card {
-      background: #1e293b;
-      border: 1px solid #334155;
-      padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 25px;
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-    .filter-group {
-      flex: 1;
-      min-width: 200px;
-    }
-    .filter-group input, .filter-group select {
-      width: 100%;
-      padding: 10px 14px;
-      background: #0f172a;
-      border: 1px solid #475569;
-      color: #fff;
-      border-radius: 8px;
-      outline: none;
-    }
+        .card {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid #334155;
+        }
+        .card h3 {
+            margin-bottom: 15px;
+            color: #f1f5f9;
+            font-size: 18px;
+        }
 
-    /* Table Styling */
-    .table-container {
-      background: #1e293b;
-      border: 1px solid #334155;
-      border-radius: 12px;
-      overflow-x: auto;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 14px;
-    }
-    th {
-      background: #020617;
-      color: #cbd5e1;
-      padding: 16px;
-      font-weight: 700;
-      border-bottom: 1px solid #334155;
-    }
-    td {
-      padding: 16px;
-      border-bottom: 1px solid #334155;
-      color: #e2e8f0;
-      white-space: nowrap;
-    }
-    tr:hover {
-      background: rgba(255,255,255,0.02);
-    }
-    .badge {
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-    .badge-job { background: rgba(37, 99, 235, 0.2); color: #60a5fa; }
-    .badge-edu { background: rgba(168, 85, 247, 0.2); color: #c084fc; }
+        /* WhatsApp Form */
+        .whatsapp-form {
+            display: flex;
+            gap: 10px;
+            max-width: 500px;
+        }
+        .whatsapp-form input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: #fff;
+        }
+        .whatsapp-form button {
+            width: auto;
+            padding: 10px 20px;
+        }
 
-    .wa-link {
-      color: #22c55e;
-      text-decoration: none;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .wa-link:hover { text-decoration: underline; }
-
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7);
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-    }
-    .modal.active { display: flex; }
-    .modal-content {
-      background: #1e293b;
-      border: 1px solid #334155;
-      padding: 30px;
-      border-radius: 12px;
-      width: 100%;
-      max-width: 450px;
-    }
-    .modal-content h2 { margin-bottom: 15px; }
-    .modal-content input {
-      width: 100%;
-      padding: 10px;
-      margin: 15px 0;
-      background: #0f172a;
-      border: 1px solid #475569;
-      color: #fff;
-      border-radius: 8px;
-    }
-  </style>
+        /* Applications Table */
+        .table-responsive {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+            font-size: 14px;
+        }
+        th {
+            background-color: #0f172a;
+            color: #38bdf8;
+        }
+        tr:hover {
+            background-color: #273549;
+        }
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            background: #0369a1;
+            color: #e0f2fe;
+        }
+    </style>
 </head>
 <body>
-
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div>
-      <div class="brand">Skyline <span>Admin</span></div>
-      <ul class="nav-menu">
-        <li class="nav-item">
-          <a class="nav-link active"><i class="fa-solid fa-users"></i> Applicants</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" onclick="openSettings()"><i class="fa-solid fa-gear"></i> WhatsApp Settings</a>
-        </li>
-      </ul>
-    </div>
-    <div>
-      <a href="/" class="nav-link" style="color: #ef4444;"><i class="fa-solid fa-right-from-bracket"></i> Exit Dashboard</a>
-    </div>
-  </aside>
-
-  <!-- Main Content -->
-  <main class="main-content">
-    <div class="top-header">
-      <h1>Applicant Management</h1>
-      <div class="action-btns">
-        <button class="btn btn-success" onclick="exportToCSV()"><i class="fa-solid fa-file-excel"></i> Export CSV</button>
-        <button class="btn btn-primary" onclick="fetchApplicants()"><i class="fa-solid fa-rotate"></i> Refresh</button>
-      </div>
-    </div>
-
-    <!-- Stats -->
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-info">
-          <h3>Total Applicants</h3>
-          <p id="totalCount">0</p>
+    <div class="container">
+        <!-- 1. LOGIN SECTION -->
+        <div id="login-section">
+            <h2>Skyline Admin Login</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <label for="username">የተጠቃሚ ስም (Username)</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">የይለፍ ቃል (Password)</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="btn">ይግቡ (Login)</button>
+                <p id="loginError" style="color: #ef4444; margin-top: 10px; display: none; font-size: 14px;"></p>
+            </form>
         </div>
-        <i class="fa-solid fa-user-group stat-icon"></i>
-      </div>
-      <div class="stat-card">
-        <div class="stat-info">
-          <h3>Job Seekers</h3>
-          <p id="jobCount">0</p>
+
+        <!-- 2. DASHBOARD SECTION -->
+        <div id="dashboard-section">
+            <header>
+                <h1>Skyline Travels - Admin Dashboard</h1>
+                <button class="btn btn-logout" onclick="handleLogout()">ውጣ (Logout)</button>
+            </header>
+
+            <!-- WhatsApp Settings Card -->
+            <div class="card">
+                <h3>የ WhatsApp ስልክ ቁጥር ማስተካከያ</h3>
+                <p style="color: #94a3b8; font-size: 13px; margin-bottom: 12px;">
+                    በዌብሳይቱ ላይ ደንበኞች የሚያዩትን የ WhatsApp ቁጥር እዚህ ይለውጡ (ምሳሌ: 251912345678)
+                </p>
+                <div class="whatsapp-form">
+                    <input type="text" id="waNumberInput" placeholder="2519xxxxxxxx">
+                    <button class="btn" onclick="updateWhatsAppNumber()">አዝምን (Save)</button>
+                </div>
+                <p id="waMsg" style="margin-top: 8px; font-size: 13px; font-weight: bold;"></p>
+            </div>
+
+            <!-- Applications List Card -->
+            <div class="card">
+                <h3>የተላኩ ማመልከቻዎች (Submitted Applications)</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ቀን</th>
+                                <th>ሙሉ ስም</th>
+                                <th>ስልክ ቁጥር</th>
+                                <th>ኢሜይል</th>
+                                <th>የሥራ መደብ</th>
+                                <th>መልእክት</th>
+                            </tr>
+                        </thead>
+                        <tbody id="applicationsTableBody">
+                            <tr>
+                                <td colspan="6" style="text-align: center; color: #94a3b8;">ዳታ እየተጫነ ነው...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <i class="fa-solid fa-briefcase stat-icon" style="color: #60a5fa; background: rgba(96, 165, 250, 0.1);"></i>
-      </div>
-      <div class="stat-card">
-        <div class="stat-info">
-          <h3>Students</h3>
-          <p id="eduCount">0</p>
-        </div>
-        <i class="fa-solid fa-graduation-cap stat-icon" style="color: #c084fc; background: rgba(192, 132, 252, 0.1);"></i>
-      </div>
     </div>
 
-    <!-- Filters -->
-    <div class="filter-card">
-      <div class="filter-group">
-        <input type="text" id="searchInput" placeholder="Search by name, email, or phone..." oninput="applyFilters()">
-      </div>
-      <div class="filter-group">
-        <select id="purposeFilter" onchange="applyFilters()">
-          <option value="">All Purposes</option>
-          <option value="Job">International Job</option>
-          <option value="Education">Educational Consultancy</option>
-        </select>
-      </div>
-      <div class="filter-group">
-        <select id="targetFilter" onchange="applyFilters()">
-          <option value="">All Target Countries</option>
-          <option value="Canada">Canada</option>
-          <option value="USA">USA</option>
-          <option value="UK">United Kingdom</option>
-          <option value="UAE">UAE</option>
-          <option value="Germany">Germany</option>
-          <option value="Australia">Australia</option>
-        </select>
-      </div>
-    </div>
+    <script>
+        // On Page Load: Check authentication status
+        document.addEventListener('DOMContentLoaded', checkSession);
 
-    <!-- Applicants Table -->
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Full Name</th>
-            <th>Contact Info</th>
-            <th>Origin</th>
-            <th>Target</th>
-            <th>Purpose & Field</th>
-            <th>Date</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="applicantsTable">
-          <!-- Dynamically populated -->
-        </tbody>
-      </table>
-    </div>
-  </main>
-
-  <!-- Settings Modal -->
-  <div class="modal" id="settingsModal">
-    <div class="modal-content">
-      <h2>WhatsApp Hotline Setting</h2>
-      <p style="color: #94a3b8; font-size: 14px;">Update the phone number used for direct WhatsApp messages.</p>
-      <input type="text" id="waPhoneInput" placeholder="e.g. 251911000000">
-      <div style="display: flex; gap: 10px; justify-content: flex-end;">
-        <button class="btn" onclick="closeSettings()" style="background: #475569; color: #fff;">Cancel</button>
-        <button class="btn btn-primary" onclick="saveSettings()">Save Changes</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    let allApplicants = [];
-
-    async function fetchApplicants() {
-      try {
-        const response = await fetch('/api/admin/applicants');
-        if (response.ok) {
-          allApplicants = await response.json();
-        } else {
-          // Fallback Sample Data if API not connected yet
-          allApplicants = [
-            { id: 1, fullName: "Abebe Kebede", email: "abebe@gmail.com", phone: "+251911121314", originCountry: "Ethiopia", targetCountry: "Canada", purpose: "Job", specificField: "Software Engineer", createdAt: "2026-08-28" },
-            { id: 2, fullName: "Sara Mohammed", email: "sara@yahoo.com", phone: "+251922334455", originCountry: "Ethiopia", targetCountry: "UK", purpose: "Education", specificField: "Master's in Data Science", createdAt: "2026-08-30" }
-          ];
+        async function checkSession() {
+            try {
+                const res = await fetch('/api/admin/check-session');
+                const data = await res.json();
+                if (data.isAuthenticated) {
+                    showDashboard();
+                } else {
+                    showLogin();
+                }
+            } catch (e) {
+                showLogin();
+            }
         }
-      } catch (err) {
-        console.warn("Using sample data until backend API is running.");
-      }
-      renderDashboard(allApplicants);
-    }
 
-    function renderDashboard(data) {
-      const table = document.getElementById('applicantsTable');
-      table.innerHTML = '';
+        async function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorEl = document.getElementById('loginError');
+            errorEl.style.display = 'none';
 
-      // Update Stats
-      document.getElementById('totalCount').innerText = data.length;
-      document.getElementById('jobCount').innerText = data.filter(a => a.purpose === 'Job').length;
-      document.getElementById('eduCount').innerText = data.filter(a => a.purpose === 'Education').length;
+            try {
+                const res = await fetch('/api/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showDashboard();
+                } else {
+                    errorEl.textContent = data.message || 'መግባት አልተቻለም';
+                    errorEl.style.display = 'block';
+                }
+            } catch (err) {
+                errorEl.textContent = 'የሰርቨር ስህተት ተፈጥሯል!';
+                errorEl.style.display = 'block';
+            }
+        }
 
-      if (data.length === 0) {
-        table.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #94a3b8; padding: 30px;">No applicants found.</td></tr>`;
-        return;
-      }
+        async function handleLogout() {
+            await fetch('/api/admin/logout', { method: 'POST' });
+            showLogin();
+        }
 
-      data.forEach(item => {
-        const tr = document.createElement('tr');
-        const badgeClass = item.purpose === 'Job' ? 'badge-job' : 'badge-edu';
-        const formattedPhone = item.phone.replace(/[^0-9]/g, '');
+        function showDashboard() {
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('dashboard-section').style.display = 'block';
+            loadApplications();
+            loadWhatsAppNumber();
+        }
 
-        tr.innerHTML = `
-          <td><strong>${item.fullName}</strong></td>
-          <td>
-            <div>${item.email}</div>
-            <div style="font-size: 12px; color: #94a3b8;">${item.phone}</div>
-          </td>
-          <td>${item.originCountry}</td>
-          <td><strong>${item.targetCountry}</strong></td>
-          <td>
-            <span class="badge ${badgeClass}">${item.purpose}</span>
-            <div style="font-size: 12px; color: #cbd5e1; margin-top: 4px;">${item.specificField}</div>
-          </td>
-          <td>${item.createdAt ? new Date(item.createdAt).toLocaleDateString() : 'N/A'}</td>
-          <td>
-            <a href="https://wa.me/${formattedPhone}?text=Hello%20${encodeURIComponent(item.fullName)},%20this%20is%20Skyline%20Travels." target="_blank" class="wa-link">
-              <i class="fa-brands fa-whatsapp"></i> Chat
-            </a>
-          </td>
-        `;
-        table.appendChild(tr);
-      });
-    }
+        function showLogin() {
+            document.getElementById('login-section').style.display = 'block';
+            document.getElementById('dashboard-section').style.display = 'none';
+        }
 
-    function applyFilters() {
-      const search = document.getElementById('searchInput').value.toLowerCase();
-      const purpose = document.getElementById('purposeFilter').value;
-      const target = document.getElementById('targetFilter').value;
+        async function loadWhatsAppNumber() {
+            try {
+                const res = await fetch('/api/settings/whatsapp');
+                const data = await res.json();
+                if (data.whatsappNumber) {
+                    document.getElementById('waNumberInput').value = data.whatsappNumber;
+                }
+            } catch (e) {
+                console.error("Failed to load WhatsApp number", e);
+            }
+        }
 
-      const filtered = allApplicants.filter(item => {
-        const matchesSearch = item.fullName.toLowerCase().includes(search) ||
-                              item.email.toLowerCase().includes(search) ||
-                              item.phone.includes(search);
-        const matchesPurpose = purpose === "" || item.purpose === purpose;
-        const matchesTarget = target === "" || item.targetCountry === target;
+        async function updateWhatsAppNumber() {
+            const number = document.getElementById('waNumberInput').value;
+            const msgEl = document.getElementById('waMsg');
+            if (!number) return alert('እባክዎን ስልክ ቁጥር ያስገቡ');
 
-        return matchesSearch && matchesPurpose && matchesTarget;
-      });
+            try {
+                const res = await fetch('/api/admin/settings/whatsapp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ whatsappNumber: number })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    msgEl.style.color = '#4ade80';
+                    msgEl.textContent = data.message;
+                } else {
+                    msgEl.style.color = '#ef4444';
+                    msgEl.textContent = data.message || 'ማስተካከል አልተቻለም';
+                }
+            } catch (e) {
+                msgEl.style.color = '#ef4444';
+                msgEl.textContent = 'ስህተት ተፈጥሯል!';
+            }
+        }
 
-      renderDashboard(filtered);
-    }
+        async function loadApplications() {
+            const tbody = document.getElementById('applicationsTableBody');
+            try {
+                const res = await fetch('/api/admin/applications');
+                const data = await res.json();
+                if (data.success && data.applications.length > 0) {
+                    tbody.innerHTML = data.applications.map(app => `
+                        <tr>
+                            <td>${new Date(app.createdAt).toLocaleDateString()}</td>
+                            <td><strong>${escapeHtml(app.fullName)}</strong></td>
+                            <td>${escapeHtml(app.phone)}</td>
+                            <td>${escapeHtml(app.email)}</td>
+                            <td><span class="status-badge">${escapeHtml(app.position)}</span></td>
+                            <td>${escapeHtml(app.message || '-')}</td>
+                        </tr>
+                    `).join('');
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #94a3b8;">ምንም የተላከ ማመልከቻ የለም።</td></tr>';
+                }
+            } catch (e) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #ef4444;">መረጃውን መጫን አልተቻለም።</td></tr>';
+            }
+        }
 
-    function exportToCSV() {
-      if (allApplicants.length === 0) return alert('No data to export!');
-
-      let csv = 'Full Name,Email,Phone,Origin,Target Country,Purpose,Field,Date\n';
-      allApplicants.forEach(a => {
-        csv += `"${a.fullName}","${a.email}","${a.phone}","${a.originCountry}","${a.targetCountry}","${a.purpose}","${a.specificField}","${a.createdAt}"\n`;
-      });
-
-      const blob = new Blob([csv], { type: 'text/csv' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.setAttribute('href', url);
-      a.setAttribute('download', 'Skyline_Applicants.csv');
-      a.click();
-    }
-
-    function openSettings() {
-      document.getElementById('settingsModal').classList.add('active');
-    }
-
-    function closeSettings() {
-      document.getElementById('settingsModal').classList.remove('active');
-    }
-
-    function saveSettings() {
-      const newPhone = document.getElementById('waPhoneInput').value.trim();
-      if (newPhone) {
-        alert('WhatsApp Hotline updated successfully!');
-        closeSettings();
-      }
-    }
-
-    // Load data on page load
-    window.onload = fetchApplicants;
-  </script>
+        function escapeHtml(str) {
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+    </script>
 </body>
 </html>
