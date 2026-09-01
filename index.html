@@ -65,11 +65,29 @@
     .logo span {
       color: #2563eb;
     }
+    /* Nav Links hidden inside toggle by default */
     .nav-links {
-      display: flex;
-      gap: 20px;
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      right: 5%;
+      background: #ffffff;
+      padding: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      border-radius: 8px;
       list-style: none;
-      align-items: center;
+      width: 220px;
+      border: 1px solid #e2e8f0;
+    }
+    .nav-links.active {
+      display: flex;
+    }
+    .nav-links li {
+      margin-bottom: 12px;
+    }
+    .nav-links li:last-child {
+      margin-bottom: 0;
     }
     .nav-links a {
       text-decoration: none;
@@ -77,15 +95,19 @@
       font-weight: 600;
       font-size: 15px;
       transition: color 0.3s;
+      display: block;
     }
     .nav-links a:hover {
       color: #2563eb;
     }
     .menu-toggle {
-      display: none;
+      display: block;
       font-size: 24px;
       color: #0f172a;
       cursor: pointer;
+      background: #f1f5f9;
+      padding: 8px 12px;
+      border-radius: 8px;
     }
     /* Hero Section */
     .hero {
@@ -135,7 +157,7 @@
       text-align: center;
       margin-bottom: 30px;
     }
-    /* Jobs Grid (30 Opportunities) */
+    /* Jobs Grid (>30 Opportunities) */
     .jobs-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -177,7 +199,7 @@
       font-weight: 700;
       font-size: 13px;
     }
-    /* Registration Form Section */
+    /* Registration Form Section (Now placed at the bottom after ads) */
     .form-section {
       background: #ffffff;
       max-width: 800px;
@@ -241,23 +263,6 @@
       font-size: 14px;
     }
     @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: #ffffff;
-        padding: 20px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      }
-      .nav-links.active {
-        display: flex;
-      }
-      .menu-toggle {
-        display: block;
-      }
       .form-grid {
         grid-template-columns: 1fr;
       }
@@ -286,17 +291,19 @@
     </div>
   </div>
 
-  <!-- Header -->
+  <!-- Header with 3-Dots / Hamburger Menu -->
   <header>
     <a href="index.html" class="logo">Skyline <span>Travels</span></a>
-    <div class="menu-toggle" id="mobile-menu" onclick="toggleMenu()">
-      <i class="fa-solid fa-bars"></i>
+    <div style="position: relative;">
+      <div class="menu-toggle" id="mobile-menu" onclick="toggleMenu()">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
+        <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+      </ul>
     </div>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
   </header>
 
   <!-- Hero Section -->
@@ -308,12 +315,14 @@
     </a>
   </section>
 
-  <!-- Featured Jobs Container (30 Opportunities) -->
+  <!-- Main Content Containers -->
   <div class="container">
-    <h2 class="section-title" id="jobsTitle">Featured 30 Global Job & Education Opportunities</h2>
+    
+    <!-- Featured Jobs Container (Over 30 Opportunities) -->
+    <h2 class="section-title" id="jobsTitle">Featured Global Job & Education Opportunities (35 Positions)</h2>
     <div class="jobs-grid" id="jobsContainer"></div>
 
-    <!-- Registration Form -->
+    <!-- Registration Form Section (Placed at the bottom after advertisements) -->
     <div class="form-section">
       <h2 class="section-title" id="formTitle" style="font-size: 22px; margin-bottom: 20px;">Application & Registration Form</h2>
       <form id="registrationForm" onsubmit="handleRegistration(event)">
@@ -368,6 +377,7 @@
         <button type="submit" class="submit-btn" id="submitBtnText">Submit Application</button>
       </form>
     </div>
+
   </div>
 
   <!-- Footer -->
@@ -380,6 +390,15 @@
       const nav = document.getElementById('navLinks');
       nav.classList.toggle('active');
     }
+
+    // Close menu when clicking outside
+    window.addEventListener('click', function(e) {
+      const nav = document.getElementById('navLinks');
+      const toggle = document.getElementById('mobile-menu');
+      if (!toggle.contains(e.target) && !nav.contains(e.target)) {
+        nav.classList.remove('active');
+      }
+    });
 
     const countries = [
       "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
@@ -411,6 +430,7 @@
       originSelect.appendChild(option);
     });
 
+    // Over 30 (35 total) Job and Education Opportunities
     const jobs = [
       { title: "Registered Nurse - Canada", loc: "Toronto, Canada", img: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=400" },
       { title: "Software Engineer - Germany", loc: "Berlin, Germany", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400" },
@@ -441,7 +461,12 @@
       { title: "Early Childhood Educator - Canada", loc: "Ottawa, Canada", img: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400" },
       { title: "Security Officer - Qatar", loc: "Doha, Qatar", img: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=400" },
       { title: "Environmental Scientist - Norway", loc: "Oslo, Norway", img: "https://images.unsplash.com/photo-1507668077129-56e32842fceb?w=400" },
-      { title: "MBA Study Program - Switzerland", loc: "Zurich, Switzerland", img: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400" }
+      { title: "MBA Study Program - Switzerland", loc: "Zurich, Switzerland", img: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400" },
+      { title: "AI Researcher - South Korea", loc: "Seoul, South Korea", img: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400" },
+      { title: "Architectural Designer - Italy", loc: "Milan, Italy", img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=400" },
+      { title: "Financial Advisor - Luxembourg", loc: "Luxembourg City", img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400" },
+      { title: "Marine Biologist - Australia", loc: "Brisbane, Australia", img: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400" },
+      { title: "Public Relations Officer - Austria", loc: "Vienna, Austria", img: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400" }
     ];
 
     const jobsContainer = document.getElementById('jobsContainer');
