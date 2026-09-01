@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 // static HTML ፋይሎችን ለማገልገል (index.html እና admin.html በ public ፎልደር ውስጥ ካሉ)
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname));
 
 // MongoDB Atlas Connection
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/skyline_travels';
