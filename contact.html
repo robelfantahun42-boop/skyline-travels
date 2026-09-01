@@ -1,51 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Skyline Travels</title>
-    <link rel="stylesheet" href="style.css">
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,am,ar,ur,fr,es,om,hi,fil,sw,de,it',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-            }, 'google_translate_element');
-        }
-    </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&hl=en"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Skyline Travels & Educational Consultancy</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.6;
+    }
+    header {
+      background: #ffffff;
+      padding: 15px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      color: #0f172a;
+      text-decoration: none;
+    }
+    .logo span {
+      color: #2563eb;
+    }
+    .back-btn {
+      background: #2563eb;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+    .back-btn:hover {
+      background: #1d4ed8;
+    }
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: white;
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .hero h1 {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .hero p {
+      font-size: 16px;
+      color: #cbd5e1;
+    }
+    .contact-container {
+      max-width: 800px;
+      margin: -30px auto 60px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border: 1px solid #e2e8f0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    .contact-info-card {
+      background: #f8fafc;
+      padding: 25px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      text-align: center;
+    }
+    .contact-info-card i {
+      font-size: 32px;
+      color: #2563eb;
+      margin-bottom: 15px;
+    }
+    .contact-info-card h3 {
+      font-size: 18px;
+      color: #0f172a;
+      margin-bottom: 10px;
+    }
+    .contact-info-card p, .contact-info-card a {
+      font-size: 15px;
+      color: #475569;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .contact-info-card a:hover {
+      color: #2563eb;
+    }
+    footer {
+      background: #0f172a;
+      color: #94a3b8;
+      text-align: center;
+      padding: 25px;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="container navbar">
-            <div class="logo"><a href="index.html">Skyline Travels</a></div>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html#register-section">Register</a></li>
-                    <li><a href="index.html#jobs-section">Jobs</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html" class="active">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-    <main class="container">
-        <article class="single-post">
-            <h1 class="page-title">Contact Us</h1>
-            <div class="post-content">
-                <p>For inquiries regarding job placements, application status, or visa support, reach out to our support team:</p>
-                <br>
-                <p><strong>Email:</strong> info@skylinetravels.com</p>
-             
-                <p><strong>Office Hours:</strong> Monday - Friday, 8:30 AM - 5:30 PM</p>
-            </div>
-        </article>
-    </main>
-    <footer>
-        <p>&copy; 2026 Skyline Travels. All Rights Reserved.</p>
-    </footer>
+
+  <header>
+    <a href="index.html" class="logo">Skyline <span>Travels</span></a>
+    <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+  </header>
+
+  <section class="hero">
+    <h1>Contact Us</h1>
+    <p>Get in touch with our support and consultancy team anytime.</p>
+  </section>
+
+  <div class="contact-container">
+    <div class="contact-info-card">
+      <i class="fa-solid fa-envelope"></i>
+      <h3>Official Travel Email</h3>
+      <p><a href="mailto:info@skylinetravels.com">info@skylinetravels.com</a></p>
+    </div>
+    <div class="contact-info-card">
+      <i class="fa-solid fa-phone-volume"></i>
+      <h3>Support Hotline & Phone</h3>
+      <p><a href="tel:+251900000000">+251 900 000 000</a></p>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Skyline Travels & Educational Consultancy. All rights reserved.</p>
+  </footer>
+
 </body>
 </html>
