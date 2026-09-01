@@ -18,6 +18,11 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// Explicit route for the About Us page (ይህ አዲሱ ማስተካከያ ነው)
+app.get('/about.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'about.html'));
+});
+
 // API endpoint to get all registrations
 app.get('/api/registrations', (req, res) => {
   if (!fs.existsSync(DB_FILE)) {
