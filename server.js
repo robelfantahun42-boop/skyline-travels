@@ -27,6 +27,11 @@ async function connectDB() {
 }
 connectDB();
 
+// Explicit Route for Homepage
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 // API Routes
 app.get('/api/status', (req, res) => {
   res.json({ status: 'Server is running', connected: !!db });
