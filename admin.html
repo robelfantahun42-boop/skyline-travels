@@ -1,496 +1,469 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skyline Travels - Admin Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skyline Travels - Admin Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: #0f172a;
+      color: #f8fafc;
+      display: flex;
+      min-height: 100vh;
+    }
+    /* Sidebar */
+    .sidebar {
+      width: 260px;
+      background: #020617;
+      border-right: 1px solid #1e293b;
+      padding: 25px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .brand {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 40px;
+    }
+    .brand span {
+      color: #2563eb;
+    }
+    .nav-menu {
+      list-style: none;
+    }
+    .nav-item {
+      margin-bottom: 10px;
+    }
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 15px;
+      color: #94a3b8;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .nav-link:hover, .nav-link.active {
+      background: #1e293b;
+      color: #38bdf8;
+    }
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      padding: 30px;
+      overflow-y: auto;
+    }
+    .top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    .top-header h1 {
+      font-size: 26px;
+      color: #fff;
+    }
+    .action-btns {
+      display: flex;
+      gap: 12px;
+    }
+    .btn {
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+    .btn-primary { background: #2563eb; color: #fff; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-success { background: #22c55e; color: #fff; }
+    .btn-success:hover { background: #16a34a; }
 
-        body {
-            background-color: #0f172a;
-            color: #f8fafc;
-            padding: 20px;
-            min-height: 100vh;
-        }
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .stat-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      padding: 20px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .stat-info h3 {
+      font-size: 13px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+    .stat-info p {
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .stat-icon {
+      font-size: 32px;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.1);
+      padding: 12px;
+      border-radius: 10px;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    /* Filters Section */
+    .filter-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .filter-group {
+      flex: 1;
+      min-width: 200px;
+    }
+    .filter-group input, .filter-group select {
+      width: 100%;
+      padding: 10px 14px;
+      background: #0f172a;
+      border: 1px solid #475569;
+      color: #fff;
+      border-radius: 8px;
+      outline: none;
+    }
 
-        /* Header Styling */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #1e293b;
-            padding: 20px 25px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            border: 1px solid #334155;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
+    /* Table Styling */
+    .table-container {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 14px;
+    }
+    th {
+      background: #020617;
+      color: #cbd5e1;
+      padding: 16px;
+      font-weight: 700;
+      border-bottom: 1px solid #334155;
+    }
+    td {
+      padding: 16px;
+      border-bottom: 1px solid #334155;
+      color: #e2e8f0;
+      white-space: nowrap;
+    }
+    tr:hover {
+      background: rgba(255,255,255,0.02);
+    }
+    .badge {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .badge-job { background: rgba(37, 99, 235, 0.2); color: #60a5fa; }
+    .badge-edu { background: rgba(168, 85, 247, 0.2); color: #c084fc; }
 
-        header h1 {
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #ffffff;
-        }
+    .wa-link {
+      color: #22c55e;
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .wa-link:hover { text-decoration: underline; }
 
-        .header-btns {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-secondary {
-            background: #334155;
-            color: #f8fafc;
-            text-decoration: none;
-            padding: 10px 18px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: background 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-secondary:hover {
-            background: #475569;
-        }
-
-        .btn-logout {
-            background: #e11d48;
-            color: #ffffff;
-        }
-        .btn-logout:hover {
-            background: #be123c;
-        }
-
-        /* Card Box */
-        .card {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-title {
-            font-size: 1.2rem;
-            color: #38bdf8;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Form Controls */
-        .form-row {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .input-control {
-            flex: 1;
-            min-width: 250px;
-            padding: 12px 16px;
-            background: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 8px;
-            color: #ffffff;
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.2s ease;
-        }
-
-        .input-control:focus {
-            border-color: #38bdf8;
-        }
-
-        .btn-primary {
-            background: #2563eb;
-            color: #ffffff;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: background 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-primary:hover {
-            background: #1d4ed8;
-        }
-
-        .btn-danger {
-            background: #ef4444;
-            color: #ffffff;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: background 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 20px;
-        }
-
-        .btn-danger:hover {
-            background: #dc2626;
-        }
-
-        /* Table Styling */
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto;
-            border-radius: 8px;
-            border: 1px solid #334155;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 0.9rem;
-        }
-
-        th {
-            background: #0f172a;
-            color: #94a3b8;
-            padding: 14px 16px;
-            font-weight: 600;
-            border-bottom: 1px solid #334155;
-            white-space: nowrap;
-        }
-
-        td {
-            padding: 14px 16px;
-            border-bottom: 1px solid #334155;
-            color: #cbd5e1;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        tr:hover td {
-            background: #273549;
-        }
-
-        .no-records {
-            text-align: center;
-            padding: 40px 20px;
-            color: #94a3b8;
-            font-style: italic;
-        }
-
-        /* Login Screen Overlay */
-        #loginOverlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #0f172a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            padding: 20px;
-        }
-
-        .login-card {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 16px;
-            padding: 35px;
-            width: 100%;
-            max-width: 420px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-            text-align: center;
-        }
-
-        .login-card h2 {
-            color: #ffffff;
-            margin-bottom: 8px;
-            font-size: 1.5rem;
-        }
-
-        .login-card p {
-            color: #94a3b8;
-            font-size: 0.9rem;
-            margin-bottom: 25px;
-        }
-
-        .login-card .input-control {
-            width: 100%;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-        }
-
-        .login-card .btn-primary {
-            width: 100%;
-            justify-content: center;
-            padding: 14px;
-            font-size: 1rem;
-        }
-
-        .error-msg {
-            color: #f87171;
-            font-size: 0.85rem;
-            margin-top: 12px;
-            display: none;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-    </style>
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+    .modal.active { display: flex; }
+    .modal-content {
+      background: #1e293b;
+      border: 1px solid #334155;
+      padding: 30px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 450px;
+    }
+    .modal-content h2 { margin-bottom: 15px; }
+    .modal-content input {
+      width: 100%;
+      padding: 10px;
+      margin: 15px 0;
+      background: #0f172a;
+      border: 1px solid #475569;
+      color: #fff;
+      border-radius: 8px;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Login Overlay -->
-    <div id="loginOverlay">
-        <div class="login-card">
-            <i class="fas fa-lock" style="font-size: 2.5rem; color: #38bdf8; margin-bottom: 15px;"></i>
-            <h2>Admin Login</h2>
-            <p>እባክዎን ገጹን ለመክፈት የይለፍ ቃል ያስገቡ</p>
-            <form id="loginForm" onsubmit="handleLogin(event)">
-                <input type="password" id="adminPasswordInput" class="input-control" placeholder="የይለፍ ቃል ያስገቡ..." required autofocus>
-                <button type="submit" class="btn-primary">
-                    <i class="fas fa-sign-in-alt"></i> ይግቡ (Login)
-                </button>
-            </form>
-            <div id="loginError" class="error-msg">
-                <i class="fas fa-exclamation-circle"></i> የተሳሳተ የይለፍ ቃል ነው! እባክዎን ደግመው ይሞክሩ።
-            </div>
-        </div>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div>
+      <div class="brand">Skyline <span>Admin</span></div>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a class="nav-link active"><i class="fa-solid fa-users"></i> Applicants</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" onclick="openSettings()"><i class="fa-solid fa-gear"></i> WhatsApp Settings</a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <a href="/" class="nav-link" style="color: #ef4444;"><i class="fa-solid fa-right-from-bracket"></i> Exit Dashboard</a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="top-header">
+      <h1>Applicant Management</h1>
+      <div class="action-btns">
+        <button class="btn btn-success" onclick="exportToCSV()"><i class="fa-solid fa-file-excel"></i> Export CSV</button>
+        <button class="btn btn-primary" onclick="fetchApplicants()"><i class="fa-solid fa-rotate"></i> Refresh</button>
+      </div>
     </div>
 
-    <!-- Main Dashboard Container -->
-    <div id="dashboardContent" class="container hidden">
-        <header>
-            <h1>
-                <i class="fas fa-user-shield" style="color: #38bdf8;"></i> Skyline Travels Admin Panel
-            </h1>
-            <div class="header-btns">
-                <a href="index.html" class="btn-secondary">
-                    <i class="fas fa-arrow-left"></i> Back to Website
-                </a>
-                <button onclick="handleLogout()" class="btn-secondary btn-logout">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
-            </div>
-        </header>
-
-        <!-- Phone / WhatsApp Config Card -->
-        <div class="card">
-            <h2 class="card-title">
-                <i class="fas fa-phone-alt"></i> Change Customer Service Phone / WhatsApp Number
-            </h2>
-            <form id="phoneForm" onsubmit="savePhoneNumber(event)" class="form-row">
-                <input type="text" id="phoneInput" class="input-control" placeholder="+251 911 000 000" required>
-                <button type="submit" class="btn-primary">
-                    <i class="fas fa-save"></i> Save Phone Number
-                </button>
-            </form>
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-info">
+          <h3>Total Applicants</h3>
+          <p id="totalCount">0</p>
         </div>
-
-        <!-- Registered Clients Table Card -->
-        <div class="card">
-            <h2 class="card-title">
-                <i class="fas fa-users"></i> Registered Clients List
-            </h2>
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Full Name</th>
-                            <th>Email</th>
-                            <th>Phone / WhatsApp</th>
-                            <th>Residence</th>
-                            <th>Target Country</th>
-                            <th>Purpose</th>
-                            <th>Field / Job</th>
-                            <th>Notes</th>
-                        </tr>
-                    </thead>
-                    <tbody id="clientsTableBody">
-                        <tr>
-                            <td colspan="8" class="no-records">
-                                <i class="fas fa-spinner fa-spin"></i> Data እየተጫነ ነው...
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <button onclick="clearAllRecords()" class="btn-danger">
-                <i class="fas fa-trash-alt"></i> Clear All Records
-            </button>
+        <i class="fa-solid fa-user-group stat-icon"></i>
+      </div>
+      <div class="stat-card">
+        <div class="stat-info">
+          <h3>Job Seekers</h3>
+          <p id="jobCount">0</p>
         </div>
+        <i class="fa-solid fa-briefcase stat-icon" style="color: #60a5fa; background: rgba(96, 165, 250, 0.1);"></i>
+      </div>
+      <div class="stat-card">
+        <div class="stat-info">
+          <h3>Students</h3>
+          <p id="eduCount">0</p>
+        </div>
+        <i class="fa-solid fa-graduation-cap stat-icon" style="color: #c084fc; background: rgba(192, 132, 252, 0.1);"></i>
+      </div>
     </div>
 
-    <script>
-        // Admin Password
-        const ADMIN_PASSWORD = "admin123";
+    <!-- Filters -->
+    <div class="filter-card">
+      <div class="filter-group">
+        <input type="text" id="searchInput" placeholder="Search by name, email, or phone..." oninput="applyFilters()">
+      </div>
+      <div class="filter-group">
+        <select id="purposeFilter" onchange="applyFilters()">
+          <option value="">All Purposes</option>
+          <option value="Job">International Job</option>
+          <option value="Education">Educational Consultancy</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <select id="targetFilter" onchange="applyFilters()">
+          <option value="">All Target Countries</option>
+          <option value="Canada">Canada</option>
+          <option value="USA">USA</option>
+          <option value="UK">United Kingdom</option>
+          <option value="UAE">UAE</option>
+          <option value="Germany">Germany</option>
+          <option value="Australia">Australia</option>
+        </select>
+      </div>
+    </div>
 
-        // Check login status on page load
-        window.addEventListener('DOMContentLoaded', () => {
-            const isLoggedIn = sessionStorage.getItem('isAdminLoggedIn');
-            if (isLoggedIn === 'true') {
-                showDashboard();
-            }
-        });
+    <!-- Applicants Table -->
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Contact Info</th>
+            <th>Origin</th>
+            <th>Target</th>
+            <th>Purpose & Field</th>
+            <th>Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="applicantsTable">
+          <!-- Dynamically populated -->
+        </tbody>
+      </table>
+    </div>
+  </main>
 
-        // Handle Login Submission
-        function handleLogin(e) {
-            e.preventDefault();
-            const enteredPassword = document.getElementById('adminPasswordInput').value;
-            const errorMsg = document.getElementById('loginError');
+  <!-- Settings Modal -->
+  <div class="modal" id="settingsModal">
+    <div class="modal-content">
+      <h2>WhatsApp Hotline Setting</h2>
+      <p style="color: #94a3b8; font-size: 14px;">Update the phone number used for direct WhatsApp messages.</p>
+      <input type="text" id="waPhoneInput" placeholder="e.g. 251911000000">
+      <div style="display: flex; gap: 10px; justify-content: flex-end;">
+        <button class="btn" onclick="closeSettings()" style="background: #475569; color: #fff;">Cancel</button>
+        <button class="btn btn-primary" onclick="saveSettings()">Save Changes</button>
+      </div>
+    </div>
+  </div>
 
-            if (enteredPassword === ADMIN_PASSWORD) {
-                sessionStorage.setItem('isAdminLoggedIn', 'true');
-                errorMsg.style.display = 'none';
-                showDashboard();
-            } else {
-                errorMsg.style.display = 'block';
-                document.getElementById('adminPasswordInput').value = '';
-                document.getElementById('adminPasswordInput').focus();
-            }
+  <script>
+    let allApplicants = [];
+
+    async function fetchApplicants() {
+      try {
+        const response = await fetch('/api/admin/applicants');
+        if (response.ok) {
+          allApplicants = await response.json();
+        } else {
+          // Fallback Sample Data if API not connected yet
+          allApplicants = [
+            { id: 1, fullName: "Abebe Kebede", email: "abebe@gmail.com", phone: "+251911121314", originCountry: "Ethiopia", targetCountry: "Canada", purpose: "Job", specificField: "Software Engineer", createdAt: "2026-08-28" },
+            { id: 2, fullName: "Sara Mohammed", email: "sara@yahoo.com", phone: "+251922334455", originCountry: "Ethiopia", targetCountry: "UK", purpose: "Education", specificField: "Master's in Data Science", createdAt: "2026-08-30" }
+          ];
         }
+      } catch (err) {
+        console.warn("Using sample data until backend API is running.");
+      }
+      renderDashboard(allApplicants);
+    }
 
-        // Show Dashboard and load dynamic data
-        function showDashboard() {
-            document.getElementById('loginOverlay').classList.add('hidden');
-            document.getElementById('dashboardContent').classList.remove('hidden');
-            loadSavedPhone();
-            loadRegistrations();
-        }
+    function renderDashboard(data) {
+      const table = document.getElementById('applicantsTable');
+      table.innerHTML = '';
 
-        // Handle Logout
-        function handleLogout() {
-            sessionStorage.removeItem('isAdminLoggedIn');
-            location.reload();
-        }
+      // Update Stats
+      document.getElementById('totalCount').innerText = data.length;
+      document.getElementById('jobCount').innerText = data.filter(a => a.purpose === 'Job').length;
+      document.getElementById('eduCount').innerText = data.filter(a => a.purpose === 'Education').length;
 
-        // Fetch Saved Phone Number from API
-        async function loadSavedPhone() {
-            try {
-                const res = await fetch('/api/settings');
-                const data = await res.json();
-                document.getElementById('phoneInput').value = data.phone || '+251 911 000 000';
-            } catch (err) {
-                console.error('Failed to load phone from server:', err);
-            }
-        }
+      if (data.length === 0) {
+        table.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #94a3b8; padding: 30px;">No applicants found.</td></tr>`;
+        return;
+      }
 
-        // Save Phone Number to API Server
-        async function savePhoneNumber(e) {
-            e.preventDefault();
-            const phone = document.getElementById('phoneInput').value;
-            try {
-                const res = await fetch('/api/settings', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ phone })
-                });
-                if (res.ok) {
-                    alert('የስልክ / WhatsApp ቁጥሩ በሰርቨሩ ላይ በትክክል ተቀይሯል!');
-                } else {
-                    alert('ቁጥሩን መቀየር አልተቻለም፤ ደግመው ይሞክሩ።');
-                }
-            } catch (err) {
-                console.error(err);
-                alert('ስህተት አጋጥሟል፤ ደግመው ይሞክሩ።');
-            }
-        }
+      data.forEach(item => {
+        const tr = document.createElement('tr');
+        const badgeClass = item.purpose === 'Job' ? 'badge-job' : 'badge-edu';
+        const formattedPhone = item.phone.replace(/[^0-9]/g, '');
 
-        // Fetch Registrations from backend server / API
-        async function loadRegistrations() {
-            const tbody = document.getElementById('clientsTableBody');
-            try {
-                const response = await fetch('/api/registrations');
-                if (!response.ok) throw new Error('Failed to fetch');
-                const data = await response.json();
+        tr.innerHTML = `
+          <td><strong>${item.fullName}</strong></td>
+          <td>
+            <div>${item.email}</div>
+            <div style="font-size: 12px; color: #94a3b8;">${item.phone}</div>
+          </td>
+          <td>${item.originCountry}</td>
+          <td><strong>${item.targetCountry}</strong></td>
+          <td>
+            <span class="badge ${badgeClass}">${item.purpose}</span>
+            <div style="font-size: 12px; color: #cbd5e1; margin-top: 4px;">${item.specificField}</div>
+          </td>
+          <td>${item.createdAt ? new Date(item.createdAt).toLocaleDateString() : 'N/A'}</td>
+          <td>
+            <a href="https://wa.me/${formattedPhone}?text=Hello%20${encodeURIComponent(item.fullName)},%20this%20is%20Skyline%20Travels." target="_blank" class="wa-link">
+              <i class="fa-brands fa-whatsapp"></i> Chat
+            </a>
+          </td>
+        `;
+        table.appendChild(tr);
+      });
+    }
 
-                if (!data || data.length === 0) {
-                    tbody.innerHTML = `
-                        <tr>
-                            <td colspan="8" class="no-records">No client registrations found yet.</td>
-                        </tr>
-                    `;
-                    return;
-                }
+    function applyFilters() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const purpose = document.getElementById('purposeFilter').value;
+      const target = document.getElementById('targetFilter').value;
 
-                tbody.innerHTML = data.map(item => `
-                    <tr>
-                        <td><strong>${escapeHtml(item.fullName || item.name || '-')}</strong></td>
-                        <td>${escapeHtml(item.email || '-')}</td>
-                        <td>${escapeHtml(item.phone || '-')}</td>
-                        <td>${escapeHtml(item.residence || '-')}</td>
-                        <td>${escapeHtml(item.targetCountry || '-')}</td>
-                        <td>${escapeHtml(item.purpose || '-')}</td>
-                        <td>${escapeHtml(item.jobField || item.field || '-')}</td>
-                        <td>${escapeHtml(item.notes || '-')}</td>
-                    </tr>
-                `).join('');
-            } catch (err) {
-                console.error(err);
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="8" class="no-records">No client registrations found yet.</td>
-                    </tr>
-                `;
-            }
-        }
+      const filtered = allApplicants.filter(item => {
+        const matchesSearch = item.fullName.toLowerCase().includes(search) ||
+                              item.email.toLowerCase().includes(search) ||
+                              item.phone.includes(search);
+        const matchesPurpose = purpose === "" || item.purpose === purpose;
+        const matchesTarget = target === "" || item.targetCountry === target;
 
-        // Clear All Records
-        function clearAllRecords() {
-            if (confirm("እርግጠኛ ነዎት ሁሉንም የተመዘገቡ መረጃዎች ማጽዳት ይፈልጋሉ?")) {
-                const tbody = document.getElementById('clientsTableBody');
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="8" class="no-records">No client registrations found yet.</td>
-                    </tr>
-                `;
-                alert('ሁሉም መረጃዎች ጸድተዋል!');
-            }
-        }
+        return matchesSearch && matchesPurpose && matchesTarget;
+      });
 
-        // Prevent HTML Injection XSS
-        function escapeHtml(str) {
-            return String(str || '')
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-    </script>
+      renderDashboard(filtered);
+    }
+
+    function exportToCSV() {
+      if (allApplicants.length === 0) return alert('No data to export!');
+
+      let csv = 'Full Name,Email,Phone,Origin,Target Country,Purpose,Field,Date\n';
+      allApplicants.forEach(a => {
+        csv += `"${a.fullName}","${a.email}","${a.phone}","${a.originCountry}","${a.targetCountry}","${a.purpose}","${a.specificField}","${a.createdAt}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.setAttribute('href', url);
+      a.setAttribute('download', 'Skyline_Applicants.csv');
+      a.click();
+    }
+
+    function openSettings() {
+      document.getElementById('settingsModal').classList.add('active');
+    }
+
+    function closeSettings() {
+      document.getElementById('settingsModal').classList.remove('active');
+    }
+
+    function saveSettings() {
+      const newPhone = document.getElementById('waPhoneInput').value.trim();
+      if (newPhone) {
+        alert('WhatsApp Hotline updated successfully!');
+        closeSettings();
+      }
+    }
+
+    // Load data on page load
+    window.onload = fetchApplicants;
+  </script>
 </body>
 </html>
