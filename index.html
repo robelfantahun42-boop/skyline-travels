@@ -910,6 +910,28 @@
       const modal = document.getElementById('resultModal');
       modal.classList.remove('active');
     }
-  </script>
+</script>
+
+<script>
+  async function loadDynamicWhatsApp() {
+    try {
+      const res = await fetch('/api/settings/whatsapp');
+      const data = await res.json();
+      if (data.whatsappNumber) {
+        const waLinks = document.querySelectorAll('a[href*="wa.me"], a[href*="whatsapp.com"]');
+        const defaultMsg = encodeURIComponent("Hello Skyline Travels, I have already registered on your website. How do I complete the process?");
+        
+        waLinks.forEach(link => {
+          link.href = `https://wa.me/${data.whatsappNumber}?text=${defaultMsg}`;
+        });
+      }
+    } catch (err) {
+      console.error("WhatsApp number fetch error:", err);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", loadDynamicWhatsApp);
+</script>
+
 </body>
 </html>
