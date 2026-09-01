@@ -3,169 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us - Skyline Travels & Educational Consultancy</title>
+  <title>About Us - Skyline Travels</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    body {
-      background: #f8fafc;
-      color: #1e293b;
-      line-height: 1.6;
-    }
-    header {
-      background: #ffffff;
-      padding: 15px 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-    .logo {
-      font-size: 24px;
-      font-weight: 800;
-      color: #0f172a;
-      text-decoration: none;
-    }
-    .logo span {
-      color: #2563eb;
-    }
-    .back-btn {
-      background: #2563eb;
-      color: white;
-      padding: 8px 16px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      transition: background 0.3s;
-    }
-    .back-btn:hover {
-      background: #1d4ed8;
-    }
-    .hero {
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
-      color: white;
-      text-align: center;
-      padding: 60px 20px;
-    }
-    .hero h1 {
-      font-size: 32px;
-      font-weight: 800;
-      margin-bottom: 10px;
-    }
-    .hero p {
-      font-size: 16px;
-      color: #cbd5e1;
-    }
-    .content-container {
-      max-width: 900px;
-      margin: -30px auto 60px auto;
-      background: white;
-      padding: 40px;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      border: 1px solid #e2e8f0;
-      position: relative;
-    }
-    .section-box {
-      margin-bottom: 35px;
-    }
-    .section-box h2 {
-      font-size: 22px;
-      color: #0f172a;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border-left: 4px solid #2563eb;
-      padding-left: 12px;
-    }
-    .section-box p {
-      color: #475569;
-      font-size: 15px;
-      margin-bottom: 15px;
-    }
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
-    }
-    .feature-card {
-      background: #f8fafc;
-      padding: 20px;
-      border-radius: 12px;
-      border: 1px solid #e2e8f0;
-      text-align: center;
-    }
-    .feature-card i {
-      font-size: 28px;
-      color: #2563eb;
-      margin-bottom: 12px;
-    }
-    .feature-card h3 {
-      font-size: 16px;
-      color: #0f172a;
-      margin-bottom: 8px;
-    }
-    .feature-card p {
-      font-size: 13px;
-      color: #64748b;
-      margin-bottom: 0;
-    }
-    footer {
-      background: #0f172a;
-      color: #94a3b8;
-      text-align: center;
-      padding: 25px;
-      font-size: 14px;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background: #0f172a; color: #f8fafc; line-height: 1.6; }
+    header { background: #ffffff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+    .logo { font-size: 24px; font-weight: 800; color: #0f172a; text-decoration: none; }
+    .logo span { color: #2563eb; }
+    .nav-links { display: flex; gap: 20px; list-style: none; align-items: center; }
+    .nav-links a { text-decoration: none; color: #475569; font-weight: 600; font-size: 15px; transition: color 0.3s; }
+    .nav-links a:hover { color: #2563eb; }
+    .content { max-width: 900px; margin: 50px auto; padding: 0 20px; background: #1e293b; border-radius: 16px; padding: 40px; border: 1px solid #334155; }
+    h1 { font-size: 28px; margin-bottom: 20px; color: #fff; }
+    p { color: #94a3b8; margin-bottom: 15px; font-size: 15px; }
+    footer { background: #020617; color: #94a3b8; text-align: center; padding: 30px 20px; font-size: 14px; margin-top: 50px; }
   </style>
 </head>
 <body>
 
   <header>
     <a href="index.html" class="logo">Skyline <span>Travels</span></a>
-    <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#registrationForm">Register</a></li>
+      <li><a href="index.html#jobsContainer">Jobs</a></li>
+      <li><a href="about.html" style="color: #2563eb;">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
   </header>
 
-  <section class="hero">
-    <h1>About Us</h1>
-    <p>We create reliable paths for international employment and educational opportunities.</p>
-  </section>
-
-  <div class="content-container">
-    <div class="section-box">
-      <h2><i class="fa-solid fa-circle-question" style="font-size: 18px;"></i> Who We Are?</h2>
-      <p><strong>Skyline Travels & Educational Consultancy</strong> is a professional international employment and educational placement agency. We connect our clients with verified global job and study opportunities abroad, creating reliable and legal pathways.</p>
-      <p>We provide comprehensive support from initial registration all the way to final departure and arrival.</p>
-    </div>
-
-    <div class="section-box">
-      <h2><i class="fa-solid fa-star" style="font-size: 18px;"></i> Why Choose Us?</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <i class="fa-solid fa-shield-halved"></i>
-          <h3>Trusted & Verified</h3>
-          <p>Verified and secure international jobs and university admissions.</p>
-        </div>
-        <div class="feature-card">
-          <i class="fa-solid fa-headset"></i>
-          <h3>24/7 Support</h3>
-          <p>Easily track your application progress through direct WhatsApp communication.</p>
-        </div>
-        <div class="feature-card">
-          <i class="fa-solid fa-bolt"></i>
-          <h3>Fast Process</h3>
-          <p>Smooth and efficient processing with no unnecessary delays.</p>
-        </div>
-      </div>
-    </div>
+  <div class="content">
+    <h1>About Skyline Travels</h1>
+    <p>Skyline Travels & Educational Consultancy is a premier global job placement and educational consultancy agency dedicated to connecting ambitious individuals with life-changing opportunities across Canada, USA, Europe, Asia, and the Gulf Countries.</p>
+    <p>We handle professional visa processing, document verification, career guidance, and university admissions with utmost transparency and dedication.</p>
   </div>
 
   <footer>
