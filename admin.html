@@ -79,7 +79,7 @@
             background: #be123c;
         }
 
-        /* Card / Section Box */
+        /* Card Box */
         .card {
             background: #1e293b;
             border: 1px solid #334155;
@@ -356,8 +356,8 @@
     </div>
 
     <script>
-        // Default password (እዚህ ጋር የሚፈልጉትን ፓስወርድ መቀየር ይችላሉ)
-        const ADMIN_PASSWORD = "admin123"; 
+        // Admin Password
+        const ADMIN_PASSWORD = "admin123";
 
         // Check login status on page load
         window.addEventListener('DOMContentLoaded', () => {
@@ -398,18 +398,36 @@
             location.reload();
         }
 
-        // Fetch Saved Phone Number
-        function loadSavedPhone() {
-            const savedPhone = localStorage.getItem('skyline_phone') || '+251 911 000 000';
-            document.getElementById('phoneInput').value = savedPhone;
+        // Fetch Saved Phone Number from API
+        async function loadSavedPhone() {
+            try {
+                const res = await fetch('/api/settings');
+                const data = await res.json();
+                document.getElementById('phoneInput').value = data.phone || '+251 911 000 000';
+            } catch (err) {
+                console.error('Failed to load phone from server:', err);
+            }
         }
 
-        // Save Phone Number
-        function savePhoneNumber(e) {
+        // Save Phone Number to API Server
+        async function savePhoneNumber(e) {
             e.preventDefault();
             const phone = document.getElementById('phoneInput').value;
-            localStorage.setItem('skyline_phone', phone);
-            alert('የስልክ / WhatsApp ቁጥሩ በትክክል ተቀይሯል!');
+            try {
+                const res = await fetch('/api/settings', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone })
+                });
+                if (res.ok) {
+                    alert('የስልክ / WhatsApp ቁጥሩ በሰርቨሩ ላይ በትክክል ተቀይሯል!');
+                } else {
+                    alert('ቁጥሩን መቀየር አልተቻለም፤ ደግመው ይሞክሩ።');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('ስህተት አጋጥሟል፤ ደግመው ይሞክሩ።');
+            }
         }
 
         // Fetch Registrations from backend server / API
@@ -452,7 +470,7 @@
         }
 
         // Clear All Records
-        async function clearAllRecords() {
+        function clearAllRecords() {
             if (confirm("እርግጠኛ ነዎት ሁሉንም የተመዘገቡ መረጃዎች ማጽዳት ይፈልጋሉ?")) {
                 const tbody = document.getElementById('clientsTableBody');
                 tbody.innerHTML = `
@@ -466,7 +484,7 @@
 
         // Prevent HTML Injection XSS
         function escapeHtml(str) {
-            return String(str)
+            return String(str || '')
                 .replace(/&/g, "&amp;")
                 .replace(/</g, "&lt;")
                 .replace(/>/g, "&gt;")
