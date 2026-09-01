@@ -2,110 +2,62 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
+require('dotenv').config();
 
 const app = express();
 
 // Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(express.json());
 
-// Serve static files (HTML, CSS, JS)
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve static files (HTML, CSS, JS) from the root directory
+app.use(express.static(path.join(__dirname)));
 
 // MongoDB Connection
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.MONGODB_URI || "YOUR_MONGODB_CONNECTION_STRING";
 
-mongoose.connect(MONGODB_URI)
-.then(() => console.log('Connected to MongoDB Atlas successfully'))
-.catch(err => console.error('MongoDB connection error:', err));
-
-// 1. Applicant Schema & Model
-const applicantSchema = new mongoose.Schema({
-    fullName: { type: String, required: true },
-    email: { type: String, required: true },
-    phone: { type: String, required: true },
-    origin: { type: String, required: true },
-    target: { type: String, required: true },
-    purpose: { type: String, required: true },
-    field: { type: String },
-    date: { type: String, default: () => new Date().toISOString().split('T')[0] }
+mongoose.connect(MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    console.log("Connected to MongoDB Atlas successfully");
+}).catch((err) => {
+    console.error("MongoDB connection error:", err);
 });
 
-const Applicant = mongoose.model('Applicant', applicantSchema);
-
-// 2. WhatsApp Setting Schema & Model
-const whatsappSettingSchema = new mongoose.Schema({
-    phoneNumber: { type: String, required: true, default: '+251911000000' }
+// Example Application Schema & Route
+const applicationSchema = new mongoose.Schema({
+    fullName: String,
+    email: String,
+    phone: String,
+    position: String,
+    createdAt: { type: Date, default: Date.now }
 });
 
-const WhatsAppSetting = mongoose.model('WhatsAppSetting', whatsappSettingSchema);
+const Application = mongoose.model('Application', applicationSchema);
 
-// API Routes
-
-// Submit application registration
-app.post('/api/register', async (req, res) => {
+app.post('/api/apply', async (req, res) => {
     try {
-        const newApplicant = new Applicant(req.body);
-        await newApplicant.save();
-        res.status(201).json({ success: true, message: 'Registration successful!' });
+        const newApp = new Application(req.body);
+        await newApp.save();
+        res.status(201).json({ success: true, message: 'Application submitted successfully!' });
     } catch (error) {
-        console.error('Registration error:', error);
-        res.status(500).json({ success: false, error: 'Internal Server Error' });
+        res.status(500).json({ success: false, error: error.message });
     }
 });
 
-// Get all applicants for the Admin panel
-app.get('/api/applicants', async (req, res) => {
-    try {
-        const applicants = await Applicant.find().sort({ _id: -1 });
-        res.json(applicants);
-    } catch (error) {
-        console.error('Error fetching applicants:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
+// Catch-all route for frontend pages
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Get the current WhatsApp number for frontend display
-app.get('/api/whatsapp-number', async (req, res) => {
-    try {
-        let setting = await WhatsAppSetting.findOne();
-        if (!setting) {
-            setting = new WhatsAppSetting({ phoneNumber: '+251911000000' });
-            await setting.save();
-        }
-        res.json({ phoneNumber: setting.phoneNumber });
-    } catch (error) {
-        console.error('Error fetching WhatsApp number:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
+// Export app for Vercel serverless function
+module.exports = app;
 
-// Update the WhatsApp number from the Admin panel settings
-app.post('/api/whatsapp-number', async (req, res) => {
-    try {
-        const { phoneNumber } = req.body;
-        if (!phoneNumber) {
-            return res.status(400).json({ error: 'Phone number is required' });
-        }
-
-        let setting = await WhatsAppSetting.findOne();
-        if (setting) {
-            setting.phoneNumber = phoneNumber;
-            await setting.save();
-        } else {
-            setting = new WhatsAppSetting({ phoneNumber });
-            await setting.save();
-        }
-
-        res.json({ success: true, message: 'WhatsApp Hotline updated successfully!' });
-    } catch (error) {
-        console.error('Error updating WhatsApp number:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+// Local testing
+if (require.main === module) {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+}
