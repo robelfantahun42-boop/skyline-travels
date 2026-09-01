@@ -38,10 +38,11 @@
       background: #1e293b;
       color: #ffffff;
       border: 1px solid #334155;
-      padding: 5px 10px;
+      padding: 6px 12px;
       border-radius: 6px;
       font-size: 13px;
       cursor: pointer;
+      outline: none;
     }
     /* Header / Navbar */
     header {
@@ -283,6 +284,7 @@
         <option value="en">English (US)</option>
         <option value="am">አማርኛ (Amharic)</option>
         <option value="ar">العربية (Arabic)</option>
+        <option value="ur">اردو (Urdu)</option>
         <option value="fr">Français (French)</option>
         <option value="es">Español (Spanish)</option>
         <option value="zh">中文 (Chinese)</option>
@@ -295,6 +297,11 @@
         <option value="ko">한국어 (Korean)</option>
         <option value="tr">Türkçe (Turkish)</option>
         <option value="sw">Kiswahili (Swahili)</option>
+        <option value="fa">فارسی (Persian)</option>
+        <option value="bn">বাংলা (Bengali)</option>
+        <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+        <option value="vi">Tiếng Việt (Vietnamese)</option>
+        <option value="id">Bahasa Indonesia</option>
       </select>
     </div>
   </div>
@@ -365,11 +372,16 @@
           </div>
           <div class="form-group">
             <label id="labelPurpose">Purpose of Application</label>
-            <select id="purpose" required>
+            <select id="purpose" required onchange="updateSpecificFieldLabel()">
               <option value="">-- Select Purpose --</option>
               <option value="Job">International Job Placement</option>
               <option value="Education">Educational Consultancy</option>
             </select>
+          </div>
+          <!-- Dynamic Specific Job/Education Field Input -->
+          <div class="form-group full-width">
+            <label id="labelSpecificField">Specific Job Title or Course of Study</label>
+            <input type="text" id="specificField" required placeholder="e.g., Software Engineer or Master's in Data Science">
           </div>
           <div class="form-group full-width">
             <label id="labelNotes">Additional Notes / Cover Message</label>
@@ -459,7 +471,7 @@
     ];
 
     const jobsContainer = document.getElementById('jobsContainer');
-    jobs.forEach((job, index) => {
+    jobs.forEach((job) => {
       const card = document.createElement('div');
       card.className = 'job-card';
       card.innerHTML = `
@@ -467,11 +479,32 @@
         <div class="job-content">
           <h3>${job.title}</h3>
           <p><i class="fa-solid fa-location-dot"></i> ${job.loc}</p>
-          <a href="#registrationForm" class="apply-link">Apply Now &rarr;</a>
+          <a href="#registrationForm" class="apply-link" onclick="selectJobPurpose('${job.title}')">Apply Now &rarr;</a>
         </div>
       `;
       jobsContainer.appendChild(card);
     });
+
+    function selectJobPurpose(jobTitle) {
+      document.getElementById('purpose').value = "Job";
+      document.getElementById('specificField').value = jobTitle;
+    }
+
+    function updateSpecificFieldLabel() {
+      const purpose = document.getElementById('purpose').value;
+      const label = document.getElementById('labelSpecificField');
+      const input = document.getElementById('specificField');
+      if (purpose === 'Job') {
+        label.innerText = "Desired Job Title / Position";
+        input.placeholder = "e.g., Software Engineer, Nurse";
+      } else if (purpose === 'Education') {
+        label.innerText = "Desired Course / Field of Study";
+        input.placeholder = "e.g., Bachelor's in IT, Master's in Business";
+      } else {
+        label.innerText = "Specific Job Title or Course of Study";
+        input.placeholder = "Enter your desired field";
+      }
+    }
 
     // Form Submission & Duplicate Prevention + WhatsApp Redirect
     async function handleRegistration(event) {
@@ -483,6 +516,7 @@
       const originCountry = document.getElementById('originCountry').value;
       const targetCountry = document.getElementById('targetCountry').value;
       const purpose = document.getElementById('purpose').value;
+      const specificField = document.getElementById('specificField').value;
       const notes = document.getElementById('notes').value;
 
       if (localStorage.getItem('skyline_registered') === 'true') {
@@ -491,7 +525,7 @@
         return;
       }
 
-      const formData = { fullName, email, phone, originCountry, targetCountry, purpose, notes };
+      const formData = { fullName, email, phone, originCountry, targetCountry, purpose, specificField, notes };
 
       try {
         const response = await fetch('/api/register', {
@@ -516,7 +550,7 @@
       }
     }
 
-    // Language Translator Mock
+    // Language Translator Mock for multi-languages including Urdu
     function changeLanguage() {
       const lang = document.getElementById('languageSelect').value;
       if (lang === 'am') {
@@ -529,6 +563,11 @@
         document.getElementById('heroDesc').innerText = 'استكشف الوظائف الدولية المعتمدة وخدمات الاستشارات التعليمية.';
         document.getElementById('formTitle').innerText = 'استمارة التسجيل والطلب';
         document.getElementById('submitBtnText').innerText = 'إرسال الطلب';
+      } else if (lang === 'ur') {
+        document.getElementById('heroTitle').innerText = 'عالمی مواقع کا آپ کا دروازہ';
+        document.getElementById('heroDesc').innerText = 'عالمی سطح پر تصدیق شدہ ملازمت کی آسامیوں اور تعلیمی مشاورت کی جگہوں کو دریافت کریں۔';
+        document.getElementById('formTitle').innerText = 'درخواست اور رجسٹریشن فارم';
+        document.getElementById('submitBtnText').innerText = 'درخواست جمع کروائیں';
       } else {
         document.getElementById('heroTitle').innerText = 'Your Gateway to Global Opportunities';
         document.getElementById('heroDesc').innerText = 'Explore verified international job vacancies and educational consultancy placements worldwide.';
