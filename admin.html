@@ -3,115 +3,232 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard - Skyline Travels</title>
+  <title>Skyline Travels - Admin Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background: #f1f5f9; color: #1e293b; min-height: 100vh; padding: 30px 20px; }
-    .container { max-width: 1200px; margin: 0 auto; }
-    header { background: #ffffff; padding: 20px 30px; border-radius: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
-    header h1 { font-size: 22px; color: #1e3a8a; display: flex; align-items: center; gap: 10px; }
-    .nav-links a { text-decoration: none; background: #eff6ff; color: #2563eb; padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 14px; margin-left: 10px; }
-    .card { background: #ffffff; padding: 25px; border-radius: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 25px; }
-    .card h3 { margin-bottom: 15px; font-size: 18px; color: #334155; display: flex; align-items: center; gap: 10px; }
-    .settings-form { display: flex; gap: 15px; align-items: center; }
-    .settings-form input { flex: 1; padding: 12px 16px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 14px; outline: none; }
-    .settings-form button { background: #2563eb; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 700; cursor: pointer; }
-    .settings-form button:hover { background: #1d4ed8; }
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; background: #fff; border-radius: 8px; overflow: hidden; }
-    th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
-    th { background: #f8fafc; color: #475569; font-weight: 700; }
-    tr:hover { background: #f8fafc; }
-    .badge { background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
-    .empty-msg { text-align: center; padding: 30px; color: #64748b; font-style: italic; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1e293b;
+      padding: 20px 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      border: 1px solid #334155;
+    }
+    h1 {
+      font-size: 24px;
+      color: #fff;
+    }
+    .back-btn {
+      background: #334155;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .back-btn:hover {
+      background: #475569;
+    }
+    .card {
+      background: #1e293b;
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      border: 1px solid #334155;
+    }
+    .card h2 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #38bdf8;
+    }
+    .form-group {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 12px 15px;
+      background: #0f172a;
+      border: 1px solid #475569;
+      color: #fff;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+    }
+    .save-btn {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .save-btn:hover {
+      background: #1d4ed8;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      background: #1e293b;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #334155;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #334155;
+      font-size: 14px;
+    }
+    th {
+      background: #0f172a;
+      color: #cbd5e1;
+      font-weight: 700;
+    }
+    td {
+      color: #e2e8f0;
+    }
+    tr:hover {
+      background: rgba(255,255,255,0.02);
+    }
+    .no-data {
+      text-align: center;
+      padding: 40px;
+      color: #94a3b8;
+    }
+    .clear-btn {
+      background: #dc2626;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      margin-top: 15px;
+    }
+    .clear-btn:hover {
+      background: #b91c1c;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1><i class="fa-solid fa-gauge"></i> Skyline Travels Admin Dashboard</h1>
-      <div class="nav-links">
-        <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
-        <a href="register.html"><i class="fa-solid fa-user-plus"></i> Register Form</a>
-      </div>
+      <h1><i class="fa-solid fa-user-shield"></i> Skyline Travels Admin Panel</h1>
+      <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Website</a>
     </header>
 
-    <!-- WhatsApp Settings Card -->
+    <!-- SETTINGS: PHONE NUMBER -->
     <div class="card">
-      <h3><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> Update Customer Service WhatsApp Number</h3>
-      <form id="settingsForm" class="settings-form">
-        <input type="text" id="whatsappInput" placeholder="e.g. 251911223344 (Country code + number without +)" required>
-        <button type="submit">Save Number</button>
-      </form>
+      <h2><i class="fa-solid fa-phone"></i> Change Customer Service Phone / WhatsApp Number</h2>
+      <div class="form-group">
+        <input type="text" id="phoneInput" placeholder="e.g., +251 911 000 000">
+        <button class="save-btn" onclick="savePhoneNumber()">Save Phone Number</button>
+      </div>
+      <p id="phoneStatus" style="font-size: 13px; color: #22c55e; margin-top: 8px; display: none;">Phone number updated successfully!</p>
     </div>
 
-    <!-- Registrations Table Card -->
+    <!-- REGISTERED CLIENTS TABLE -->
     <div class="card">
-      <h3><i class="fa-solid fa-users"></i> Registered Applicants List</h3>
+      <h2><i class="fa-solid fa-users"></i> Registered Clients List</h2>
       <div style="overflow-x: auto;">
-        <table>
+        <table id="clientsTable">
           <thead>
             <tr>
-              <th>Date</th>
               <th>Full Name</th>
               <th>Email</th>
-              <th>Phone</th>
-              <th>Nationality</th>
-              <th>Destination</th>
-              <th>Category</th>
-              <th>Education</th>
-              <th>Message</th>
+              <th>Phone / WhatsApp</th>
+              <th>Residence</th>
+              <th>Target Country</th>
+              <th>Purpose</th>
+              <th>Field / Job</th>
+              <th>Notes</th>
             </tr>
           </thead>
-          <tbody id="regTableBody">
-            <!-- Data will be loaded here dynamically -->
+          <tbody id="tableBody">
+            <!-- Data will load here -->
           </tbody>
         </table>
       </div>
+      <button class="clear-btn" onclick="clearAllData()"><i class="fa-solid fa-trash"></i> Clear All Records</button>
     </div>
   </div>
 
   <script>
-    // Load WhatsApp number setting
-    const currentWa = localStorage.getItem('skyline_whatsapp') || '251900000000';
-    document.getElementById('whatsappInput').value = currentWa;
+    window.onload = function() {
+      loadPhoneNumber();
+      loadClientsData();
+    };
 
-    document.getElementById('settingsForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const newWa = document.getElementById('whatsappInput').value.trim();
-      localStorage.setItem('skyline_whatsapp', newWa);
-      alert('WhatsApp number updated successfully!');
-    });
+    function loadPhoneNumber() {
+      const savedPhone = localStorage.getItem('skyline_support_phone') || '+251 911 000 000';
+      document.getElementById('phoneInput').value = savedPhone;
+    }
 
-    // Load registrations into table
-    function loadRegistrations() {
-      const tbody = document.getElementById('regTableBody');
-      const registrations = JSON.parse(localStorage.getItem('skyline_registrations') || '[]');
+    function savePhoneNumber() {
+      const newPhone = document.getElementById('phoneInput').value;
+      if (!newPhone.trim()) return;
+      localStorage.setItem('skyline_support_phone', newPhone);
+      
+      const status = document.getElementById('phoneStatus');
+      status.style.display = 'block';
+      setTimeout(() => { status.style.display = 'none'; }, 3000);
+    }
 
-      if (registrations.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="9" class="empty-msg">No applications registered yet.</td></tr>`;
+    function loadClientsData() {
+      const tbody = document.getElementById('tableBody');
+      const clients = JSON.parse(localStorage.getItem('skyline_clients_list') || '[]');
+
+      if (clients.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" class="no-data">No client registrations found yet.</td></tr>`;
         return;
       }
 
       tbody.innerHTML = '';
-      registrations.forEach(reg => {
+      clients.forEach(client => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td>${reg.date || 'N/A'}</td>
-          <td><strong>${reg.fullName}</strong></td>
-          <td>${reg.email}</td>
-          <td>${reg.phone}</td>
-          <td>${reg.nationality}</td>
-          <td><span class="badge">${reg.targetCountry}</span></td>
-          <td>${reg.category}</td>
-          <td>${reg.education}</td>
-          <td>${reg.message || '-'}</td>
+          <td><strong>${client.fullName || '-'}</strong></td>
+          <td>${client.email || '-'}</td>
+          <td>${client.phone || '-'}</td>
+          <td>${client.originCountry || '-'}</td>
+          <td>${client.targetCountry || '-'}</td>
+          <td>${client.purpose || '-'}</td>
+          <td>${client.specificField || '-'}</td>
+          <td>${client.notes || '-'}</td>
         `;
         tbody.appendChild(tr);
       });
     }
 
-    loadRegistrations();
+    function clearAllData() {
+      if (confirm('Are you sure you want to delete all client registration records?')) {
+        localStorage.removeItem('skyline_clients_list');
+        localStorage.removeItem('skyline_user_registered');
+        loadClientsData();
+        alert('All records cleared successfully.');
+      }
+    }
   </script>
 </body>
 </html>
