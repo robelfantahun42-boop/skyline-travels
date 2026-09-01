@@ -1,7 +1,7 @@
 {
   "name": "skyline-travels",
   "version": "1.0.0",
-  "description": "Skyline Travels travel service portal",
+  "description": "Skyline Travels portal",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
