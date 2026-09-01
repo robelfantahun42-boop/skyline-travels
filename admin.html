@@ -1,234 +1,478 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Skyline Travels - Admin Dashboard</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    body {
-      background: #0f172a;
-      color: #f8fafc;
-      padding: 20px;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #1e293b;
-      padding: 20px 30px;
-      border-radius: 12px;
-      margin-bottom: 30px;
-      border: 1px solid #334155;
-    }
-    h1 {
-      font-size: 24px;
-      color: #fff;
-    }
-    .back-btn {
-      background: #334155;
-      color: #fff;
-      padding: 8px 16px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-size: 14px;
-    }
-    .back-btn:hover {
-      background: #475569;
-    }
-    .card {
-      background: #1e293b;
-      padding: 25px;
-      border-radius: 12px;
-      margin-bottom: 30px;
-      border: 1px solid #334155;
-    }
-    .card h2 {
-      font-size: 18px;
-      margin-bottom: 15px;
-      color: #38bdf8;
-    }
-    .form-group {
-      display: flex;
-      gap: 15px;
-      align-items: center;
-    }
-    input[type="text"] {
-      flex: 1;
-      padding: 12px 15px;
-      background: #0f172a;
-      border: 1px solid #475569;
-      color: #fff;
-      border-radius: 8px;
-      font-size: 15px;
-      outline: none;
-    }
-    .save-btn {
-      background: #2563eb;
-      color: #fff;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .save-btn:hover {
-      background: #1d4ed8;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-      background: #1e293b;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid #334155;
-    }
-    th, td {
-      padding: 12px 15px;
-      text-align: left;
-      border-bottom: 1px solid #334155;
-      font-size: 14px;
-    }
-    th {
-      background: #0f172a;
-      color: #cbd5e1;
-      font-weight: 700;
-    }
-    td {
-      color: #e2e8f0;
-    }
-    tr:hover {
-      background: rgba(255,255,255,0.02);
-    }
-    .no-data {
-      text-align: center;
-      padding: 40px;
-      color: #94a3b8;
-    }
-    .clear-btn {
-      background: #dc2626;
-      color: #fff;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 13px;
-      margin-top: 15px;
-    }
-    .clear-btn:hover {
-      background: #b91c1c;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skyline Travels - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Styling */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1e293b;
+            padding: 20px 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid #334155;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #ffffff;
+        }
+
+        .header-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-secondary {
+            background: #334155;
+            color: #f8fafc;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: #475569;
+        }
+
+        .btn-logout {
+            background: #e11d48;
+            color: #ffffff;
+        }
+        .btn-logout:hover {
+            background: #be123c;
+        }
+
+        /* Card / Section Box */
+        .card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            color: #38bdf8;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Form Controls */
+        .form-row {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .input-control {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 16px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .input-control:focus {
+            border-color: #38bdf8;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: #ffffff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        /* Table Styling */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid #334155;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 14px 16px;
+            font-weight: 600;
+            border-bottom: 1px solid #334155;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #334155;
+            color: #cbd5e1;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: #273549;
+        }
+
+        .no-records {
+            text-align: center;
+            padding: 40px 20px;
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        /* Login Screen Overlay */
+        #loginOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #0f172a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 35px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .login-card h2 {
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-size: 1.5rem;
+        }
+
+        .login-card p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+
+        .login-card .input-control {
+            width: 100%;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+
+        .login-card .btn-primary {
+            width: 100%;
+            justify-content: center;
+            padding: 14px;
+            font-size: 1rem;
+        }
+
+        .error-msg {
+            color: #f87171;
+            font-size: 0.85rem;
+            margin-top: 12px;
+            display: none;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1><i class="fa-solid fa-user-shield"></i> Skyline Travels Admin Panel</h1>
-      <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Website</a>
-    </header>
 
-    <!-- SETTINGS: PHONE NUMBER -->
-    <div class="card">
-      <h2><i class="fa-solid fa-phone"></i> Change Customer Service Phone / WhatsApp Number</h2>
-      <div class="form-group">
-        <input type="text" id="phoneInput" placeholder="e.g., +251 911 000 000">
-        <button class="save-btn" onclick="savePhoneNumber()">Save Phone Number</button>
-      </div>
-      <p id="phoneStatus" style="font-size: 13px; color: #22c55e; margin-top: 8px; display: none;">Phone number updated successfully!</p>
+    <!-- Login Overlay -->
+    <div id="loginOverlay">
+        <div class="login-card">
+            <i class="fas fa-lock" style="font-size: 2.5rem; color: #38bdf8; margin-bottom: 15px;"></i>
+            <h2>Admin Login</h2>
+            <p>እባክዎን ገጹን ለመክፈት የይለፍ ቃል ያስገቡ</p>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <input type="password" id="adminPasswordInput" class="input-control" placeholder="የይለፍ ቃል ያስገቡ..." required autofocus>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> ይግቡ (Login)
+                </button>
+            </form>
+            <div id="loginError" class="error-msg">
+                <i class="fas fa-exclamation-circle"></i> የተሳሳተ የይለፍ ቃል ነው! እባክዎን ደግመው ይሞክሩ።
+            </div>
+        </div>
     </div>
 
-    <!-- REGISTERED CLIENTS TABLE -->
-    <div class="card">
-      <h2><i class="fa-solid fa-users"></i> Registered Clients List</h2>
-      <div style="overflow-x: auto;">
-        <table id="clientsTable">
-          <thead>
-            <tr>
-              <th>Full Name</th>
-              <th>Email</th>
-              <th>Phone / WhatsApp</th>
-              <th>Residence</th>
-              <th>Target Country</th>
-              <th>Purpose</th>
-              <th>Field / Job</th>
-              <th>Notes</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody">
-            <!-- Data will load here -->
-          </tbody>
-        </table>
-      </div>
-      <button class="clear-btn" onclick="clearAllData()"><i class="fa-solid fa-trash"></i> Clear All Records</button>
+    <!-- Main Dashboard Container -->
+    <div id="dashboardContent" class="container hidden">
+        <header>
+            <h1>
+                <i class="fas fa-user-shield" style="color: #38bdf8;"></i> Skyline Travels Admin Panel
+            </h1>
+            <div class="header-btns">
+                <a href="index.html" class="btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Website
+                </a>
+                <button onclick="handleLogout()" class="btn-secondary btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <!-- Phone / WhatsApp Config Card -->
+        <div class="card">
+            <h2 class="card-title">
+                <i class="fas fa-phone-alt"></i> Change Customer Service Phone / WhatsApp Number
+            </h2>
+            <form id="phoneForm" onsubmit="savePhoneNumber(event)" class="form-row">
+                <input type="text" id="phoneInput" class="input-control" placeholder="+251 911 000 000" required>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-save"></i> Save Phone Number
+                </button>
+            </form>
+        </div>
+
+        <!-- Registered Clients Table Card -->
+        <div class="card">
+            <h2 class="card-title">
+                <i class="fas fa-users"></i> Registered Clients List
+            </h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Phone / WhatsApp</th>
+                            <th>Residence</th>
+                            <th>Target Country</th>
+                            <th>Purpose</th>
+                            <th>Field / Job</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clientsTableBody">
+                        <tr>
+                            <td colspan="8" class="no-records">
+                                <i class="fas fa-spinner fa-spin"></i> Data እየተጫነ ነው...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button onclick="clearAllRecords()" class="btn-danger">
+                <i class="fas fa-trash-alt"></i> Clear All Records
+            </button>
+        </div>
     </div>
-  </div>
 
-  <script>
-    window.onload = function() {
-      loadPhoneNumber();
-      loadClientsData();
-    };
+    <script>
+        // Default password (እዚህ ጋር የሚፈልጉትን ፓስወርድ መቀየር ይችላሉ)
+        const ADMIN_PASSWORD = "admin123"; 
 
-    function loadPhoneNumber() {
-      const savedPhone = localStorage.getItem('skyline_support_phone') || '+251 911 000 000';
-      document.getElementById('phoneInput').value = savedPhone;
-    }
+        // Check login status on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const isLoggedIn = sessionStorage.getItem('isAdminLoggedIn');
+            if (isLoggedIn === 'true') {
+                showDashboard();
+            }
+        });
 
-    function savePhoneNumber() {
-      const newPhone = document.getElementById('phoneInput').value;
-      if (!newPhone.trim()) return;
-      localStorage.setItem('skyline_support_phone', newPhone);
-      
-      const status = document.getElementById('phoneStatus');
-      status.style.display = 'block';
-      setTimeout(() => { status.style.display = 'none'; }, 3000);
-    }
+        // Handle Login Submission
+        function handleLogin(e) {
+            e.preventDefault();
+            const enteredPassword = document.getElementById('adminPasswordInput').value;
+            const errorMsg = document.getElementById('loginError');
 
-    function loadClientsData() {
-      const tbody = document.getElementById('tableBody');
-      const clients = JSON.parse(localStorage.getItem('skyline_clients_list') || '[]');
+            if (enteredPassword === ADMIN_PASSWORD) {
+                sessionStorage.setItem('isAdminLoggedIn', 'true');
+                errorMsg.style.display = 'none';
+                showDashboard();
+            } else {
+                errorMsg.style.display = 'block';
+                document.getElementById('adminPasswordInput').value = '';
+                document.getElementById('adminPasswordInput').focus();
+            }
+        }
 
-      if (clients.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" class="no-data">No client registrations found yet.</td></tr>`;
-        return;
-      }
+        // Show Dashboard and load dynamic data
+        function showDashboard() {
+            document.getElementById('loginOverlay').classList.add('hidden');
+            document.getElementById('dashboardContent').classList.remove('hidden');
+            loadSavedPhone();
+            loadRegistrations();
+        }
 
-      tbody.innerHTML = '';
-      clients.forEach(client => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td><strong>${client.fullName || '-'}</strong></td>
-          <td>${client.email || '-'}</td>
-          <td>${client.phone || '-'}</td>
-          <td>${client.originCountry || '-'}</td>
-          <td>${client.targetCountry || '-'}</td>
-          <td>${client.purpose || '-'}</td>
-          <td>${client.specificField || '-'}</td>
-          <td>${client.notes || '-'}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
+        // Handle Logout
+        function handleLogout() {
+            sessionStorage.removeItem('isAdminLoggedIn');
+            location.reload();
+        }
 
-    function clearAllData() {
-      if (confirm('Are you sure you want to delete all client registration records?')) {
-        localStorage.removeItem('skyline_clients_list');
-        localStorage.removeItem('skyline_user_registered');
-        loadClientsData();
-        alert('All records cleared successfully.');
-      }
-    }
-  </script>
+        // Fetch Saved Phone Number
+        function loadSavedPhone() {
+            const savedPhone = localStorage.getItem('skyline_phone') || '+251 911 000 000';
+            document.getElementById('phoneInput').value = savedPhone;
+        }
+
+        // Save Phone Number
+        function savePhoneNumber(e) {
+            e.preventDefault();
+            const phone = document.getElementById('phoneInput').value;
+            localStorage.setItem('skyline_phone', phone);
+            alert('የስልክ / WhatsApp ቁጥሩ በትክክል ተቀይሯል!');
+        }
+
+        // Fetch Registrations from backend server / API
+        async function loadRegistrations() {
+            const tbody = document.getElementById('clientsTableBody');
+            try {
+                const response = await fetch('/api/registrations');
+                if (!response.ok) throw new Error('Failed to fetch');
+                const data = await response.json();
+
+                if (!data || data.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="8" class="no-records">No client registrations found yet.</td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                tbody.innerHTML = data.map(item => `
+                    <tr>
+                        <td><strong>${escapeHtml(item.fullName || item.name || '-')}</strong></td>
+                        <td>${escapeHtml(item.email || '-')}</td>
+                        <td>${escapeHtml(item.phone || '-')}</td>
+                        <td>${escapeHtml(item.residence || '-')}</td>
+                        <td>${escapeHtml(item.targetCountry || '-')}</td>
+                        <td>${escapeHtml(item.purpose || '-')}</td>
+                        <td>${escapeHtml(item.jobField || item.field || '-')}</td>
+                        <td>${escapeHtml(item.notes || '-')}</td>
+                    </tr>
+                `).join('');
+            } catch (err) {
+                console.error(err);
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="no-records">No client registrations found yet.</td>
+                    </tr>
+                `;
+            }
+        }
+
+        // Clear All Records
+        async function clearAllRecords() {
+            if (confirm("እርግጠኛ ነዎት ሁሉንም የተመዘገቡ መረጃዎች ማጽዳት ይፈልጋሉ?")) {
+                const tbody = document.getElementById('clientsTableBody');
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="no-records">No client registrations found yet.</td>
+                    </tr>
+                `;
+                alert('ሁሉም መረጃዎች ጸድተዋል!');
+            }
+        }
+
+        // Prevent HTML Injection XSS
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
 </body>
 </html>
