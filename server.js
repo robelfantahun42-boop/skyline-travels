@@ -8,12 +8,17 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// **ይህ ትዕዛዝ ሰርቨሩ እንደ about.html፣ index.html እና CSS ያሉ ፋይሎችን በቀጥታ እንዲያነብ ያደርጋል**
+// Serve all static files (HTML, CSS, JS) from the root directory
 app.use(express.static(path.join(__dirname)));
 
 const DB_FILE = path.join(__dirname, 'database.json');
 
-// Existing API endpoint for registrations (የተያዘው ዳታ ማግኛ)
+// Explicit route for the homepage
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// API endpoint to get all registrations
 app.get('/api/registrations', (req, res) => {
   if (!fs.existsSync(DB_FILE)) {
     return res.json([]);
@@ -26,7 +31,7 @@ app.get('/api/registrations', (req, res) => {
   }
 });
 
-// Existing API endpoint to handle new registrations (አዲስ ምዝገባ መቀበያ)
+// API endpoint to handle new registrations
 app.post('/api/register', (req, res) => {
   let registrations = [];
   if (fs.existsSync(DB_FILE)) {
