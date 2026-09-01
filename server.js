@@ -1,99 +1,56 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
 const path = require('path');
-require('dotenv').config();
+const { MongoClient } = require('mongodb');
 
 const app = express();
 
 // Middleware
-app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname)));
 
-// MongoDB URI Fix (ይህ ሁለቱንም የስም አማራጮች ያነባል)
-const MONGO_URI = process.env.MONGODB_URI || process.env.MONGO_URI;
+// MongoDB connection setup
+const uri = process.env.MONGODB_URI;
+let db;
 
-if (MONGO_URI) {
-  mongoose.connect(MONGO_URI)
-    .then(() => console.log('✅ MongoDB Connected!'))
-    .catch(err => console.error('❌ MongoDB Error:', err));
+async function connectDB() {
+  if (!db && uri) {
+    try {
+      const client = new MongoClient(uri);
+      await client.connect();
+      db = client.db('skyline_travels');
+      console.log('Connected to MongoDB Atlas');
+    } catch (err) {
+      console.error('MongoDB connection error:', err);
+    }
+  }
 }
-
-// Schemas & Models
-const applicantSchema = new mongoose.Schema({
-  fullName: { type: String, required: true },
-  email: { type: String, required: true },
-  phone: { type: String, required: true },
-  originCountry: { type: String, default: 'Ethiopia' },
-  targetCountry: { type: String, required: true },
-  purpose: { type: String, required: true },
-  specificField: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now }
-});
-
-const settingsSchema = new mongoose.Schema({
-  waPhone: { type: String, default: '251911000000' }
-});
-
-const Applicant = mongoose.models.Applicant || mongoose.model('Applicant', applicantSchema);
-const Settings = mongoose.models.Settings || mongoose.model('Settings', settingsSchema);
+connectDB();
 
 // API Routes
-app.post('/api/register', async (req, res) => {
+app.get('/api/status', (req, res) => {
+  res.json({ status: 'Server is running', connected: !!db });
+});
+
+// Job Application Endpoint
+app.post('/api/apply', async (req, res) => {
   try {
-    const { fullName, email, phone, originCountry, targetCountry, purpose, specificField } = req.body;
-    if (!fullName || !email || !phone || !targetCountry || !purpose) {
-      return res.status(400).json({ error: 'እባክዎን አስፈላጊዎቹን መረጃዎች በሙሉ ይሙሉ!' });
-    }
-
-    const newApplicant = new Applicant({
-      fullName, email, phone,
-      originCountry: originCountry || 'Ethiopia',
-      targetCountry, purpose, specificField
-    });
-
-    await newApplicant.save();
-    res.status(201).json({ success: true, message: 'ምዝገባዎ በስኬት ተጠናቋል!' });
-  } catch (error) {
-    res.status(500).json({ error: 'የሰርቨር ስህተት ተከሰቷል።' });
+    await connectDB();
+    if (!db) return res.status(500).json({ error: 'Database not connected' });
+    const application = req.body;
+    const result = await db.collection('applications').insertOne(application);
+    res.status(201).json({ success: true, id: result.insertedId });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 
-app.get('/api/admin/applicants', async (req, res) => {
-  try {
-    const applicants = await Applicant.find().sort({ createdAt: -1 });
-    res.json(applicants);
-  } catch (error) {
-    res.status(500).json({ error: 'መረጃዎችን ማምጣት አልተቻለም።' });
-  }
-});
+// Conditional listen for local development, export for Vercel
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
 
-app.get('/api/settings/whatsapp', async (req, res) => {
-  try {
-    let settings = await Settings.findOne();
-    if (!settings) settings = await Settings.create({ waPhone: '251911000000' });
-    res.json(settings);
-  } catch (error) {
-    res.status(500).json({ error: 'Settings fetch failed' });
-  }
-});
-
-app.post('/api/admin/settings/whatsapp', async (req, res) => {
-  try {
-    const { waPhone } = req.body;
-    let settings = await Settings.findOne();
-    if (settings) {
-      settings.waPhone = waPhone;
-      await settings.save();
-    } else {
-      await Settings.create({ waPhone });
-    }
-    res.json({ success: true, message: 'WhatsApp number updated!' });
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to update settings' });
-  }
-});
-
-// Export app for Vercel Serverless Functions
 module.exports = app;
