@@ -80,6 +80,13 @@
     .nav-links a:hover {
       color: #2563eb;
     }
+    /* Hamburger Menu Toggle Icon */
+    .menu-toggle {
+      display: none;
+      font-size: 24px;
+      color: #0f172a;
+      cursor: pointer;
+    }
     /* Hero Section */
     .hero {
       background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
@@ -128,7 +135,7 @@
       text-align: center;
       margin-bottom: 30px;
     }
-    /* Jobs Grid */
+    /* Jobs Grid (30 Opportunities) */
     .jobs-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -148,27 +155,27 @@
     }
     .job-card img {
       width: 100%;
-      height: 160px;
+      height: 150px;
       object-fit: cover;
     }
     .job-content {
-      padding: 20px;
+      padding: 15px;
     }
     .job-content h3 {
-      font-size: 18px;
+      font-size: 16px;
       color: #0f172a;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .job-content p {
-      font-size: 14px;
+      font-size: 13px;
       color: #64748b;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
     .apply-link {
       color: #2563eb;
       text-decoration: none;
       font-weight: 700;
-      font-size: 14px;
+      font-size: 13px;
     }
     /* Registration Form Section */
     .form-section {
@@ -233,7 +240,25 @@
       padding: 30px 20px;
       font-size: 14px;
     }
+    /* Responsive Media Query */
     @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
       .form-grid {
         grid-template-columns: 1fr;
       }
@@ -241,7 +266,7 @@
         grid-column: span 1;
       }
       .hero h1 {
-        font-size: 28px;
+        font-size: 26px;
       }
     }
   </style>
@@ -277,7 +302,10 @@
   <!-- Header -->
   <header>
     <a href="index.html" class="logo">Skyline <span>Travels</span></a>
-    <ul class="nav-links">
+    <div class="menu-toggle" id="mobile-menu" onclick="toggleMenu()">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+    <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About Us</a></li>
       <li><a href="contact.html">Contact</a></li>
@@ -293,11 +321,11 @@
     </a>
   </section>
 
-  <!-- Featured Jobs Container -->
+  <!-- Featured Jobs Container (30 Opportunities) -->
   <div class="container">
     <h2 class="section-title" id="jobsTitle">Featured 30 Global Job & Education Opportunities</h2>
     <div class="jobs-grid" id="jobsContainer">
-      <!-- Dynamic 30 jobs will load here or your existing items -->
+      <!-- 30 Jobs dynamically injected via JavaScript -->
     </div>
 
     <!-- Registration Form -->
@@ -359,7 +387,13 @@
   </footer>
 
   <script>
-    // 1. World Countries List for Origin Country Dropdown
+    // Toggle Mobile Menu (Hamburger)
+    function toggleMenu() {
+      const nav = document.getElementById('navLinks');
+      nav.classList.toggle('active');
+    }
+
+    // World Countries List
     const countries = [
       "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
       "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia",
@@ -378,7 +412,7 @@
       "Samoa", "San Marino", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia",
       "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden",
       "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago",
-      "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United USA", "Uruguay",
+      "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay",
       "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
     ];
 
@@ -390,7 +424,56 @@
       originSelect.appendChild(option);
     });
 
-    // 2. Handle Form Submission & Duplicate Prevention + WhatsApp Redirect
+    // 30 Global Job & Education Opportunities Data
+    const jobs = [
+      { title: "Registered Nurse - Canada", loc: "Toronto, Canada", img: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=400" },
+      { title: "Software Engineer - Germany", loc: "Berlin, Germany", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400" },
+      { title: "Civil Engineer - UAE", loc: "Dubai, UAE", img: "https://images.unsplash.com/photo-1541888946425-d0fbb18f86f6?w=400" },
+      { title: "Master's Scholarship - UK", loc: "London, UK", img: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400" },
+      { title: "Agricultural Specialist - USA", loc: "California, USA", img: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=400" },
+      { title: "Hotel Manager - Qatar", loc: "Doha, Qatar", img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400" },
+      { title: "Mechanical Technician - Australia", loc: "Sydney, Australia", img: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400" },
+      { title: "Accounting Assistant - Canada", loc: "Vancouver, Canada", img: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=400" },
+      { title: "IT Support Specialist - Germany", loc: "Frankfurt, Germany", img: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400" },
+      { title: "Primary School Teacher - UK", loc: "Manchester, UK", img: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400" },
+      { title: "Logistics Coordinator - UAE", loc: "Abu Dhabi, UAE", img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400" },
+      { title: "Ph.D. Research Fellowship - USA", loc: "Boston, USA", img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=400" },
+      { title: "Chef / Culinary Expert - France", loc: "Paris, France", img: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400" },
+      { title: "Electrical Engineer - Saudi Arabia", loc: "Riyadh, Saudi Arabia", img: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=400" },
+      { title: "Customer Service Rep - Malta", loc: "Valletta, Malta", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400" },
+      { title: "Web Developer - Netherlands", loc: "Amsterdam, Netherlands", img: "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?w=400" },
+      { title: "Mining Technician - Australia", loc: "Perth, Australia", img: "https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?w=400" },
+      { title: "Pharmacy Assistant - Canada", loc: "Calgary, Canada", img: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400" },
+      { title: "Undergraduate Scholarship - Japan", loc: "Tokyo, Japan", img: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=400" },
+      { title: "General Practitioner - Ireland", loc: "Dublin, Ireland", img: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=400" },
+      { title: "Data Analyst - Sweden", loc: "Stockholm, Sweden", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400" },
+      { title: "Carpenter / Builder - New Zealand", loc: "Auckland, New Zealand", img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400" },
+      { title: "Sales Executive - Dubai", loc: "Dubai, UAE", img: "https://images.unsplash.com/photo-1556742049-0a67d553c2a5?w=400" },
+      { title: "Biomedical Scientist - USA", loc: "Houston, USA", img: "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=400" },
+      { title: "Welder / Fabricator - Finland", loc: "Helsinki, Finland", img: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=400" },
+      { title: "Graphic Designer - Spain", loc: "Madrid, Spain", img: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=400" },
+      { title: "Early Childhood Educator - Canada", loc: "Ottawa, Canada", img: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400" },
+      { title: "Security Officer - Qatar", loc: "Doha, Qatar", img: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=400" },
+      { title: "Environmental Scientist - Norway", loc: "Oslo, Norway", img: "https://images.unsplash.com/photo-1507668077129-56e32842fceb?w=400" },
+      { title: "MBA Study Program - Switzerland", loc: "Zurich, Switzerland", img: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400" }
+    ];
+
+    const jobsContainer = document.getElementById('jobsContainer');
+    jobs.forEach((job, index) => {
+      const card = document.createElement('div');
+      card.className = 'job-card';
+      card.innerHTML = `
+        <img src="${job.img}" alt="${job.title}">
+        <div class="job-content">
+          <h3>${job.title}</h3>
+          <p><i class="fa-solid fa-location-dot"></i> ${job.loc}</p>
+          <a href="#registrationForm" class="apply-link">Apply Now &rarr;</a>
+        </div>
+      `;
+      jobsContainer.appendChild(card);
+    });
+
+    // Form Submission & Duplicate Prevention + WhatsApp Redirect
     async function handleRegistration(event) {
       event.preventDefault();
 
@@ -402,7 +485,6 @@
       const purpose = document.getElementById('purpose').value;
       const notes = document.getElementById('notes').value;
 
-      // Check LocalStorage to prevent duplicate registration on the same device/browser
       if (localStorage.getItem('skyline_registered') === 'true') {
         alert("You have already submitted an application! You cannot register twice. Redirecting you to WhatsApp support.");
         window.location.href = "https://wa.me/251900000000?text=I%20have%20filled%20the%20form%20and%20what%20is%20the%20next%20step%20to%20follow%20the%20process%3F";
@@ -421,12 +503,8 @@
         const result = await response.json();
 
         if (response.ok) {
-          // Mark as registered in localStorage so they can't register again
           localStorage.setItem('skyline_registered', 'true');
-          
           alert("Registration successful! Redirecting to WhatsApp...");
-          
-          // Direct to WhatsApp with exact English message requested
           const whatsappMsg = encodeURIComponent("I have filled the form and what is the next step to follow the process?");
           window.location.href = `https://wa.me/251900000000?text=${whatsappMsg}`;
         } else {
@@ -438,7 +516,7 @@
       }
     }
 
-    // 3. Simple 15+ Languages Translator Dictionary Mock
+    // Language Translator Mock
     function changeLanguage() {
       const lang = document.getElementById('languageSelect').value;
       if (lang === 'am') {
