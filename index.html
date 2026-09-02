@@ -913,7 +913,7 @@
 </script>
 
 <script>
-  async function syncSettings() {
+async function syncSettings() {
     try {
       const res = await fetch('/api/settings/whatsapp');
       const data = await res.json();
@@ -922,13 +922,11 @@
         const rawNum = data.whatsappNumber.replace(/\D/g, ''); 
         const formattedNum = '+' + rawNum;
 
-        // 1. በገጹ ላይ በጽሑፍ የሚታዩትን ቁጥሮች መቀየር
         const elTop = document.getElementById('displayHotlineTop');
         const elContact = document.getElementById('displayHotlineContact');
         if (elTop) elTop.textContent = formattedNum;
         if (elContact) elContact.textContent = formattedNum;
 
-        // 2. የ WhatsApp ሊንኮችን በሙሉ ማዘመን
         const defaultMsg = encodeURIComponent("Hello Skyline Travels, I have already registered on your website. How do I complete the process?");
         const waLinks = document.querySelectorAll('a[href*="wa.me"], a[href*="whatsapp.com"]');
         
@@ -941,7 +939,43 @@
     }
   }
 
-  document.addEventListener("DOMContentLoaded", syncSettings);
+  document.addEventListener("DOMContentLoaded", () => {
+    syncSettings();
+
+    const regForm = document.querySelector('form'); 
+    if (regForm) {
+      regForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = {
+          fullName: document.getElementById('fullName')?.value || '',
+          phone: document.getElementById('phone')?.value || '',
+          email: document.getElementById('email')?.value || '',
+          jobCategory: document.getElementById('jobCategory')?.value || '',
+          message: document.getElementById('message')?.value || ''
+        };
+
+        try {
+          const res = await fetch('/api/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+          });
+          
+          const data = await res.json();
+          if (data.success) {
+            alert('ምዝገባዎ በስኬት ተጠናቋል!');
+            regForm.reset();
+          } else {
+            alert('ስህተት ተፈጥሯል፦ ' + data.error);
+          }
+        } catch (err) {
+          console.error(err);
+          alert('የኔትወርክ ስህተት ተፈጥሯል!');
+        }
+      });
+    }
+  });
 </script>
 
 </body>
