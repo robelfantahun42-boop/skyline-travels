@@ -10,11 +10,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname)));
 
 // MongoDB Connection
-const MONGODB_URI = process.env.MONGODB_URI || 'YOUR_MONGODB_CONNECTION_STRING_HERE';
+const MONGODB_URI = process.env.MONGODB_URI;
 
 let cachedDb = null;
 async function connectDB() {
   if (cachedDb) return cachedDb;
+  if (!MONGODB_URI) {
+    throw new Error('MONGODB_URI is not defined in environment variables.');
+  }
   try {
     const opts = { bufferCommands: false, serverSelectionTimeoutMS: 5000 };
     const conn = await mongoose.connect(MONGODB_URI, opts);
@@ -53,12 +56,18 @@ const Settings = mongoose.models.Settings || mongoose.model('Settings', settings
 app.post('/api/register', async (req, res) => {
   try {
     await connectDB();
+    
+    // Check if body has data
+    if (!req.body || !req.body.fullName) {
+      return res.status(400).json({ success: false, error: 'Missing required fields.' });
+    }
+
     const newApp = new Application(req.body);
     await newApp.save();
     res.json({ success: true, message: 'Application submitted successfully!' });
   } catch (err) {
-    console.error('Registration Error:', err);
-    res.status(500).json({ success: false, error: 'Server error during registration.' });
+    console.error('Registration Error Details:', err.message);
+    res.status(500).json({ success: false, error: 'Server error: ' + err.message });
   }
 });
 
