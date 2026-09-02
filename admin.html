@@ -15,47 +15,56 @@
     }
 
     body {
-      background-color: #f4f6f9;
-      color: #333;
+      background-color: #f1f5f9;
+      color: #1e293b;
     }
 
     /* Header Styling */
     .admin-header {
-      background-color: #0f172a;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
       color: #ffffff;
-      padding: 1rem 2rem;
+      padding: 1.2rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     .admin-header h1 {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+    }
+
+    .admin-header h1 i {
+      color: #38bdf8;
     }
 
     .admin-header a {
-      color: #e2e8f0;
+      color: #ffffff;
       text-decoration: none;
       background-color: #2563eb;
       padding: 8px 16px;
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 0.9rem;
-      transition: background 0.3s;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.3s, transform 0.2s;
     }
 
     .admin-header a:hover {
       background-color: #1d4ed8;
+      transform: translateY(-1px);
     }
 
     /* Container Layout */
     .admin-container {
-      max-width: 1200px;
+      max-width: 1350px;
       margin: 2rem auto;
-      padding: 0 1rem;
+      padding: 0 1.5rem;
       display: flex;
       flex-direction: column;
       gap: 2rem;
@@ -64,21 +73,24 @@
     /* Card Styling */
     .card {
       background-color: #ffffff;
-      border-radius: 10px;
-      padding: 1.5rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      border-radius: 12px;
+      padding: 1.8rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      border: 1px solid #e2e8f0;
     }
 
     .card-title {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 600;
-      color: #1e293b;
-      margin-bottom: 1rem;
+      color: #0f172a;
+      margin-bottom: 1.2rem;
       display: flex;
       align-items: center;
       gap: 10px;
-      border-bottom: 2px solid #f1f5f9;
-      padding-bottom: 10px;
+    }
+
+    .card-title i {
+      color: #2563eb;
     }
 
     /* Form Elements */
@@ -86,62 +98,68 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      max-width: 500px;
+      max-width: 550px;
     }
 
     .form-group label {
       font-weight: 500;
       color: #475569;
+      font-size: 0.95rem;
     }
 
     .form-control {
-      padding: 10px 14px;
+      padding: 11px 14px;
       border: 1px solid #cbd5e1;
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 1rem;
       outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     .form-control:focus {
       border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
     }
 
     .btn-primary {
-      background-color: #2563eb;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
       color: white;
       border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
+      padding: 11px 22px;
+      border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 0.95rem;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: background 0.2s;
+      transition: opacity 0.2s, transform 0.2s;
       width: fit-content;
-      margin-top: 10px;
+      margin-top: 5px;
     }
 
     .btn-primary:hover {
-      background-color: #1d4ed8;
+      opacity: 0.95;
+      transform: translateY(-1px);
     }
 
     .btn-secondary {
-      background-color: #e2e8f0;
+      background-color: #f1f5f9;
       color: #334155;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      padding: 7px 14px;
+      border-radius: 8px;
       cursor: pointer;
       font-weight: 500;
+      font-size: 0.9rem;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      transition: background 0.2s;
     }
 
     .btn-secondary:hover {
-      background-color: #cbd5e1;
+      background-color: #e2e8f0;
     }
 
     /* Table Styling */
@@ -152,38 +170,78 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 1rem;
+      margin-top: 0.5rem;
       text-align: left;
+      white-space: nowrap;
     }
 
     th, td {
-      padding: 12px 16px;
-      border-bottom: 1px solid #e2e8f0;
+      padding: 14px 16px;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 0.95rem;
     }
 
     th {
       background-color: #f8fafc;
       color: #475569;
       font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 0.5px;
     }
 
     tr:hover {
       background-color: #f8fafc;
     }
 
-    .badge {
-      background-color: #e0f2fe;
-      color: #0369a1;
-      padding: 4px 8px;
-      border-radius: 4px;
+    /* Colorful Badges */
+    .badge-job {
+      background-color: #dbeafe;
+      color: #1e40af;
+      padding: 5px 10px;
+      border-radius: 6px;
       font-size: 0.85rem;
       font-weight: 600;
+      display: inline-block;
+    }
+
+    .badge-email {
+      background-color: #f0fdf4;
+      color: #166534;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      border: 1px solid #bbf7d0;
+    }
+
+    .badge-phone {
+      color: #0284c7;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .badge-phone:hover {
+      text-decoration: underline;
+    }
+
+    .message-box {
+      max-width: 250px;
+      white-space: normal;
+      word-break: break-word;
+      color: #475569;
+      font-size: 0.9rem;
     }
 
     .card-header-actions {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 12px;
+      margin-bottom: 1rem;
     }
   </style>
 </head>
@@ -191,7 +249,7 @@
 
   <!-- Admin Header -->
   <header class="admin-header">
-    <h1><i class="fa-solid fa-user-shield"></i> Skyline Travels - Admin Panel</h1>
+    <h1><i class="fa-solid fa-shield-halved"></i> Skyline Travels - Admin Panel</h1>
     <a href="index.html" target="_blank"><i class="fa-solid fa-globe"></i> ዌብሳይቱን ክፈት</a>
   </header>
 
@@ -201,16 +259,16 @@
     <!-- 1. WhatsApp & Hotline Setting Card -->
     <div class="card">
       <h2 class="card-title">
-        <i class="fa-brands fa-whatsapp" style="color: #22c55e;"></i> የ WhatsApp እና Support Hotline ስልክ ቁጥር ማስተካከያ
+        <i class="fa-brands fa-whatsapp" style="color: #22c55e; font-size: 1.4rem;"></i> የ WhatsApp እና Support Hotline ስልክ ቁጥር ማስተካከያ
       </h2>
       <form id="whatsappForm">
         <div class="form-group">
-          <label for="whatsappNumberInput">የስልክ ቁጥር (ሀገር መለያ ቁጥር ጋር አስገባ):</label>
+          <label for="whatsappNumberInput">የስልክ ቁጥር (ሀገር መለያ ቁጥር ጋር):</label>
           <input 
             type="text" 
             id="whatsappNumberInput" 
             class="form-control" 
-            placeholder="ምሳሌ፦ 251911000000 ወይም 447462222264" 
+            placeholder="ምሳሌ፦ 251911000000" 
             required
           >
           <button type="submit" class="btn-primary">
@@ -224,28 +282,29 @@
     <div class="card">
       <div class="card-header-actions">
         <h2 class="card-title" style="border:none; padding:0; margin:0;">
-          <i class="fa-solid fa-users"></i> የተመዘገቡ ደንበኞች መረጃ
+          <i class="fa-solid fa-users-line"></i> የተመዝጋቢ ደንበኞች ሙሉ መረጃዎች
         </h2>
         <button onclick="loadApplications()" class="btn-secondary">
           <i class="fa-solid fa-rotate-right"></i> አድስ (Refresh)
         </button>
       </div>
 
-      <div class="table-responsive" style="margin-top: 15px;">
+      <div class="table-responsive">
         <table>
           <thead>
             <tr>
               <th>#</th>
               <th>ሙሉ ስም</th>
               <th>ስልክ ቁጥር</th>
-              <th>የሥራ ዘርፍ</th>
-              <th>ኢሜይል / መልዕክት</th>
+              <th>የሥራ ዘርፍ / ምርጫ</th>
+              <th>ኢሜይል አድራሻ</th>
+              <th>ተጨማሪ መልዕክት</th>
               <th>የተመዘገበበት ቀን</th>
             </tr>
           </thead>
           <tbody id="applicationsTableBody">
             <tr>
-              <td colspan="6" style="text-align: center; color: #64748b;">መረጃ በመጫን ላይ ነው...</td>
+              <td colspan="7" style="text-align: center; color: #64748b; padding: 2rem;">መረጃ በመጫን ላይ ነው...</td>
             </tr>
           </tbody>
         </table>
@@ -256,7 +315,7 @@
 
   <!-- JavaScript for API Connectivity -->
   <script>
-    // 1. የ WhatsApp ቁጥሩን ከሰርቨር አውጥቶ በነባርነት ማስገባት
+    // 1. የ WhatsApp ቁጥሩን ከሰርቨር ማምጣት
     async function loadWhatsAppSetting() {
       try {
         const res = await fetch('/api/settings/whatsapp');
@@ -293,48 +352,53 @@
       }
     });
 
-    // 3. የተመዘገቡ ደንበኞችን መረጃ ከሰርቨር አውጥቶ በሰንጠረዥ ውስጥ ማሳየት
+    // 3. የተመዘገቡ ደንበኞችን ሙሉ መረጃ በሰንጠረዥ ማሳየት
     async function loadApplications() {
       const tbody = document.getElementById('applicationsTableBody');
-      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#64748b;">መረጃ በመጫን ላይ ነው...</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#64748b; padding: 2rem;">መረጃ በመጫን ላይ ነው...</td></tr>';
 
       try {
         const res = await fetch('/api/admin/applications');
         const apps = await res.json();
 
         if (!Array.isArray(apps) || apps.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#64748b;">ምንም የተመዘገበ ደንበኛ የለም።</td></tr>';
+          tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#64748b; padding: 2rem;">ምንም የተመዘገበ ደንበኛ የለም።</td></tr>';
           return;
         }
 
         tbody.innerHTML = apps.map((app, index) => {
           const dateStr = app.createdAt 
-            ? new Date(app.createdAt).toLocaleString('en-US', {
+            ? new Date(app.createdAt).toLocaleString('am-ET', {
                 year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
               }) 
             : '-';
 
-          const details = app.email ? app.email : (app.message ? app.message : '-');
+          const fullName = app.fullName || '-';
+          const phone = app.phone || '-';
+          const jobCategory = app.jobCategory ? `<span class="badge-job">${app.jobCategory}</span>` : '<span style="color:#94a3b8;">ያልተመረጠ</span>';
+          const email = app.email ? `<span class="badge-email"><i class="fa-regular fa-envelope"></i> ${app.email}</span>` : '<span style="color:#94a3b8;">የሌለው</span>';
+          const message = app.message ? `<div class="message-box">${app.message}</div>` : '<span style="color:#94a3b8;">የሌለው</span>';
 
           return `
             <tr>
-              <td>${index + 1}</td>
-              <td><strong>${app.fullName || '-'}</strong></td>
-              <td><a href="tel:${app.phone}" style="color:#2563eb; text-decoration:none;">${app.phone || '-'}</a></td>
-              <td><span class="badge">${app.jobCategory || 'ያልተጠቀሰ'}</span></td>
-              <td>${details}</td>
-              <td><small style="color:#64748b;">${dateStr}</small></td>
+              <td><strong>${index + 1}</strong></td>
+              <td><span style="font-weight: 600; color: #0f172a;">${fullName}</span></td>
+              <td><a href="tel:${phone}" class="badge-phone"><i class="fa-solid fa-phone-volume"></i> ${phone}</a></td>
+              <td>${jobCategory}</td>
+              <td>${email}</td>
+              <td>${message}</td>
+              <td><small style="color:#64748b; font-weight: 500;">${dateStr}</small></td>
             </tr>
           `;
         }).join('');
 
       } catch (err) {
         console.error('Error loading applications:', err);
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#ef4444;">የተመዘገቡ ደንበኞችን መረጃ ማምጣት አልተቻለም!</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#ef4444; padding: 2rem;">የተመዘገቡ ደንበኞችን መረጃ ማምጣት አልተቻለም!</td></tr>';
       }
     }
 
-    // ገጹ ሲከፈት በራሱ መረጃዎችን እንዲጭን ማድረግ
+    // ገጹ ሲከፈት በራሱ መረጃዎችን መጫን
     document.addEventListener("DOMContentLoaded", () => {
       loadWhatsAppSetting();
       loadApplications();
