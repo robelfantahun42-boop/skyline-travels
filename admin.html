@@ -157,11 +157,8 @@
     </div>
 
     <script>
-        // Check authentication token on load
+        // Get token safely without triggering infinite redirects
         const token = localStorage.getItem('adminToken');
-        if (!token) {
-            window.location.href = 'admin.html'; // If logging out or not logged in, handled appropriately
-        }
 
         function logout() {
             localStorage.removeItem('adminToken');
@@ -189,12 +186,12 @@
                 : document.getElementById('telegramInput').value;
 
             try {
+                const headers = { 'Content-Type': 'application/json' };
+                if (token) headers['Authorization'] = `Bearer ${token}`;
+
                 const res = await fetch('/api/settings', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
+                    headers: headers,
                     body: JSON.stringify({ [type]: value })
                 });
 
@@ -213,18 +210,21 @@
         // Fetch Registrations Data and Populate Table
         async function loadRegistrations() {
             try {
-                const res = await fetch('/api/registrations', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
+                const headers = {};
+                if (token) headers['Authorization'] = `Bearer ${token}`;
+
+                // Trying standard endpoints used for registrations
+                let res = await fetch('/api/registrations', { headers });
+                if (!res.ok) {
+                    res = await fetch('/api/register', { headers });
+                }
                 
                 if (res.ok) {
                     const registrations = await res.json();
                     const tableBody = document.getElementById('registrationsTableBody');
                     tableBody.innerHTML = '';
 
-                    if (registrations.length === 0) {
+                    if (!registrations || registrations.length === 0) {
                         tableBody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #7f8c8d;">No registrations found.</td></tr>`;
                         return;
                     }
@@ -232,18 +232,18 @@
                     registrations.forEach(reg => {
                         const row = document.createElement('tr');
                         
-                        // Format date nicely if available
                         let formattedDate = 'N/A';
-                        if (reg.createdAt) {
-                            formattedDate = new Date(reg.createdAt).toLocaleDateString();
+                        const dateVal = reg.createdAt || reg.date || reg.timestamp;
+                        if (dateVal) {
+                            formattedDate = new Date(dateVal).toLocaleDateString();
                         }
 
                         row.innerHTML = `
-                            <td>${reg.fullName || 'N/A'}</td>
-                            <td>${reg.phone || 'N/A'}</td>
+                            <td>${reg.fullName || reg.name || 'N/A'}</td>
+                            <td>${reg.phone || reg.phoneNumber || 'N/A'}</td>
                             <td>${reg.email || 'N/A'}</td>
-                            <td>${reg.jobCategory || 'N/A'}</td>
-                            <td>${reg.specificField || 'N/A'}</td>
+                            <td>${reg.jobCategory || reg.purpose || 'N/A'}</td>
+                            <td>${reg.specificField || reg.country || 'N/A'}</td>
                             <td>${reg.message || reg.notes || 'N/A'}</td>
                             <td>${formattedDate}</td>
                         `;
@@ -258,7 +258,7 @@
             }
         }
 
-        // Run functions on page load
+        // Run functions on page load safely
         window.addEventListener('DOMContentLoaded', () => {
             loadSettings();
             loadRegistrations();
