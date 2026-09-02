@@ -1,428 +1,274 @@
 <!DOCTYPE html>
-<html lang="am">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Skyline Travels - Admin Panel</title>
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      background-color: #f1f5f9;
-      color: #1e293b;
-    }
-
-    /* Header Styling */
-    .admin-header {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      color: #ffffff;
-      padding: 1.2rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .admin-header h1 {
-      font-size: 1.4rem;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .admin-header h1 i {
-      color: #38bdf8;
-    }
-
-    .admin-header a {
-      color: #ffffff;
-      text-decoration: none;
-      background-color: #2563eb;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: background 0.3s, transform 0.2s;
-    }
-
-    .admin-header a:hover {
-      background-color: #1d4ed8;
-      transform: translateY(-1px);
-    }
-
-    /* Container Layout */
-    .admin-container {
-      max-width: 1450px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-
-    /* Card Styling */
-    .card {
-      background-color: #ffffff;
-      border-radius: 12px;
-      padding: 1.8rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-      border: 1px solid #e2e8f0;
-    }
-
-    .card-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #0f172a;
-      margin-bottom: 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .card-title i {
-      color: #2563eb;
-    }
-
-    /* Form Elements */
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      max-width: 550px;
-    }
-
-    .form-group label {
-      font-weight: 500;
-      color: #475569;
-      font-size: 0.95rem;
-    }
-
-    .form-control {
-      padding: 11px 14px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      font-size: 1rem;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .form-control:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-      color: white;
-      border: none;
-      padding: 11px 22px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.95rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: opacity 0.2s, transform 0.2s;
-      width: fit-content;
-      margin-top: 5px;
-    }
-
-    .btn-primary:hover {
-      opacity: 0.95;
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      background-color: #f1f5f9;
-      color: #334155;
-      border: 1px solid #cbd5e1;
-      padding: 7px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 500;
-      font-size: 0.9rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: background 0.2s;
-    }
-
-    .btn-secondary:hover {
-      background-color: #e2e8f0;
-    }
-
-    /* Table Styling */
-    .table-responsive {
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 0.5rem;
-      text-align: left;
-      white-space: nowrap;
-    }
-
-    th, td {
-      padding: 14px 14px;
-      border-bottom: 1px solid #f1f5f9;
-      font-size: 0.9rem;
-    }
-
-    th {
-      background-color: #f8fafc;
-      color: #475569;
-      font-weight: 600;
-      text-transform: uppercase;
-      font-size: 0.75rem;
-      letter-spacing: 0.5px;
-    }
-
-    tr:hover {
-      background-color: #f8fafc;
-    }
-
-    /* Colorful Badges */
-    .badge-job {
-      background-color: #dbeafe;
-      color: #1e40af;
-      padding: 5px 10px;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      display: inline-block;
-    }
-
-    .badge-country {
-      background-color: #fef3c7;
-      color: #92400e;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-
-    .badge-destination {
-      background-color: #ede9fe;
-      color: #5b21b6;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-
-    .badge-email {
-      background-color: #f0fdf4;
-      color: #166534;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      border: 1px solid #bbf7d0;
-    }
-
-    .badge-phone {
-      color: #0284c7;
-      font-weight: 600;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .badge-phone:hover {
-      text-decoration: underline;
-    }
-
-    .message-box {
-      max-width: 200px;
-      white-space: normal;
-      word-break: break-word;
-      color: #475569;
-      font-size: 0.85rem;
-    }
-
-    .card-header-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid #f1f5f9;
-      padding-bottom: 12px;
-      margin-bottom: 1rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skyline Travels - Admin Dashboard</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+        header h1 {
+            font-size: 1.5rem;
+            color: #0f172a;
+        }
+        header h1 i {
+            color: #0284c7;
+            margin-right: 10px;
+        }
+        .logout-btn {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .logout-btn:hover {
+            background-color: #dc2626;
+        }
+        /* Settings Section for Contact info */
+        .settings-card {
+            background: #ffffff;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .admin-control-group label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        .admin-control-group input {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            outline: none;
+        }
+        .save-btn {
+            background-color: #0284c7;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .save-btn:hover {
+            background-color: #0369a1;
+        }
+        /* Table Section */
+        .table-card {
+            background: #ffffff;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            overflow-x: auto;
+        }
+        .table-card h2 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            color: #334155;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.95rem;
+        }
+        th {
+            background-color: #f1f5f9;
+            color: #475569;
+            font-weight: 600;
+        }
+        tr:hover {
+            background-color: #f8fafc;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Admin Header -->
-  <header class="admin-header">
-    <h1><i class="fa-solid fa-shield-halved"></i> Skyline Travels - Admin Panel</h1>
-    <a href="index.html" target="_blank"><i class="fa-solid fa-globe"></i> ዌብሳይቱን ክፈት</a>
-  </header>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1><i class="fa-solid fa-gauge-high"></i> Skyline Travels Admin Dashboard</h1>
+            <button class="logout-btn" onclick="logoutAdmin()">Logout</button>
+        </header>
 
-  <!-- Main Content Container -->
-  <div class="admin-container">
+        <!-- Contact Settings Panel (WhatsApp & Telegram) -->
+        <div class="settings-card">
+            <!-- WhatsApp Setting -->
+            <div class="admin-control-group">
+                <label for="adminWhatsapp">
+                    <i class="fa-brands fa-whatsapp" style="color: #25D366;"></i> WhatsApp Number/Link:
+                </label>
+                <input type="text" id="adminWhatsapp" placeholder="ለምሳሌ፡ +251911223344">
+                <button class="save-btn" onclick="updateWhatsApp()">Update WhatsApp</button>
+            </div>
 
-    <!-- 1. WhatsApp & Hotline Setting Card -->
-    <div class="card">
-      <h2 class="card-title">
-        <i class="fa-brands fa-whatsapp" style="color: #22c55e; font-size: 1.4rem;"></i> የ WhatsApp እና Support Hotline ስልክ ቁጥር ማስተካከያ
-      </h2>
-      <form id="whatsappForm">
-        <div class="form-group">
-          <label for="whatsappNumberInput">የስልክ ቁጥር (ሀገር መለያ ቁጥር ጋር):</label>
-          <input 
-            type="text" 
-            id="whatsappNumberInput" 
-            class="form-control" 
-            placeholder="ምሳሌ፦ 251911000000" 
-            required
-          >
-          <button type="submit" class="btn-primary">
-            <i class="fa-solid fa-floppy-disk"></i> ቁጥሩን ቀይር / አስቀምጥ
-          </button>
+            <!-- Telegram Setting (Newly Added) -->
+            <div class="admin-control-group">
+                <label for="adminTelegram">
+                    <i class="fa-brands fa-telegram" style="color: #229ED9;"></i> Telegram Username / Link:
+                </label>
+                <input type="text" id="adminTelegram" placeholder="ለምሳሌ፡ myusername ወይም ሙሉ ሊንክ">
+                <button class="save-btn" onclick="updateTelegram()" style="background-color: #229ED9;">Update Telegram</button>
+            </div>
         </div>
-      </form>
+
+        <!-- Registrations Data Table -->
+        <div class="table-card">
+            <h2>Recent Job & Visa Registrations</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Country</th>
+                        <th>Destination</th>
+                        <th>Job Category</th>
+                        <th>Phone</th>
+                        <th>Telegram</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="registrationsTableBody">
+                    <!-- Dynamic Data will be loaded here -->
+                    <tr>
+                        <td colspan="7" style="text-align: center; color: #64748b;">Loading registrations...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <!-- 2. Registered Customer Applications Table Card -->
-    <div class="card">
-      <div class="card-header-actions">
-        <h2 class="card-title" style="border:none; padding:0; margin:0;">
-          <i class="fa-solid fa-users-line"></i> የተመዝጋቢ ደንበኞች ሙሉ መረጃዎች እና ምርጫዎች
-        </h2>
-        <button onclick="loadApplications()" class="btn-secondary">
-          <i class="fa-solid fa-rotate-right"></i> አድስ (Refresh)
-        </button>
-      </div>
-
-      <div class="table-responsive">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>ሙሉ ስም</th>
-              <th>ስልክ ቁጥር</th>
-              <th>ያለበት ሀገር</th>
-              <th>መሄድ የሚፈልግበት ሀገር</th>
-              <th>የሥራ ዘርፍ / ምርጫ</th>
-              <th>ኢሜይል አድራሻ</th>
-              <th>ተጨማሪ መልዕክት</th>
-              <th>የተመዘገበበት ቀን</th>
-            </tr>
-          </thead>
-          <tbody id="applicationsTableBody">
-            <tr>
-              <td colspan="9" style="text-align: center; color: #64748b; padding: 2rem;">መረጃ በመጫን ላይ ነው...</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- JavaScript for API Connectivity -->
-  <script>
-    async function loadWhatsAppSetting() {
-      try {
-        const res = await fetch('/api/settings/whatsapp');
-        const data = await res.json();
-        if (data && data.whatsappNumber) {
-          document.getElementById('whatsappNumberInput').value = data.whatsappNumber;
-        }
-      } catch (err) {
-        console.error("Error loading whatsapp setting:", err);
-      }
-    }
-
-    document.getElementById('whatsappForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const whatsappNumber = document.getElementById('whatsappNumberInput').value.trim();
-
-      try {
-        const res = await fetch('/api/admin/settings/whatsapp', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ whatsappNumber })
+    <script>
+        // ገጹ ሲከፈት ነባር መረጃዎችን እና ሴቲንጎችን ማምጣት
+        document.addEventListener("DOMContentLoaded", () => {
+            loadRegistrations();
+            loadSettings();
         });
-        
-        const data = await res.json();
-        if (res.ok && data.success) {
-          alert('የስልክ ቁጥሩ በስኬት ተቀይሯል!');
-        } else {
-          alert('ስህተት ተፈጥሯል፦ ' + (data.error || 'ማስተካከል አልተቻለም'));
+
+        // የክህሎት/የምዝገባ መረጃዎችን ከሰርቨር ማምጣት
+        function loadRegistrations() {
+            fetch('/api/registrations')
+                .then(res => res.json())
+                .then(data => {
+                    const tbody = document.getElementById('registrationsTableBody');
+                    tbody.innerHTML = '';
+                    if (data && data.length > 0) {
+                        data.forEach(item => {
+                            const tr = document.createElement('tr');
+                            tr.innerHTML = `
+                                <td>${item.fullName || 'N/A'}</td>
+                                <td>${item.country || 'N/A'}</td>
+                                <td>${item.destination || 'N/A'}</td>
+                                <td>${item.jobCategory || 'N/A'}</td>
+                                <td>${item.phone || 'N/A'}</td>
+                                <td>${item.telegramUser || 'N/A'}</td>
+                                <td>${item.date ? new Date(item.date).toLocaleDateString() : 'N/A'}</td>
+                            `;
+                            tbody.appendChild(tr);
+                        });
+                    } else {
+                        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #64748b;">No registrations found.</td></tr>`;
+                    }
+                })
+                .catch(err => {
+                    console.error('Error loading registrations:', err);
+                });
         }
-      } catch (err) {
-        console.error(err);
-        alert('የኔትወርክ ስህተት ተፈጥሯል!');
-      }
-    });
 
-    async function loadApplications() {
-      const tbody = document.getElementById('applicationsTableBody');
-      tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; color:#64748b; padding: 2rem;">መረጃ በመጫን ላይ ነው...</td></tr>';
-
-      try {
-        const res = await fetch('/api/admin/applications');
-        const apps = await res.json();
-
-        if (!Array.isArray(apps) || apps.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; color:#64748b; padding: 2rem;">ምንም የተመዘገበ ደንበኛ የለም።</td></tr>';
-          return;
+        // ነባር ሴቲንጎችን መጫን
+        function loadSettings() {
+            fetch('/api/settings')
+                .then(res => res.json())
+                .then(data => {
+                    if (data) {
+                        if (data.whatsapp) {
+                            document.getElementById('adminWhatsapp').value = data.whatsapp;
+                        }
+                        if (data.telegram) {
+                            document.getElementById('adminTelegram').value = data.telegram;
+                        }
+                    }
+                })
+                .catch(err => console.log('Error loading settings:', err));
         }
 
-        tbody.innerHTML = apps.map((app, index) => {
-          const dateStr = app.createdAt 
-            ? new Date(app.createdAt).toLocaleString('am-ET', {
-                year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
-              }) 
-            : '-';
+        // የዋትሳፕ ቁጥር ማስተካከል
+        function updateWhatsApp() {
+            const whatsappVal = document.getElementById('adminWhatsapp').value;
+            fetch('/api/settings/whatsapp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ whatsapp: whatsappVal })
+            })
+            .then(res => res.json())
+            .then(response => {
+                alert('WhatsApp updated successfully!');
+            })
+            .catch(err => alert('Failed to update WhatsApp'));
+        }
 
-          const fullName = app.fullName || '-';
-          const phone = app.phone || '-';
-          const country = app.country ? `<span class="badge-country"><i class="fa-solid fa-location-dot"></i> ${app.country}</span>` : '<span style="color:#94a3b8;">-</span>';
-          const destination = app.destinationCountry ? `<span class="badge-destination"><i class="fa-solid fa-plane-departure"></i> ${app.destinationCountry}</span>` : '<span style="color:#94a3b8;">-</span>';
-          const jobCategory = app.jobCategory ? `<span class="badge-job">${app.jobCategory}</span>` : '<span style="color:#94a3b8;">ያልተመረጠ</span>';
-          const email = app.email ? `<span class="badge-email"><i class="fa-regular fa-envelope"></i> ${app.email}</span>` : '<span style="color:#94a3b8;">የሌለው</span>';
-          const message = app.message ? `<div class="message-box">${app.message}</div>` : '<span style="color:#94a3b8;">የሌለው</span>';
+        // የቴሌግራም ዩዘርና ማስተካከል (አዲስ የተጨመረ)
+        function updateTelegram() {
+            const telegramVal = document.getElementById('adminTelegram').value;
+            fetch('/api/settings/telegram', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ telegram: telegramVal })
+            })
+            .then(res => res.json())
+            .then(response => {
+                alert('Telegram updated successfully!');
+            })
+            .catch(err => alert('Failed to update Telegram'));
+        }
 
-          return `
-            <tr>
-              <td><strong>${index + 1}</strong></td>
-              <td><span style="font-weight: 600; color: #0f172a;">${fullName}</span></td>
-              <td><a href="tel:${phone}" class="badge-phone"><i class="fa-solid fa-phone-volume"></i> ${phone}</a></td>
-              <td>${country}</td>
-              <td>${destination}</td>
-              <td>${jobCategory}</td>
-              <td>${email}</td>
-              <td>${message}</td>
-              <td><small style="color:#64748b; font-weight: 500;">${dateStr}</small></td>
-            </tr>
-          `;
-        }).join('');
-
-      } catch (err) {
-        console.error('Error loading applications:', err);
-        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; color:#ef4444; padding: 2rem;">የተመዘገቡ ደንበኞችን መረጃ ማምጣት አልተቻለም!</td></tr>';
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      loadWhatsAppSetting();
-      loadApplications();
-    });
-  </script>
+        // Logout function
+        function logoutAdmin() {
+            fetch('/api/logout', { method: 'POST' })
+                .then(() => {
+                    window.location.href = '/admin.html';
+                });
+        }
+    </script>
 </body>
 </html>
