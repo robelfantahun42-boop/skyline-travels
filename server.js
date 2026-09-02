@@ -133,7 +133,7 @@ app.post('/api/admin/settings/telegram', async (req, res) => {
   }
 });
 
-// Explicit Route for Admin Page
+// Explicit Route for Admin Page (prevents redirecting to index.html)
 app.get('/admin.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'admin.html'));
 });
