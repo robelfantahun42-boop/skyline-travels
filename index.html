@@ -473,6 +473,38 @@
     max-width: 250px;
   }
   
+  /* የጉግል ሎጎ እና ጽሑፍ እንዲጠፉ ማድረግ ግን ሳጥኑን እንዳይነካው */
+  .goog-logo-link, .goog-te-gadget img {
+    display: none !important;
+  }
+  .goog-te-gadget {
+    color: transparent !important;
+  }
+  .goog-te-gadget > span > a {
+    display: none !important;
+  }
+  .goog-te-banner-frame {
+    display: none !important;
+  }
+  body {
+    top: 0 !important;
+  }
+</style>
+<style>
+  /* የጉግል ዊጅት ዋና ሳጥን ዲዛይን ከቀድሞው ጋር እንዲመሳሰል */
+  .goog-te-combo {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background-color: #ffffff;
+    color: #1e293b;
+    font-size: 0.95rem;
+    outline: none;
+    cursor: pointer;
+    width: 100%;
+    max-width: 250px;
+  }
+  
   /* የጉግል ሎጎ (G ምልክት) እና አላስፈላጊ ነገሮች እንዳይታዩ መደበቅ */
   .goog-logo-link, .goog-te-gadget img {
     display: none !important;
