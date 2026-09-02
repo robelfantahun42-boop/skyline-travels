@@ -204,7 +204,6 @@
       font-weight: 700;
       font-size: 13px;
     }
-    
     .form-section {
       background: #1e293b;
       max-width: 800px;
@@ -258,8 +257,6 @@
     .submit-btn:hover {
       background: #1d4ed8;
     }
-
-    /* Custom Popup Modal */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -356,7 +353,6 @@
       cursor: pointer;
       text-decoration: underline;
     }
-
     .page-box {
       background: #1e293b;
       max-width: 800px;
@@ -383,8 +379,6 @@
       padding: 30px 20px;
       font-size: 14px;
     }
-
-    /* Locked State Styling */
     .locked-state {
       text-align: center;
       padding: 30px 10px;
@@ -399,7 +393,6 @@
       font-size: 15px;
       margin-bottom: 25px;
     }
-
     @media (max-width: 768px) {
       .nav-links {
         display: none;
@@ -457,14 +450,11 @@
   </ul>
 </header>
 
-<!-- HOME VIEW -->
 <div id="homeView" class="view-section active">
   <section class="hero">
     <h1 id="heroTitle">Global Job Placement & Visa Agency</h1>
     
-    <div id="google_translate_element" style="display:none;"></div>
-
-    <div class="lang-box" style="margin: 15px auto; width: 100%; max-width: 250px; text-align: center;">
+    <div class="lang-box" style="margin: 15px auto; width: 100%; max-width: 300px; text-align: center;">
       <label id="labelSelectLang" style="color: #ffffff; font-weight: 500; margin-bottom: 6px; display: block; font-size: 0.95rem;">
         <i class="fa-solid fa-globe"></i> Select Language:
       </label>
@@ -472,6 +462,23 @@
         <option value="en">English (US)</option>
         <option value="am">አማርኛ (Amharic)</option>
         <option value="ar">العربية (Arabic)</option>
+        <option value="ur">اردو (Urdu)</option>
+        <option value="fr">Français (French)</option>
+        <option value="es">Español (Spanish)</option>
+        <option value="de">Deutsch (German)</option>
+        <option value="zh">中文 (Chinese)</option>
+        <option value="hi">हिन्दी (Hindi)</option>
+        <option value="bn">বাংলা (Bengali)</option>
+        <option value="pt">Português (Portuguese)</option>
+        <option value="ru">Русский (Russian)</option>
+        <option value="ja">日本語 (Japanese)</option>
+        <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+        <option value="tr">Türkçe (Turkish)</option>
+        <option value="ko">한국어 (Korean)</option>
+        <option value="vi">Tiếng Việt (Vietnamese)</option>
+        <option value="it">Italiano (Italian)</option>
+        <option value="fa">فارسی (Persian)</option>
+        <option value="sw">Kiswahili (Swahili)</option>
       </select>
     </div>
 
@@ -486,8 +493,6 @@
     <div class="jobs-grid" id="jobsContainer"></div>
 
     <div class="form-section" id="registrationSection">
-      
-      <!-- ACTIVE FORM -->
       <form id="mainRegistrationForm" onsubmit="handleRegistration(event)">
         <h2 class="section-title" id="formTitle" style="font-size: 22px; margin-bottom: 20px;">Application & Registration Form</h2>
         <div class="form-grid">
@@ -542,7 +547,6 @@
         <button type="submit" class="submit-btn" id="submitBtnText">Submit Application</button>
       </form>
 
-      <!-- LOCKED STATE MESSAGE -->
       <div id="lockedStateMessage" class="locked-state" style="display: none;">
         <i class="fa-solid fa-circle-check" style="font-size: 60px; color: #22c55e; margin-bottom: 20px;"></i>
         <h2>Registration Successful!</h2>
@@ -560,7 +564,6 @@
   </div>
 </div>
 
-<!-- ABOUT US VIEW -->
 <div id="aboutView" class="view-section">
   <div class="page-box">
     <h1>About Skyline Travels</h1>
@@ -570,7 +573,6 @@
   </div>
 </div>
 
-<!-- CONTACT VIEW -->
 <div id="contactView" class="view-section">
   <div class="page-box">
     <h1>Contact Us</h1>
@@ -587,7 +589,6 @@
   </div>
 </div>
 
-<!-- SUCCESS & DUPLICATE POPUP MODAL -->
 <div class="modal-overlay" id="resultModal">
   <div class="modal-box">
     <div class="modal-icon" id="modalIcon"></div>
@@ -691,6 +692,45 @@
         labelSpecificField: "المسمى الوظيفي المطلوب أو مجال الدراسة *", placeholderSpecificField: "مثال: مهندس برمجيات، ماجستير",
         labelNotes: "ملاحظات إضافية / رسالة تغطية", placeholderNotes: "اكتب أي تفاصيل إضافية...",
         submitBtn: "إرسال الطلب"
+      },
+      ur: {
+        supportText: "خط الدعم: ",
+        home: "ہوم", register: "رجستر کریں", jobs: "نوکریاں", about: "ہمارے بارے میں", contact: "رابطہ کریں",
+        heroTitle: "عالمی نوکری اور ویزا ایجنسی",
+        selectLang: "زبان منتخب کریں:",
+        btnApply: "ابھی درخواست دیں ↓",
+        btnView: "مواقع دیکھیں ↓",
+        jobsTitle: "نمایاں عالمی ملازمت اور تعلیم کے مواقع",
+        formTitle: "درخواست اور رجسٹریشن فارم",
+        labelName: "पूरा نام *", placeholderName: "اپنا پورا نام درج کریں",
+        labelEmail: "ای میل ایڈریس *", placeholderName: "اپنا ای میل درج کریں",
+        labelPhone: "فون / واٹس ایپ نمبر *", placeholderName: "اپنا فون نمبر درج کریں",
+        labelOrigin: "موجودہ رہائش کا ملک *", selectOrigin: "-- اپنا ملک منتخب کریں --",
+        labelTarget: "ہدف ملک (منزل) *", selectTarget: "-- ہدف ملک منتخب کریں --",
+        labelPurpose: "درخواست کا مقصد *", selectPurpose: "-- مقصد منتخب کریں --",
+        purposeJob: "بین الاقوامی نوکری کی تقرری", purposeEdu: "تعلیمی مشاورت",
+        labelSpecificField: "مطلوبہ نوکری کا عنوان یا کورس *", placeholderSpecificField: "مثال کے طور پر: سافٹ ویئر انجینئر",
+        labelNotes: "اضافی نوٹس / کور پیغام", placeholderNotes: "کوئی اضافی تفصیلات لکھیں...",
+        submitBtn: "درخواست جمع کرائیں"
+      },
+      fr: {
+        supportText: "Ligne d'assistance : ",
+        home: "Accueil", register: "S'inscrire", jobs: "Emplois", about: "À propos", contact: "Contact",
+        heroTitle: "Agence mondiale de placement et de visa",
+        selectLang: "Sélectionner la langue :",
+        btnApply: "Postuler maintenant ↓", btnView: "Voir les offres ↓",
+        jobsTitle: "Offres mondiales d'emploi et d'éducation",
+        formTitle: "Formulaire de candidature",
+        labelName: "Nom complet *", placeholderName: "Entrez votre nom complet",
+        labelEmail: "Adresse e-mail *", placeholderName: "Entrez votre e-mail",
+        labelPhone: "Numéro de téléphone / WhatsApp *", placeholderName: "Entrez votre téléphone",
+        labelOrigin: "Pays de résidence actuel *", selectOrigin: "-- Sélectionnez votre pays --",
+        labelTarget: "Pays cible (Destination) *", selectTarget: "-- Sélectionnez le pays cible --",
+        labelPurpose: "Motif de la demande *", selectPurpose: "-- Sélectionnez le motif --",
+        purposeJob: "Placement professionnel international", purposeEdu: "Conseil en éducation",
+        labelSpecificField: "Intitulé de poste ou domaine d'études souhaité *", placeholderSpecificField: "ex : Ingénieur logiciel",
+        labelNotes: "Remarques supplémentaires", placeholderNotes: "Écrivez des détails supplémentaires...",
+        submitBtn: "Soumettre la candidature"
       }
     };
 
@@ -791,7 +831,7 @@
 
       if (lang === 'am') {
         label.innerText = (purpose === 'Job') ? "የሚፈልጉት የሥራ መደብ *" : "የሚፈልጉት የትምህርት ዓይነት *";
-      } else if (lang === 'ar') {
+      } else if (lang === 'ar' || lang === 'ur' || lang === 'fa') {
         label.innerText = (purpose === 'Job') ? "المسمى الوظيفي المطلوب *" : "مجال الدراسة المطلوب *";
       } else {
         label.innerText = (purpose === 'Job') ? "Desired Job Title / Position *" : "Desired Course / Field of Study *";
