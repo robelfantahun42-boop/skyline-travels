@@ -4,90 +4,165 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skyline Travels Admin Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; }
-        .admin-header { background-color: #ffffff; padding: 20px 40px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; }
-        .admin-header h1 { margin: 0; color: #333; font-size: 22px; }
-        .logout-btn { background-color: #e74c3c; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-        .logout-btn:hover { background-color: #c0392b; }
-        .container { max-width: 1250px; margin: 30px auto; padding: 0 20px; }
-        .settings-card, .table-card { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 30px; }
-        .settings-card h3, .table-card h3 { margin-top: 0; color: #2c3e50; margin-bottom: 20px; }
-        .form-group-inline { display: flex; gap: 15px; margin-bottom: 15px; align-items: center; }
-        .form-group-inline input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; }
-        .form-group-inline button { padding: 10px 20px; background-color: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
-        .form-group-inline button:hover { background-color: #2980b9; }
-        .table-responsive { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; text-align: left; }
-        th, td { padding: 12px 12px; border-bottom: 1px solid #eee; font-size: 13px; color: #333; white-space: nowrap; }
-        th { background-color: #f8f9fa; color: #2c3e50; font-weight: bold; }
-        tr:hover { background-color: #f9f9f9; }
-        .loading-text, .error-text, .empty-text { text-align: center; padding: 20px; font-weight: bold; }
-        .error-text { color: #e74c3c; }
-        .empty-text { color: #7f8c8d; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #1e293b;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+        .logout-btn {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .logout-btn:hover {
+            background-color: #dc2626;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .card h3 {
+            margin-top: 0;
+            color: #1e293b;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        .form-group label {
+            width: 150px;
+            font-weight: bold;
+        }
+        .form-group input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+        }
+        .btn {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #2563eb;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+        }
+        th {
+            background-color: #f8fafc;
+            color: #475569;
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+        .status-msg {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+        }
     </style>
 </head>
 <body>
 
-    <div class="admin-header">
-        <h1><i class="fa-solid fa-plane-departure" style="color: #3498db; margin-right: 10px;"></i> Skyline Travels Admin Dashboard</h1>
-        <button class="logout-btn" onclick="logout()">Logout</button>
-    </div>
+    <header>
+        <h1>Skyline Travels Admin Dashboard</h1>
+        <button class="logout-btn" onclick="logoutAdmin()">Logout</button>
+    </header>
 
     <div class="container">
-        <!-- Settings Management Section (WhatsApp & Telegram Links) -->
-        <div class="settings-card">
+        <!-- Contact Links Management -->
+        <div class="card">
             <h3>Contact Links Management</h3>
-            
-            <div class="form-group-inline">
-                <label style="width: 160px; font-weight: bold; font-size: 13px;"><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> WhatsApp Link:</label>
-                <input type="text" id="whatsappInput" placeholder="Enter WhatsApp number or link">
-                <button onclick="updateSettings('whatsapp')">Update WhatsApp</button>
+            <div class="form-group">
+                <label>WhatsApp Link:</label>
+                <input type="text" id="whatsappInput" placeholder="+251911000000">
+                <button class="btn" onclick="updateWhatsApp()">Update WhatsApp</button>
             </div>
-
-            <div class="form-group-inline">
-                <label style="width: 160px; font-weight: bold; font-size: 13px;"><i class="fa-brands fa-telegram" style="color: #0088cc;"></i> Telegram Link:</label>
-                <input type="text" id="telegramInput" placeholder="Enter Telegram username or link">
-                <button onclick="updateSettings('telegram')">Update Telegram</button>
+            <div class="form-group">
+                <label>Telegram Link:</label>
+                <input type="text" id="telegramInput" placeholder="username or link">
+                <button class="btn" onclick="updateTelegram()">Update Telegram</button>
             </div>
         </div>
 
-        <!-- Registrations Table Section -->
-        <div class="table-card">
+        <!-- Recent Registrations -->
+        <div class="card">
             <h3>Recent Job & Visa Registrations</h3>
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Full Name</th>
-                            <th>Phone</th>
-                            <th>Email</th>
-                            <th>Nationality</th>
-                            <th>Target Country</th>
-                            <th>Category</th>
-                            <th>Education</th>
-                            <th>Notes / Message</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody id="registrationsTableBody">
-                        <tr>
-                            <td colspan="9" class="loading-text">Loading registrations...</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Nationality</th>
+                        <th>Target Country</th>
+                        <th>Category</th>
+                        <th>Education</th>
+                        <th>Notes / Message</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="registrationsTableBody">
+                    <tr>
+                        <td colspan="9" class="status-msg">Loading registrations...</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
     <script>
-        function logout() {
-            localStorage.removeItem('adminToken');
-            window.location.href = 'admin.html';
-        }
+        // Load initial settings and registrations
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSettings();
+            loadRegistrations();
+        });
 
-        // Fetch Settings (WhatsApp & Telegram)
         async function loadSettings() {
             try {
                 const res = await fetch('/api/settings');
@@ -97,91 +172,92 @@
                     if (data.telegram) document.getElementById('telegramInput').value = data.telegram;
                 }
             } catch (err) {
-                console.error("Error loading settings:", err);
+                console.error('Error loading settings:', err);
             }
         }
 
-        // Update Settings Function (WhatsApp & Telegram)
-        async function updateSettings(type) {
-            const value = type === 'whatsapp' 
-                ? document.getElementById('whatsappInput').value.trim() 
-                : document.getElementById('telegramInput').value.trim();
-
-            const endpoint = type === 'whatsapp' 
-                ? '/api/admin/settings/whatsapp' 
-                : '/api/admin/settings/telegram';
-
-            const bodyData = type === 'whatsapp' 
-                ? { whatsappNumber: value } 
-                : { telegramUsername: value };
-
+        async function updateWhatsApp() {
+            const whatsapp = document.getElementById('whatsappInput').value.trim();
             try {
-                const res = await fetch(endpoint, {
+                const res = await fetch('/api/admin/settings/whatsapp', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(bodyData)
+                    body: JSON.stringify({ whatsapp })
                 });
-
                 const data = await res.json();
-                if (res.ok) {
-                    alert(`${type.charAt(0).toUpperCase() + type.slice(1)} updated successfully!`);
+                if (res.ok && data.success) {
+                    alert('WhatsApp updated successfully!');
                 } else {
-                    alert(data.error || 'Failed to update settings');
+                    alert('Failed to update WhatsApp.');
                 }
             } catch (err) {
-                console.error("Error updating settings:", err);
-                alert('Connection error occurred.');
+                console.error('Error updating WhatsApp:', err);
+                alert('Connection error.');
             }
         }
 
-        // Fetch Registrations Data and Populate Table Safely
+        async function updateTelegram() {
+            const telegram = document.getElementById('telegramInput').value.trim();
+            try {
+                const res = await fetch('/api/admin/settings/telegram', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ telegram })
+                });
+                const data = await res.json();
+                if (res.ok && data.success) {
+                    alert('Telegram updated successfully!');
+                } else {
+                    alert('Failed to update Telegram.');
+                }
+            } catch (err) {
+                console.error('Error updating Telegram:', err);
+                alert('Connection error.');
+            }
+        }
+
         async function loadRegistrations() {
             const tableBody = document.getElementById('registrationsTableBody');
             try {
-                const res = await fetch('/api/admin/applications');
-                if (res.ok) {
-                    const registrations = await res.json();
-                    tableBody.innerHTML = '';
-
-                    if (!registrations || registrations.length === 0) {
-                        tableBody.innerHTML = `<tr><td colspan="9" class="empty-text">No registrations found.</td></tr>`;
-                        return;
-                    }
-
-                    registrations.forEach(reg => {
-                        const row = document.createElement('tr');
-                        let formattedDate = 'N/A';
-                        if (reg.createdAt) {
-                            formattedDate = new Date(reg.createdAt).toLocaleDateString();
-                        }
-
-                        // Fallback mechanisms ensure no missing property breaks the view
-                        row.innerHTML = `
-                            <td>${reg.fullName || reg.name || 'N/A'}</td>
-                            <td>${reg.phone || 'N/A'}</td>
-                            <td>${reg.email || 'N/A'}</td>
-                            <td>${reg.nationality || reg.originCountry || 'N/A'}</td>
-                            <td>${reg.targetCountry || 'N/A'}</td>
-                            <td>${reg.category || reg.jobCategory || 'N/A'}</td>
-                            <td>${reg.education || 'N/A'}</td>
-                            <td>${reg.message || reg.notes || 'N/A'}</td>
-                            <td>${formattedDate}</td>
-                        `;
-                        tableBody.appendChild(row);
-                    });
-                } else {
-                    tableBody.innerHTML = `<tr><td colspan="9" class="error-text">Failed to load registrations from server.</td></tr>`;
+                const response = await fetch('/api/registrations');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch registrations');
                 }
+                const data = await response.json();
+                
+                tableBody.innerHTML = '';
+                
+                if (!data || data.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="9" class="status-msg">No registrations found.</td></tr>';
+                    return;
+                }
+
+                data.forEach(reg => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${reg.fullName || 'N/A'}</td>
+                        <td>${reg.phone || 'N/A'}</td>
+                        <td>${reg.email || 'N/A'}</td>
+                        <td>${reg.nationality || 'N/A'}</td>
+                        <td>${reg.targetCountry || 'N/A'}</td>
+                        <td>${reg.category || 'N/A'}</td>
+                        <td>${reg.education || 'N/A'}</td>
+                        <td>${reg.message || 'N/A'}</td>
+                        <td>${reg.date || 'N/A'}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
             } catch (err) {
-                console.error("Error loading registrations:", err);
-                tableBody.innerHTML = `<tr><td colspan="9" class="error-text">Error connecting to server.</td></tr>`;
+                console.error('Error loading registrations:', err);
+                if (tableBody) {
+                    tableBody.innerHTML = '<tr><td colspan="9" class="status-msg" style="color: red;">Error connecting to server.</td></tr>';
+                }
             }
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            loadSettings();
-            loadRegistrations();
-        });
+        function logoutAdmin() {
+            window.location.href = '/index.html';
+        }
     </script>
 </body>
 </html>
