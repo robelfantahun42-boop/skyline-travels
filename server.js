@@ -118,10 +118,19 @@ app.get('/api/admin/check-session', (req, res) => {
   res.status(200).json({ authenticated: true });
 });
 
-// Frontend route handling
+
+// --- Frontend Route Handling ---
+
+// የአድሚን ገጽን በትክክል ለመክፈት
+app.get('/admin.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin.html'));
+});
+
+// ለሌሎች ሊንኮች ወደ ዋናው ሆምፔጅ እንዲመልስ (Catch-all)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
+
 
 // Local Development Server Listener
 const PORT = process.env.PORT || 3000;
