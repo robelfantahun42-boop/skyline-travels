@@ -1010,15 +1010,15 @@
       nav.classList.toggle('active');
     }
 
-    async function syncSettings() {
-      try {
-        const res = await fetch('/api/settings/whatsapp');
+ async function syncSettings() {
+    try {
+        const res = await fetch('/api/settings');
         const data = await res.json();
-        
-        if (data && data.whatsappNumber) {
-          const rawNum = data.whatsappNumber.replace(/\D/g, ''); 
-          window.currentAdminWhatsapp = rawNum; 
-          const formattedNum = '+' + rawNum;
+
+        if (data && data.whatsapp) {
+            const rawNum = data.whatsapp.replace(/\D/g, '');
+            window.currentAdminwhatsapp = rawNum;
+            const formattedNum = '+' + rawNum;
 
           const elTop = document.getElementById('displayHotlineTop');
           const elContact = document.getElementById('displayHotlineContact');
