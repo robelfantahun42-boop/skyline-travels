@@ -140,6 +140,8 @@
                             <th>Full Name</th>
                             <th>Phone</th>
                             <th>Email</th>
+                            <th>Origin Country</th>
+                            <th>Target Country</th>
                             <th>Job/Education</th>
                             <th>Telegram User</th>
                             <th>Notes / Message</th>
@@ -148,7 +150,7 @@
                     </thead>
                     <tbody id="registrationsTableBody">
                         <tr>
-                            <td colspan="7" style="text-align: center; color: #7f8c8d;">Loading registrations...</td>
+                            <td colspan="9" style="text-align: center; color: #7f8c8d;">Loading registrations...</td>
                         </tr>
                     </tbody>
                 </table>
@@ -220,7 +222,7 @@
                     tableBody.innerHTML = '';
 
                     if (!registrations || registrations.length === 0) {
-                        tableBody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #7f8c8d;">No registrations found.</td></tr>`;
+                        tableBody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: #7f8c8d;">No registrations found.</td></tr>`;
                         return;
                     }
 
@@ -236,6 +238,8 @@
                             <td>${reg.fullName || 'N/A'}</td>
                             <td>${reg.phone || 'N/A'}</td>
                             <td>${reg.email || 'N/A'}</td>
+                            <td>${reg.originCountry || 'N/A'}</td>
+                            <td>${reg.targetCountry || 'N/A'}</td>
                             <td>${reg.jobCategory || 'N/A'}</td>
                             <td>${reg.telegramUser || 'N/A'}</td>
                             <td>${reg.message || 'N/A'}</td>
@@ -244,11 +248,11 @@
                         tableBody.appendChild(row);
                     });
                 } else {
-                    document.getElementById('registrationsTableBody').innerHTML = `<tr><td colspan="7" style="text-align: center; color: #e74c3c;">Failed to load registrations.</td></tr>`;
+                    document.getElementById('registrationsTableBody').innerHTML = `<tr><td colspan="9" style="text-align: center; color: #e74c3c;">Failed to load registrations.</td></tr>`;
                 }
             } catch (err) {
                 console.error("Error loading registrations:", err);
-                document.getElementById('registrationsTableBody').innerHTML = `<tr><td colspan="7" style="text-align: center; color: #e74c3c;">Error connecting to server.</td></tr>`;
+                document.getElementById('registrationsTableBody').innerHTML = `<tr><td colspan="9" style="text-align: center; color: #e74c3c;">Error connecting to server.</td></tr>`;
             }
         }
 
