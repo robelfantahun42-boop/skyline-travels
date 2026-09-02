@@ -58,10 +58,10 @@
         <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
       </a>
       
-      <!-- Telegram Button with JavaScript Click Event Handler -->
-      <button id="contactTelegramBtn" class="telegram-btn">
+      <!-- Telegram Direct Link using Web Telegram App format to bypass redirection -->
+      <a href="https://web.telegram.org/a/#@Lubi1331" id="contactTelegramBtn" class="telegram-btn" target="_blank">
         <i class="fa-brands fa-telegram"></i> Chat on Telegram
-      </button>
+      </a>
     </div>
   </div>
 
@@ -70,23 +70,11 @@
   </footer>
 
   <script>
-    // ቴሌግራም ላይ አሁን የሚያጋጥመውን የሪዲሬክት ችግር (Redirect Issue) ሙሉ በሙሉ ለመቅረፍ 
-    // ስክሪፕቱ አዝራሩ ሲጫን በቀጥታ የቴሌግራም አፕሊኬሽን ዩኒቨርሳል ሊንክ ወይም የዌብ ቻት ሊንክ እንዲከፍት እናደርጋለን።
-    document.getElementById('contactTelegramBtn').addEventListener('click', function() {
-        const username = "Lubi1331";
-        
-        // በመጀመሪያ ኮምፒዩተር ላይ ከሆነ t.me/ username በቀጥታ እንሞክራለን፣ 
-        // ካልሰራ ደግሞ ዌብ ቴሌግራም ቻት እንዲከፍት በ JavaScript Window Open እናደርገዋለን።
-        const tgUrl = `https://t.me/${username}`;
-        
-        // አዲስ ታብ ከፍቶ እንዲከፍት ማድረግ
-        const newWindow = window.open(tgUrl, '_blank');
-        
-        // ብሮውዘሩ ፖፕአፕ አግዶት ከሆነ ወይም ወደ ቴሌግራም.ኦርጂ ካዞረው 
-        // በ አማራጭነት በቀጥታ ወደ ዌብ ቴሌግራም ቻት (Direct Web Chat) ይመራዋል
-        if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
-            window.location.href = `https://t.me/${username}`;
-        }
+    // ተጨማሪ ማረጋገጫ፡ ተጠቃሚው በሞባይልም ሆነ በኮምፒዩተር ላይ ሲጠቀም 
+    // ወደ telegram.org እንዳይዞር የዌብ ቴሌግራም ትክክለኛውን (A version) ሊንክ በጃቫስክሪፕት እናረጋግጣለን።
+    document.getElementById('contactTelegramBtn').addEventListener('click', function(e) {
+        // ብሮውዘር ላይ t.me ሳይሆን በቀጥታ የዌብ ቴሌግራም መተግበሪያውን እንዲከፍት እናደርጋለን
+        this.href = "https://web.telegram.org/a/#@Lubi1331";
     });
   </script>
 
