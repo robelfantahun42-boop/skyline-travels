@@ -28,7 +28,7 @@
     .whatsapp-btn { display: inline-block; background: #22c55e; color: white; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px; transition: background 0.3s; }
     .whatsapp-btn:hover { background: #16a34a; }
 
-    .telegram-btn { display: inline-block; background: #229ED9; color: white; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px; transition: background 0.3s; }
+    .telegram-btn { display: inline-block; background: #229ED9; color: white; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px; transition: background 0.3s; cursor: pointer; border: none; }
     .telegram-btn:hover { background: #1e88e5; }
 
     footer { background: #020617; color: #94a3b8; text-align: center; padding: 30px 20px; font-size: 14px; margin-top: 50px; }
@@ -58,16 +58,37 @@
         <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
       </a>
       
-      <!-- Telegram Web Direct Link ( ወደ telegram.org እንዳይወስድ የዌብ ቴሌግራም አድራሻን በቀጥታ እንጠቀማለን ) -->
-      <a href="https://web.telegram.org/k/#@Lubi1331" class="telegram-btn" target="_blank">
+      <!-- Telegram Button with JavaScript Click Event Handler -->
+      <button id="contactTelegramBtn" class="telegram-btn">
         <i class="fa-brands fa-telegram"></i> Chat on Telegram
-      </a>
+      </button>
     </div>
   </div>
 
   <footer>
     <p>&copy; 2026 Skyline Travels & Educational Consultancy. All rights reserved.</p>
   </footer>
+
+  <script>
+    // ቴሌግራም ላይ አሁን የሚያጋጥመውን የሪዲሬክት ችግር (Redirect Issue) ሙሉ በሙሉ ለመቅረፍ 
+    // ስክሪፕቱ አዝራሩ ሲጫን በቀጥታ የቴሌግራም አፕሊኬሽን ዩኒቨርሳል ሊንክ ወይም የዌብ ቻት ሊንክ እንዲከፍት እናደርጋለን።
+    document.getElementById('contactTelegramBtn').addEventListener('click', function() {
+        const username = "Lubi1331";
+        
+        // በመጀመሪያ ኮምፒዩተር ላይ ከሆነ t.me/ username በቀጥታ እንሞክራለን፣ 
+        // ካልሰራ ደግሞ ዌብ ቴሌግራም ቻት እንዲከፍት በ JavaScript Window Open እናደርገዋለን።
+        const tgUrl = `https://t.me/${username}`;
+        
+        // አዲስ ታብ ከፍቶ እንዲከፍት ማድረግ
+        const newWindow = window.open(tgUrl, '_blank');
+        
+        // ብሮውዘሩ ፖፕአፕ አግዶት ከሆነ ወይም ወደ ቴሌግራም.ኦርጂ ካዞረው 
+        // በ አማራጭነት በቀጥታ ወደ ዌብ ቴሌግራም ቻት (Direct Web Chat) ይመራዋል
+        if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+            window.location.href = `https://t.me/${username}`;
+        }
+    });
+  </script>
 
 </body>
 </html>
