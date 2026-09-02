@@ -28,7 +28,7 @@
     .whatsapp-btn { display: inline-block; background: #22c55e; color: white; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px; transition: background 0.3s; }
     .whatsapp-btn:hover { background: #16a34a; }
 
-    .telegram-btn { display: inline-block; background: #229ED9; color: white; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px; transition: background 0.3s; }
+    .telegram-btn { display: inline-block; background: #229ED9; color: white; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px; transition: background 0.3s; cursor: pointer; border: none; }
     .telegram-btn:hover { background: #1e88e5; }
 
     footer { background: #020617; color: #94a3b8; text-align: center; padding: 30px 20px; font-size: 14px; margin-top: 50px; }
@@ -53,21 +53,39 @@
     <p>Chat with us on WhatsApp or Telegram for instant support!</p>
     
     <div class="button-group">
-      <!-- WhatsApp Direct Link -->
+      <!-- WhatsApp Link -->
       <a href="https://wa.me/251911000000" class="whatsapp-btn" target="_blank">
         <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
       </a>
       
-      <!-- Telegram Standard Link (ሞባይል ላይ በቀጥታ ይከፍታል፣ ዴስክቶፕ ላይ ግን ቴሌግራም አፕ ካለ ይከፍታል ካልተጫነ ወደ ቴሌግራም ዌብሳይት ይወስዳል) -->
-      <a href="https://t.me/Lubi1331" class="telegram-btn" target="_blank">
+      <!-- Telegram Direct App Scheme Button -->
+      <button id="telegramBtn" class="telegram-btn">
         <i class="fa-brands fa-telegram"></i> Chat on Telegram
-      </a>
+      </button>
     </div>
   </div>
 
   <footer>
     <p>&copy; 2026 Skyline Travels & Educational Consultancy. All rights reserved.</p>
   </footer>
+
+  <script>
+    document.getElementById('telegramBtn').addEventListener('click', function() {
+        const username = "Lubi1331";
+        
+        // በመጀመሪያ ስልኩ ላይ ወይም ኮምፒዩተሩ ላይ ቀጥታ የቴሌግራም አፕሊኬሽኑን እንዲከፍት ትዕዛዝ እንሰጣለን
+        const appSchemeUrl = `tg://resolve?domain=${username}`;
+        const webFallbackUrl = `https://t.me/${username}`;
+
+        // አፑን ለመክፈት እንሞክራለን
+        window.location.href = appSchemeUrl;
+
+        // ሰከንድ ሳይሞላ አፑ ከሌለ ወደ ዌብ ሊንክ በ አማራጭነት እንዲያልፍ እናደርጋለን
+        setTimeout(function() {
+            window.open(webFallbackUrl, '_blank');
+        }, 500);
+    });
+  </script>
 
 </body>
 </html>
