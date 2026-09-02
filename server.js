@@ -5,7 +5,7 @@ const path = require('path');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname)));
 
 // MongoDB Connection
 const MONGODB_URI = process.env.MONGODB_URI || 'YOUR_MONGODB_ATLAS_CONNECTION_STRING';
@@ -106,7 +106,7 @@ app.post('/api/admin/settings/whatsapp', async (req, res) => {
     await Settings.findOneAndUpdate(
       { key: 'site_settings' },
       { whatsapp: whatsappValue },
-      { upsert: true, new: true }
+      { upsert: { key: 'site_settings' }, new: true }
     );
     return res.json({ success: true, message: 'WhatsApp updated successfully' });
   } catch (err) {
@@ -124,13 +124,18 @@ app.post('/api/admin/settings/telegram', async (req, res) => {
     await Settings.findOneAndUpdate(
       { key: 'site_settings' },
       { telegram: telegramValue },
-      { upsert: true, new: true }
+      { upsert: { key: 'site_settings' }, new: true }
     );
     return res.json({ success: true, message: 'Telegram updated successfully' });
   } catch (err) {
     console.error('Update Telegram Error:', err);
     return res.status(500).json({ error: 'Failed to update Telegram' });
   }
+});
+
+// Catch-all route to serve index.html and prevent "Cannot GET /"
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 const PORT = process.env.PORT || 3000;
