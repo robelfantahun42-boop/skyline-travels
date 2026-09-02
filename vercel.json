@@ -7,8 +7,9 @@
     }
   ],
   "routes": [
-    { "src": "/api/(.*)", "destination": "server.js" },
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "destination": "server.js" }
+    {
+      "src": "/(.*)",
+      "dest": "server.js"
+    }
   ]
 }
