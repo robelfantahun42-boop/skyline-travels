@@ -247,6 +247,7 @@
             .then(response => {
                 if (response.success) {
                     alert('WhatsApp updated successfully!');
+                    loadSettings();
                 } else {
                     alert('Failed to update WhatsApp');
                 }
@@ -257,7 +258,7 @@
             });
         }
 
-        // የቴሌግራም ዩዘርና ማስተካከል
+        // የቴሌግራም ዩዘርና ማስተካከል (የተስተካከለ)
         function updateTelegram() {
             const telegramUsername = document.getElementById('adminTelegram').value;
             fetch('/api/admin/settings/telegram', {
@@ -269,6 +270,7 @@
             .then(response => {
                 if (response.success) {
                     alert('Telegram updated successfully!');
+                    loadSettings(); // ዳታውን ዳግም በመጫን መስኩ ላይ በትክክል እንዲታይ ማድረግ
                 } else {
                     alert('Failed to update Telegram');
                 }
