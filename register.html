@@ -177,11 +177,16 @@
 
   <script>
     // Load WhatsApp settings
-    window.addEventListener('DOMContentLoaded', () => {
-      const savedWa = localStorage.getItem('skyline_whatsapp') || '251900000000';
-      const cleanWa = savedWa.replace(/[^0-9]/g, '');
-      document.getElementById('adminWaBtn').href = `https://wa.me/${cleanWa}`;
-      document.getElementById('adminWaText').textContent = `+${cleanWa} (WhatsApp)`;
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const res = await fetch('/api/settings/whatsapp');
+        const data = await res.json();
+        const cleanWa = (data.whatsappNumber || '251900000000').replace(/[^0-9]/g, '');
+        document.getElementById('adminWaBtn').href = `https://wa.me/${cleanWa}`;
+        document.getElementById('adminWaText').textContent = `+${cleanWa} (WhatsApp)`;
+      } catch (e) {
+        console.error(e);
+      }
     });
 
     const menuToggleBtn = document.getElementById('menuToggleBtn');
@@ -189,7 +194,8 @@
     menuToggleBtn.addEventListener('click', (e) => { e.stopPropagation(); navDropdownMenu.classList.toggle('show'); });
     window.addEventListener('click', () => { if (navDropdownMenu.classList.contains('show')) navDropdownMenu.classList.remove('show'); });
 
-    document.getElementById('applyForm').addEventListener('submit', (e) => {
+    // Submit form data to backend API (MongoDB)
+    document.getElementById('applyForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       
       const formData = {
@@ -200,17 +206,27 @@
         targetCountry: document.getElementById('targetCountry').value,
         category: document.getElementById('category').value,
         education: document.getElementById('education').value,
-        message: document.getElementById('message').value,
-        date: new Date().toLocaleString()
+        message: document.getElementById('message').value
       };
 
-      // Save to localStorage so admin.html can display it
-      let registrations = JSON.parse(localStorage.getItem('skyline_registrations') || '[]');
-      registrations.unshift(formData);
-      localStorage.setItem('skyline_registrations', JSON.stringify(registrations));
-
-      document.getElementById('successOverlay').style.display = 'flex';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      try {
+        const response = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+          document.getElementById('successOverlay').style.display = 'flex';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          alert(result.error || 'Registration failed');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Network error. Please try again.');
+      }
     });
   </script>
 </body>
