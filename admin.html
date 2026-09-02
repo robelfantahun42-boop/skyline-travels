@@ -3,110 +3,266 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skyline Travels - Admin Dashboard</title>
+    <title>Skyline Travels Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: #0f172a; color: #f8fafc; padding: 40px; }
-        .container { max-width: 800px; margin: auto; background: #1e293b; padding: 30px; border-radius: 16px; border: 1px solid #334155; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h2 { margin-bottom: 25px; color: #fff; font-size: 24px; }
-        .input-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-weight: 600; color: #94a3b8; }
-        input { width: 100%; padding: 12px 15px; background: #0f172a; border: 1px solid #475569; border-radius: 8px; color: #fff; font-size: 15px; }
-        input:focus { outline: none; border-color: #2563eb; }
-        button { background: #2563eb; color: white; border: none; padding: 12px 24px; cursor: pointer; border-radius: 8px; font-weight: 700; font-size: 15px; transition: background 0.3s; margin-right: 10px; }
-        button:hover { background: #1d4ed8; }
-        .status-msg { margin-top: 10px; font-weight: 600; font-size: 14px; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+        }
+        .admin-header {
+            background-color: #ffffff;
+            padding: 20px 40px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .admin-header h1 {
+            margin: 0;
+            color: #333;
+            font-size: 22px;
+        }
+        .logout-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .settings-card, .table-card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        .settings-card h3, .table-card h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .form-group-inline {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        .form-group-inline input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .form-group-inline button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .form-group-inline button:hover {
+            background-color: #2980b9;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+            color: #333;
+        }
+        th {
+            background-color: #f8f9fa;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: #f9f9f9;
+        }
     </style>
 </head>
 <body>
+
+    <div class="admin-header">
+        <h1><i class="fa-solid fa-plane-departure" style="color: #3498db; margin-right: 10px;"></i> Skyline Travels Admin Dashboard</h1>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
     <div class="container">
-        <h2>Admin Dashboard - Skyline Travels</h2>
-        
-        <!-- WhatsApp Settings -->
-        <div class="input-group">
-            <label>WhatsApp Full Link / Number:</label>
-            <input type="text" id="whatsappInput" placeholder="e.g. https://wa.me/251911000000">
-            <button onclick="updateWhatsApp()" style="margin-top: 10px;">Update WhatsApp</button>
-            <span id="waStatus" class="status-msg"></span>
+        <!-- Settings Management Section -->
+        <div class="settings-card">
+            <h3>Contact Links Management</h3>
+            
+            <div class="form-group-inline">
+                <label style="width: 180px; font-weight: bold; font-size: 13px;"><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> WhatsApp Link:</label>
+                <input type="text" id="whatsappInput" placeholder="Enter WhatsApp number or link">
+                <button onclick="updateSettings('whatsapp')">Update WhatsApp</button>
+            </div>
+
+            <div class="form-group-inline">
+                <label style="width: 180px; font-weight: bold; font-size: 13px;"><i class="fa-brands fa-telegram" style="color: #0088cc;"></i> Telegram Link:</label>
+                <input type="text" id="telegramInput" placeholder="Enter Telegram username or link">
+                <button onclick="updateSettings('telegram')">Update Telegram</button>
+            </div>
         </div>
 
-        <hr style="border: 0; border-top: 1px solid #334155; margin: 30px 0;">
-
-        <!-- Telegram Settings -->
-        <div class="input-group">
-            <label>Telegram Full Link / Username:</label>
-            <input type="text" id="telegramInput" placeholder="e.g. https://t.me/Lubi1331">
-            <button onclick="updateTelegram()" style="margin-top: 10px;">Update Telegram</button>
-            <span id="tgStatus" class="status-msg"></span>
+        <!-- Registrations Table Section -->
+        <div class="table-card">
+            <h3>Recent Job & Visa Registrations</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Job/Education</th>
+                            <th>Specific Field / Country</th>
+                            <th>Notes / Message</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="registrationsTableBody">
+                        <tr>
+                            <td colspan="7" style="text-align: center; color: #7f8c8d;">Loading registrations...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <script>
-        // ገጹ ሲከፈት ከዳታቤዝ አሁን ያሉትን መረጃዎች አምጥቶ በሳጥኖቹ ላይ ይሞላል
-        window.onload = async function() {
+        // Check authentication token on load
+        const token = localStorage.getItem('adminToken');
+        if (!token) {
+            window.location.href = 'admin.html'; // If logging out or not logged in, handled appropriately
+        }
+
+        function logout() {
+            localStorage.removeItem('adminToken');
+            window.location.href = 'admin.html';
+        }
+
+        // Fetch Settings (WhatsApp & Telegram)
+        async function loadSettings() {
             try {
-                const response = await fetch('/api/settings');
-                if (response.ok) {
-                    const data = await response.json();
-                    document.getElementById('whatsappInput').value = data.whatsapp || '';
-                    document.getElementById('telegramInput').value = data.telegram || '';
+                const res = await fetch('/api/settings');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.whatsapp) document.getElementById('whatsappInput').value = data.whatsapp;
+                    if (data.telegram) document.getElementById('telegramInput').value = data.telegram;
                 }
-            } catch (error) {
-                console.error("Error loading settings:", error);
-            }
-        };
-
-        // ዋትሳፕን ብቻ ለማስተካከል
-        async function updateWhatsApp() {
-            const whatsappNumber = document.getElementById('whatsappInput').value.trim();
-            const statusEl = document.getElementById('waStatus');
-
-            try {
-                const response = await fetch('/api/admin/settings/whatsapp', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ whatsappNumber })
-                });
-
-                const result = await response.json();
-                if (response.ok) {
-                    statusEl.style.color = '#22c55e';
-                    statusEl.innerText = 'WhatsApp updated successfully!';
-                    setTimeout(() => statusEl.innerText = '', 3000);
-                } else {
-                    throw new Error(result.error || 'Failed');
-                }
-            } catch (error) {
-                statusEl.style.color = '#ef4444';
-                statusEl.innerText = 'Error updating WhatsApp.';
+            } catch (err) {
+                console.error("Error loading settings:", err);
             }
         }
 
-        // ቴሌግራምን ብቻ ለማስተካከል (ከለክህ ጋር በተጣጣመ መልኩ ዩዘርነሙን ይልካል)
-        async function updateTelegram() {
-            const telegramUsername = document.getElementById('telegramInput').value.trim();
-            const statusEl = document.getElementById('tgStatus');
+        // Update Settings Function
+        async function updateSettings(type) {
+            const value = type === 'whatsapp' 
+                ? document.getElementById('whatsappInput').value 
+                : document.getElementById('telegramInput').value;
 
             try {
-                const response = await fetch('/api/admin/settings/telegram', {
+                const res = await fetch('/api/settings', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ telegramUsername })
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ [type]: value })
                 });
 
-                const result = await response.json();
-                if (response.ok) {
-                    statusEl.style.color = '#22c55e';
-                    statusEl.innerText = 'Telegram updated successfully!';
-                    setTimeout(() => statusEl.innerText = '', 3000);
+                const data = await res.json();
+                if (res.ok) {
+                    alert(`${type.charAt(0).toUpperCase() + type.slice(1)} updated successfully!`);
                 } else {
-                    throw new Error(result.error || 'Failed');
+                    alert(data.error || 'Failed to update settings');
                 }
-            } catch (error) {
-                statusEl.style.color = '#ef4444';
-                statusEl.innerText = 'Error updating Telegram.';
+            } catch (err) {
+                console.error("Error updating settings:", err);
+                alert('Connection error occurred.');
             }
         }
+
+        // Fetch Registrations Data and Populate Table
+        async function loadRegistrations() {
+            try {
+                const res = await fetch('/api/registrations', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (res.ok) {
+                    const registrations = await res.json();
+                    const tableBody = document.getElementById('registrationsTableBody');
+                    tableBody.innerHTML = '';
+
+                    if (registrations.length === 0) {
+                        tableBody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #7f8c8d;">No registrations found.</td></tr>`;
+                        return;
+                    }
+
+                    registrations.forEach(reg => {
+                        const row = document.createElement('tr');
+                        
+                        // Format date nicely if available
+                        let formattedDate = 'N/A';
+                        if (reg.createdAt) {
+                            formattedDate = new Date(reg.createdAt).toLocaleDateString();
+                        }
+
+                        row.innerHTML = `
+                            <td>${reg.fullName || 'N/A'}</td>
+                            <td>${reg.phone || 'N/A'}</td>
+                            <td>${reg.email || 'N/A'}</td>
+                            <td>${reg.jobCategory || 'N/A'}</td>
+                            <td>${reg.specificField || 'N/A'}</td>
+                            <td>${reg.message || reg.notes || 'N/A'}</td>
+                            <td>${formattedDate}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                } else {
+                    document.getElementById('registrationsTableBody').innerHTML = `<tr><td colspan="7" style="text-align: center; color: #e74c3c;">Failed to load registrations.</td></tr>`;
+                }
+            } catch (err) {
+                console.error("Error loading registrations:", err);
+                document.getElementById('registrationsTableBody').innerHTML = `<tr><td colspan="7" style="text-align: center; color: #e74c3c;">Error connecting to server.</td></tr>`;
+            }
+        }
+
+        // Run functions on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSettings();
+            loadRegistrations();
+        });
     </script>
 </body>
 </html>
