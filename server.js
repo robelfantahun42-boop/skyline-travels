@@ -49,7 +49,7 @@ const applicationSchema = new mongoose.Schema({
   phone: { type: String, required: true },
   email: { type: String, default: '' },
   jobCategory: { type: String, default: '' },
-  telegramUser: { type: String, default: '' }, // የቴሌግራም ዩዘርና ለመመዝገቢያ (አዲስ የተጨመረ)
+  telegramUser: { type: String, default: '' }, // የቴሌግራም ዩዘርና ለመመዝገቢያ
   message: { type: String, default: '' },
   createdAt: { type: Date, default: Date.now }
 });
@@ -86,10 +86,12 @@ app.post('/api/admin/settings/whatsapp', async (req, res) => {
   }
 });
 
-// --- Telegram Username/Link APIs (አዲስ የተጨመረ) ---
+// --- Telegram Username/Link APIs (የተስተካከለ - በሁለቱም ኪዎች የሚሰራ) ---
 app.get('/api/settings/telegram', async (req, res) => {
   try {
-    const setting = await Setting.findOne({ key: 'telegramUsername' });
+    const setting = await Setting.findOne({ 
+      $or: [{ key: 'telegramUsername' }, { key: 'telegram' }] 
+    });
     res.status(200).json({ telegramUsername: setting ? setting.value : '' });
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch Telegram settings' });
@@ -99,11 +101,20 @@ app.get('/api/settings/telegram', async (req, res) => {
 app.post('/api/admin/settings/telegram', async (req, res) => {
   try {
     const { telegramUsername } = req.body;
+    const val = telegramUsername || '';
+    
+    // በሁለቱም ቁልፎች (Keys) ዳታቤዝ ላይ በአንድ ላይ እናስቀምጠዋለን
     await Setting.findOneAndUpdate(
       { key: 'telegramUsername' },
-      { value: telegramUsername || '' },
+      { value: val },
       { upsert: true, new: true }
     );
+    await Setting.findOneAndUpdate(
+      { key: 'telegram' },
+      { value: val },
+      { upsert: true, new: true }
+    );
+
     res.status(200).json({ success: true, message: 'Telegram updated successfully' });
   } catch (error) {
     res.status(500).json({ error: 'Failed to update Telegram settings' });
@@ -114,7 +125,9 @@ app.post('/api/admin/settings/telegram', async (req, res) => {
 app.get('/api/settings', async (req, res) => {
   try {
     const waSetting = await Setting.findOne({ key: 'whatsappNumber' });
-    const tgSetting = await Setting.findOne({ key: 'telegramUsername' });
+    const tgSetting = await Setting.findOne({ 
+      $or: [{ key: 'telegramUsername' }, { key: 'telegram' }] 
+    });
     res.status(200).json({
       whatsapp: waSetting ? waSetting.value : '',
       telegram: tgSetting ? tgSetting.value : ''
