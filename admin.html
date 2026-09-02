@@ -141,7 +141,7 @@
                             <th>Phone</th>
                             <th>Email</th>
                             <th>Job/Education</th>
-                            <th>Specific Field / Country</th>
+                            <th>Telegram User</th>
                             <th>Notes / Message</th>
                             <th>Date</th>
                         </tr>
@@ -157,9 +157,6 @@
     </div>
 
     <script>
-        // Get token safely without triggering infinite redirects
-        const token = localStorage.getItem('adminToken');
-
         function logout() {
             localStorage.removeItem('adminToken');
             window.location.href = 'admin.html';
@@ -185,14 +182,19 @@
                 ? document.getElementById('whatsappInput').value 
                 : document.getElementById('telegramInput').value;
 
-            try {
-                const headers = { 'Content-Type': 'application/json' };
-                if (token) headers['Authorization'] = `Bearer ${token}`;
+            const endpoint = type === 'whatsapp' 
+                ? '/api/admin/settings/whatsapp' 
+                : '/api/admin/settings/telegram';
 
-                const res = await fetch('/api/settings', {
+            const bodyData = type === 'whatsapp' 
+                ? { whatsappNumber: value } 
+                : { telegramUsername: value };
+
+            try {
+                const res = await fetch(endpoint, {
                     method: 'POST',
-                    headers: headers,
-                    body: JSON.stringify({ [type]: value })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(bodyData)
                 });
 
                 const data = await res.json();
@@ -207,17 +209,10 @@
             }
         }
 
-        // Fetch Registrations Data and Populate Table
+        // Fetch Registrations Data and Populate Table (የተስተካከለው ትክክለኛ ራውት)
         async function loadRegistrations() {
             try {
-                const headers = {};
-                if (token) headers['Authorization'] = `Bearer ${token}`;
-
-                // Trying standard endpoints used for registrations
-                let res = await fetch('/api/registrations', { headers });
-                if (!res.ok) {
-                    res = await fetch('/api/register', { headers });
-                }
+                const res = await fetch('/api/admin/applications');
                 
                 if (res.ok) {
                     const registrations = await res.json();
@@ -233,18 +228,17 @@
                         const row = document.createElement('tr');
                         
                         let formattedDate = 'N/A';
-                        const dateVal = reg.createdAt || reg.date || reg.timestamp;
-                        if (dateVal) {
-                            formattedDate = new Date(dateVal).toLocaleDateString();
+                        if (reg.createdAt) {
+                            formattedDate = new Date(reg.createdAt).toLocaleDateString();
                         }
 
                         row.innerHTML = `
-                            <td>${reg.fullName || reg.name || 'N/A'}</td>
-                            <td>${reg.phone || reg.phoneNumber || 'N/A'}</td>
+                            <td>${reg.fullName || 'N/A'}</td>
+                            <td>${reg.phone || 'N/A'}</td>
                             <td>${reg.email || 'N/A'}</td>
-                            <td>${reg.jobCategory || reg.purpose || 'N/A'}</td>
-                            <td>${reg.specificField || reg.country || 'N/A'}</td>
-                            <td>${reg.message || reg.notes || 'N/A'}</td>
+                            <td>${reg.jobCategory || 'N/A'}</td>
+                            <td>${reg.telegramUser || 'N/A'}</td>
+                            <td>${reg.message || 'N/A'}</td>
                             <td>${formattedDate}</td>
                         `;
                         tableBody.appendChild(row);
@@ -258,7 +252,7 @@
             }
         }
 
-        // Run functions on page load safely
+        // Run functions on page load
         window.addEventListener('DOMContentLoaded', () => {
             loadSettings();
             loadRegistrations();
