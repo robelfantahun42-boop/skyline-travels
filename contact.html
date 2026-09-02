@@ -28,7 +28,7 @@
     .whatsapp-btn { display: inline-block; background: #22c55e; color: white; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px; transition: background 0.3s; }
     .whatsapp-btn:hover { background: #16a34a; }
 
-    .telegram-btn { display: inline-block; background: #229ED9; color: white; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px; transition: background 0.3s; cursor: pointer; border: none; }
+    .telegram-btn { display: inline-block; background: #229ED9; color: white; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px; transition: background 0.3s; }
     .telegram-btn:hover { background: #1e88e5; }
 
     footer { background: #020617; color: #94a3b8; text-align: center; padding: 30px 20px; font-size: 14px; margin-top: 50px; }
@@ -50,7 +50,7 @@
   <div class="content">
     <h1>Contact Us</h1>
     <p><i class="fa-solid fa-phone" style="color: #22c55e;"></i> Support Hotline: <strong>+251 911 000 000</strong></p>
-    <p>Chat with us on WhatsApp or Telegram; we will explain everything in detail!</p>
+    <p>Chat with us on WhatsApp or Telegram for instant support!</p>
     
     <div class="button-group">
       <!-- WhatsApp Direct Link -->
@@ -58,8 +58,8 @@
         <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
       </a>
       
-      <!-- Telegram Direct Link using Web Telegram App format to bypass redirection -->
-      <a href="https://web.telegram.org/a/#@Lubi1331" id="contactTelegramBtn" class="telegram-btn" target="_blank">
+      <!-- Telegram Standard Link (ሞባይል ላይ በቀጥታ ይከፍታል፣ ዴስክቶፕ ላይ ግን ቴሌግራም አፕ ካለ ይከፍታል ካልተጫነ ወደ ቴሌግራም ዌብሳይት ይወስዳል) -->
+      <a href="https://t.me/Lubi1331" class="telegram-btn" target="_blank">
         <i class="fa-brands fa-telegram"></i> Chat on Telegram
       </a>
     </div>
@@ -68,15 +68,6 @@
   <footer>
     <p>&copy; 2026 Skyline Travels & Educational Consultancy. All rights reserved.</p>
   </footer>
-
-  <script>
-    // ተጨማሪ ማረጋገጫ፡ ተጠቃሚው በሞባይልም ሆነ በኮምፒዩተር ላይ ሲጠቀም 
-    // ወደ telegram.org እንዳይዞር የዌብ ቴሌግራም ትክክለኛውን (A version) ሊንክ በጃቫስክሪፕት እናረጋግጣለን።
-    document.getElementById('contactTelegramBtn').addEventListener('click', function(e) {
-        // ብሮውዘር ላይ t.me ሳይሆን በቀጥታ የዌብ ቴሌግራም መተግበሪያውን እንዲከፍት እናደርጋለን
-        this.href = "https://web.telegram.org/a/#@Lubi1331";
-    });
-  </script>
 
 </body>
 </html>
