@@ -1115,7 +1115,32 @@ async function syncSettings() {
       });
     }
   });
+<script>
+  window.addEventListener('DOMContentLoaded', async function() {
+      const tgButton = document.getElementById('tgBtn');
+      if (!tgButton) return;
+      
+      try {
+          const response = await fetch('/api/settings');
+          if (response.ok) {
+              const data = await response.json();
+              let tgValue = data.telegram || data.telegramUsername || "";
+              
+              if (tgValue && tgValue.trim() !== "") {
+                  let finalTgUrl = "";
+                  if (tgValue.startsWith('http')) {
+                      finalTgUrl = tgValue;
+                  } else {
+                      let cleanUser = tgValue.replace('@', '').trim();
+                      finalTgUrl = `https://t.me/${cleanUser}`;
+                  }
+                  tgButton.href = finalTgUrl;
+              }
+          }
+      } catch (error) {
+          console.error("Error fetching telegram link:", error);
+      }
+  });
 </script>
-
 </body>
 </html>
