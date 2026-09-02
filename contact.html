@@ -53,12 +53,13 @@
     <p>Chat with us on WhatsApp or Telegram; we will explain everything in detail!</p>
     
     <div class="button-group">
-      <!-- Default hrefs are added here directly just in case JavaScript completely fails -->
-      <a href="https://wa.me/251911000000" id="contactWhatsappBtn" class="whatsapp-btn" target="_blank">
+      <!-- WhatsApp Direct Link -->
+      <a href="https://wa.me/251911000000" class="whatsapp-btn" target="_blank">
         <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
       </a>
       
-      <a href="https://t.me/Lubi1331" id="contactTelegramBtn" class="telegram-btn" target="_blank">
+      <!-- Telegram Direct Link - ወደ Lubi1331 በቀጥታ የሚያገናኝ -->
+      <a href="https://t.me/Lubi1331" class="telegram-btn" target="_blank">
         <i class="fa-brands fa-telegram"></i> Chat on Telegram
       </a>
     </div>
@@ -67,55 +68,6 @@
   <footer>
     <p>&copy; 2026 Skyline Travels & Educational Consultancy. All rights reserved.</p>
   </footer>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Fallback variables: ሰርቨሩ ላይ መረጃው ባዶ ከሆነ የሚተኩ ነባር አድራሻዎች
-        const defaultTelegram = "Lubi1331"; 
-        const defaultWhatsapp = "251911000000";
-
-        fetch('/api/settings')
-            .then(res => res.json())
-            .then(data => {
-                // 1. የቴሌግራም አሰራር ሎጂክ (Logic)
-                let tgUser = defaultTelegram; // በመጀመሪያ ቋሚውን እንይዛለን
-                
-                // ከዳታቤዝ የመጣው መረጃ ካለ እና ባዶ ካልሆነ (not empty string) ብቻ እንቀበለዋለን
-                if (data && data.telegram && data.telegram.trim() !== "") {
-                    tgUser = data.telegram.trim();
-                }
-
-                let finalTgLink = "";
-                if (tgUser.startsWith('http')) {
-                    finalTgLink = tgUser; // ሙሉ ሊንክ ከሆነ እንዳለ ይጠቀመዋል
-                } else {
-                    if (tgUser.startsWith('@')) tgUser = tgUser.substring(1);
-                    finalTgLink = `https://t.me/${tgUser}`; // ካልሆነ t.me/ ይጨምርለታል
-                }
-
-                const tgBtn = document.getElementById('contactTelegramBtn');
-                if (tgBtn) {
-                    tgBtn.href = finalTgLink;
-                }
-
-                // 2. የዋትሳፕ አሰራር ሎጂክ
-                let waNum = defaultWhatsapp;
-                if (data && data.whatsapp && data.whatsapp.trim() !== "") {
-                    waNum = data.whatsapp.trim();
-                }
-                
-                waNum = waNum.replace(/[^0-9]/g, ''); // ፊደሎች ካሉበት አጽድቶ ቁጥር ብቻ ያስቀራል
-                const waBtn = document.getElementById('contactWhatsappBtn');
-                if (waBtn) {
-                    waBtn.href = `https://wa.me/${waNum}`;
-                }
-            })
-            .catch(err => {
-                // ሰርቨሩ ኦፍላይን ከሆነ ወይም API ካልሰራ አሁንም ባዶ እንዳይቀር ያደርጋል
-                console.log('Error loading dynamic settings, keeping defaults.', err);
-            });
-    });
-  </script>
 
 </body>
 </html>
