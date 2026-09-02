@@ -42,13 +42,14 @@ const applicationSchema = new mongoose.Schema({
 
 const settingsSchema = new mongoose.Schema({
   key: { type: String, unique: true },
-  whatsappNumber: { type: String }
+  whatsapp: { type: String },
+  telegram: { type: String }
 });
 
 const Application = mongoose.models.Application || mongoose.model('Application', applicationSchema);
 const Settings = mongoose.models.Settings || mongoose.model('Settings', settingsSchema);
 
-// API Routes
+// API Routes for Registrations
 app.post('/api/register', async (req, res) => {
   try {
     await connectDB();
@@ -72,12 +73,17 @@ app.get('/api/admin/applications', async (req, res) => {
   }
 });
 
-app.get('/api/settings/whatsapp', async (req, res) => {
+// API Routes for Settings (WhatsApp & Telegram)
+app.get('/api/settings', async (req, res) => {
   try {
     await connectDB();
     const setting = await Settings.findOne({ key: 'site_settings' });
-    res.json({ whatsappNumber: setting ? setting.whatsappNumber : '251900000000' });
+    res.json({
+      whatsapp: setting ? setting.whatsapp : '',
+      telegram: setting ? setting.telegram : ''
+    });
   } catch (err) {
+    console.error('Load Settings Error:', err);
     res.status(500).json({ error: 'Failed to load settings' });
   }
 });
@@ -88,12 +94,29 @@ app.post('/api/admin/settings/whatsapp', async (req, res) => {
     const { whatsappNumber } = req.body;
     await Settings.findOneAndUpdate(
       { key: 'site_settings' },
-      { whatsappNumber },
+      { whatsapp: whatsappNumber },
       { upsert: true, new: true }
     );
     res.json({ success: true, message: 'WhatsApp updated successfully' });
   } catch (err) {
+    console.error('Update WhatsApp Error:', err);
     res.status(500).json({ error: 'Failed to update WhatsApp' });
+  }
+});
+
+app.post('/api/admin/settings/telegram', async (req, res) => {
+  try {
+    await connectDB();
+    const { telegramUsername } = req.body;
+    await Settings.findOneAndUpdate(
+      { key: 'site_settings' },
+      { telegram: telegramUsername },
+      { upsert: true, new: true }
+    );
+    res.json({ success: true, message: 'Telegram updated successfully' });
+  } catch (err) {
+    console.error('Update Telegram Error:', err);
+    res.status(500).json({ error: 'Failed to update Telegram' });
   }
 });
 
