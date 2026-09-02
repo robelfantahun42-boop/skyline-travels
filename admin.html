@@ -11,7 +11,7 @@
         .admin-header h1 { margin: 0; color: #333; font-size: 22px; }
         .logout-btn { background-color: #e74c3c; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: bold; }
         .logout-btn:hover { background-color: #c0392b; }
-        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .container { max-width: 1250px; margin: 30px auto; padding: 0 20px; }
         .settings-card, .table-card { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 30px; }
         .settings-card h3, .table-card h3 { margin-top: 0; color: #2c3e50; margin-bottom: 20px; }
         .form-group-inline { display: flex; gap: 15px; margin-bottom: 15px; align-items: center; }
@@ -20,9 +20,12 @@
         .form-group-inline button:hover { background-color: #2980b9; }
         .table-responsive { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; text-align: left; }
-        th, td { padding: 12px 15px; border-bottom: 1px solid #eee; font-size: 14px; color: #333; }
+        th, td { padding: 12px 12px; border-bottom: 1px solid #eee; font-size: 13px; color: #333; white-space: nowrap; }
         th { background-color: #f8f9fa; color: #2c3e50; font-weight: bold; }
         tr:hover { background-color: #f9f9f9; }
+        .loading-text, .error-text, .empty-text { text-align: center; padding: 20px; font-weight: bold; }
+        .error-text { color: #e74c3c; }
+        .empty-text { color: #7f8c8d; }
     </style>
 </head>
 <body>
@@ -38,13 +41,13 @@
             <h3>Contact Links Management</h3>
             
             <div class="form-group-inline">
-                <label style="width: 180px; font-weight: bold; font-size: 13px;"><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> WhatsApp Link:</label>
+                <label style="width: 160px; font-weight: bold; font-size: 13px;"><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> WhatsApp Link:</label>
                 <input type="text" id="whatsappInput" placeholder="Enter WhatsApp number or link">
                 <button onclick="updateSettings('whatsapp')">Update WhatsApp</button>
             </div>
 
             <div class="form-group-inline">
-                <label style="width: 180px; font-weight: bold; font-size: 13px;"><i class="fa-brands fa-telegram" style="color: #0088cc;"></i> Telegram Link:</label>
+                <label style="width: 160px; font-weight: bold; font-size: 13px;"><i class="fa-brands fa-telegram" style="color: #0088cc;"></i> Telegram Link:</label>
                 <input type="text" id="telegramInput" placeholder="Enter Telegram username or link">
                 <button onclick="updateSettings('telegram')">Update Telegram</button>
             </div>
@@ -70,7 +73,7 @@
                     </thead>
                     <tbody id="registrationsTableBody">
                         <tr>
-                            <td colspan="9" style="text-align: center; color: #7f8c8d;">Loading registrations...</td>
+                            <td colspan="9" class="loading-text">Loading registrations...</td>
                         </tr>
                     </tbody>
                 </table>
@@ -101,8 +104,8 @@
         // Update Settings Function (WhatsApp & Telegram)
         async function updateSettings(type) {
             const value = type === 'whatsapp' 
-                ? document.getElementById('whatsappInput').value 
-                : document.getElementById('telegramInput').value;
+                ? document.getElementById('whatsappInput').value.trim() 
+                : document.getElementById('telegramInput').value.trim();
 
             const endpoint = type === 'whatsapp' 
                 ? '/api/admin/settings/whatsapp' 
@@ -131,17 +134,17 @@
             }
         }
 
-        // Fetch Registrations Data and Populate Table
+        // Fetch Registrations Data and Populate Table Safely
         async function loadRegistrations() {
+            const tableBody = document.getElementById('registrationsTableBody');
             try {
                 const res = await fetch('/api/admin/applications');
                 if (res.ok) {
                     const registrations = await res.json();
-                    const tableBody = document.getElementById('registrationsTableBody');
                     tableBody.innerHTML = '';
 
                     if (!registrations || registrations.length === 0) {
-                        tableBody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: #7f8c8d;">No registrations found.</td></tr>`;
+                        tableBody.innerHTML = `<tr><td colspan="9" class="empty-text">No registrations found.</td></tr>`;
                         return;
                     }
 
@@ -152,25 +155,26 @@
                             formattedDate = new Date(reg.createdAt).toLocaleDateString();
                         }
 
+                        // Fallback mechanisms ensure no missing property breaks the view
                         row.innerHTML = `
-                            <td>${reg.fullName || 'N/A'}</td>
+                            <td>${reg.fullName || reg.name || 'N/A'}</td>
                             <td>${reg.phone || 'N/A'}</td>
                             <td>${reg.email || 'N/A'}</td>
-                            <td>${reg.nationality || 'N/A'}</td>
+                            <td>${reg.nationality || reg.originCountry || 'N/A'}</td>
                             <td>${reg.targetCountry || 'N/A'}</td>
-                            <td>${reg.category || 'N/A'}</td>
+                            <td>${reg.category || reg.jobCategory || 'N/A'}</td>
                             <td>${reg.education || 'N/A'}</td>
-                            <td>${reg.message || 'N/A'}</td>
+                            <td>${reg.message || reg.notes || 'N/A'}</td>
                             <td>${formattedDate}</td>
                         `;
                         tableBody.appendChild(row);
                     });
                 } else {
-                    document.getElementById('registrationsTableBody').innerHTML = `<tr><td colspan="9" style="text-align: center; color: #e74c3c;">Failed to load registrations.</td></tr>`;
+                    tableBody.innerHTML = `<tr><td colspan="9" class="error-text">Failed to load registrations from server.</td></tr>`;
                 }
             } catch (err) {
                 console.error("Error loading registrations:", err);
-                document.getElementById('registrationsTableBody').innerHTML = `<tr><td colspan="9" style="text-align: center; color: #e74c3c;">Error error connecting to server.</td></tr>`;
+                tableBody.innerHTML = `<tr><td colspan="9" class="error-text">Error connecting to server.</td></tr>`;
             }
         }
 
