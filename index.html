@@ -442,22 +442,64 @@
   <div id="homeView" class="view-section active">
     <section class="hero">
       <h1 id="heroTitle">Global Job Placement & Visa Agency</h1>
-<!-- Google Translate Widget Container -->
-<div id="google_translate_element" style="margin: 10px 0;"></div>
+<!-- Custom Clean Language Selector Container -->
+<div id="google_translate_element" style="display:none;"></div>
 
-<!-- Google Translate Script -->
+<div class="lang-box" style="margin: 15px auto; width: 100%; max-width: 250px; text-align: center;">
+  <label style="color: #ffffff; font-weight: 500; margin-bottom: 6px; display: block; font-size: 0.95rem;">
+    <i class="fa-solid fa-globe"></i> Select Language:
+  </label>
+  <select id="customLanguageSelect" onchange="triggerGoogleTranslate(this.value)" style="width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid #cbd5e1; background-color: #ffffff; color: #1e293b; font-size: 0.95rem; outline: none; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+    <option value="en">English (US)</option>
+    <option value="om">Oromo (Afaan Oromoo)</option>
+    <option value="ur">Urdu (اردو)</option>
+    <option value="am">አማርኛ (Amharic)</option>
+    <option value="ar">العربية (Arabic)</option>
+    <option value="fr">French (Français)</option>
+    <option value="es">Spanish (Español)</option>
+    <option value="hi">Hindi (हिन्दी)</option>
+    <option value="zh-CN">Chinese (中文)</option>
+    <option value="de">German (Deutsch)</option>
+    <option value="it">Italian (Italiano)</option>
+    <option value="pt">Portuguese (Português)</option>
+    <option value="ru">Russian (Русский)</option>
+    <option value="ja">Japanese (日本語)</option>
+    <option value="ko">Korean (한국어)</option>
+    <option value="tr">Turkish (Türkçe)</option>
+    <option value="fa">Persian (فارسی)</option>
+    <option value="so">Somali (Soomaaliga)</option>
+    <option value="ti">ትግርኛ (Tigrinya)</option>
+    <option value="sw">Swahili (Kiswahili)</option>
+    <option value="nl">Dutch (Nederlands)</option>
+  </select>
+</div>
+
+<!-- Google Translate Hidden Script & Bridge -->
 <script type="text/javascript">
   function googleTranslateElementInit() {
     new google.translate.TranslateElement({
       pageLanguage: 'en',
       includedLanguages: 'en,om,ur,am,ar,fr,es,hi,zh-CN,de,it,pt,ru,ja,ko,tr,fa,so,ti,sw,nl',
-      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
       autoDisplay: false
     }, 'google_translate_element');
+  }
+
+  function triggerGoogleTranslate(langCode) {
+    var selectField = document.querySelector(".goog-te-combo");
+    if (selectField) {
+      selectField.value = langCode;
+      selectField.dispatchEvent(new Event('change'));
+    }
   }
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
+<style>
+  /* የጉግል ኦሪጅናል ዊጅት ሙሉ በሙሉ እንዲደበቅ እና ማስታወቂያዎቹ እንዲወገዱ */
+  .goog-te-banner-frame, .goog-te-gadget span, .goog-logo-link { display: none !important; }
+  body { top: 0 !important; }
+  #google_translate_element { display: none !important; }
+</style>
 <style>
   /* የጉግል ዊጅት ዋና ሳጥን ዲዛይን ከቀድሞው ጋር እንዲመሳሰል */
   .goog-te-combo {
