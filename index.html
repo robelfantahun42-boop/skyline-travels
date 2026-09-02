@@ -913,17 +913,16 @@
       submitBtn.disabled = true;
       submitBtn.innerText = 'Processing...';
 
-      const formData = {
+  const formData = {
         fullName: document.getElementById('fullName').value.trim(),
         email: document.getElementById('email').value.trim(),
         phone: document.getElementById('phone').value.trim(),
-        originCountry: document.getElementById('originCountry').value,
+        nationality: document.getElementById('originCountry').value, // originCountry የሚለውን ከዳታቤዝ ኬሚስትሪ ጋር አመሳስለነዋል
         targetCountry: document.getElementById('targetCountry').value,
-        purpose: document.getElementById('purpose').value,
-        specificField: document.getElementById('specificField').value.trim(),
-        notes: document.getElementById('notes').value.trim()
-      };
-
+        category: document.getElementById('purpose').value,         // purpose የሚለውን category አድርገነዋል
+        education: document.getElementById('specificField').value, // specificField የሚለውን education አድርገነዋል
+        message: document.getElementById('notes').value.trim()     // notes የሚለውን message አድርገነዋል
+    };
       try {
         const response = await fetch('/api/register', {
           method: 'POST',
