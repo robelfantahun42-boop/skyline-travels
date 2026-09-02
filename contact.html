@@ -53,13 +53,13 @@
     <p>Chat with us on WhatsApp or Telegram for instant support!</p>
     
     <div class="button-group">
-      <!-- WhatsApp Link -->
-      <a href="https://wa.me/251911000000" class="whatsapp-btn" target="_blank">
+      <!-- የተስተካከለ የዋትሳፕ ሊንክ -->
+      <a href="https://wa.me/251911000000" id="waBtn" class="whatsapp-btn" target="_blank">
         <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
       </a>
       
-      <!-- በዩዘርኔም ፈንታ በስልክ ቁጥርህ ብቻ እንዲሰራ የተደረገ የቴሌግራም ሊንክ -->
-      <a href="https://t.me/+251911000000" class="telegram-btn" target="_blank">
+      <!-- የተስተካከለ የቴሌግራም ሊንክ -->
+      <a href="https://t.me/Lubi1331" id="tgBtn" class="telegram-btn" target="_blank">
         <i class="fa-brands fa-telegram"></i> Chat on Telegram
       </a>
     </div>
@@ -68,6 +68,22 @@
   <footer>
     <p>&copy; 2026 Skyline Travels & Educational Consultancy. All rights reserved.</p>
   </footer>
+
+  <script>
+    // ዳታቤዝ ካለህ ከባክኤንድ አምጥቶ የሚሞላበት ስክሪፕት (ከሌለህ በ HTML ቋሚው ሊንክ ይሰራል)
+    window.onload = async function() {
+        try {
+            const response = await fetch('http://localhost:5000/api/contact');
+            if(response.ok) {
+                const data = await response.json();
+                if (data.whatsapp) document.getElementById('waBtn').href = data.whatsapp;
+                if (data.telegram) document.getElementById('tgBtn').href = data.telegram;
+            }
+        } catch (error) {
+            console.log("Using static fallback links.");
+        }
+    };
+  </script>
 
 </body>
 </html>
