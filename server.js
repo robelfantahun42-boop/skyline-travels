@@ -49,6 +49,7 @@ const applicationSchema = new mongoose.Schema({
   phone: { type: String, required: true },
   email: { type: String, default: '' },
   jobCategory: { type: String, default: '' },
+  telegramUser: { type: String, default: '' }, // የቴሌግራም ዩዘርና ለመመዝገቢያ (አዲስ የተጨመረ)
   message: { type: String, default: '' },
   createdAt: { type: Date, default: Date.now }
 });
@@ -85,16 +86,54 @@ app.post('/api/admin/settings/whatsapp', async (req, res) => {
   }
 });
 
+// --- Telegram Username/Link APIs (አዲስ የተጨመረ) ---
+app.get('/api/settings/telegram', async (req, res) => {
+  try {
+    const setting = await Setting.findOne({ key: 'telegramUsername' });
+    res.status(200).json({ telegramUsername: setting ? setting.value : '' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch Telegram settings' });
+  }
+});
+
+app.post('/api/admin/settings/telegram', async (req, res) => {
+  try {
+    const { telegramUsername } = req.body;
+    await Setting.findOneAndUpdate(
+      { key: 'telegramUsername' },
+      { value: telegramUsername || '' },
+      { upsert: true, new: true }
+    );
+    res.status(200).json({ success: true, message: 'Telegram updated successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update Telegram settings' });
+  }
+});
+
+// --- General Settings Combined API (ለ admin.html እና index.html አገልግሎት) ---
+app.get('/api/settings', async (req, res) => {
+  try {
+    const waSetting = await Setting.findOne({ key: 'whatsappNumber' });
+    const tgSetting = await Setting.findOne({ key: 'telegramUsername' });
+    res.status(200).json({
+      whatsapp: waSetting ? waSetting.value : '',
+      telegram: tgSetting ? tgSetting.value : ''
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch settings' });
+  }
+});
+
 // --- Customer Registration APIs ---
 app.post('/api/register', async (req, res) => {
   try {
-    const { fullName, phone, email, jobCategory, message } = req.body;
+    const { fullName, phone, email, jobCategory, telegramUser, message } = req.body;
     
     if (!fullName || !phone) {
       return res.status(400).json({ success: false, error: 'ስም እና ስልክ ቁጥር ማስገባት አስፈላጊ ነው!' });
     }
 
-    const newApp = new Application({ fullName, phone, email, jobCategory, message });
+    const newApp = new Application({ fullName, phone, email, jobCategory, telegramUser, message });
     await newApp.save();
     
     res.status(200).json({ success: true, message: 'በስኬት ተመዝግበዋል!' });
@@ -116,6 +155,11 @@ app.get('/api/admin/applications', async (req, res) => {
 // --- Admin Session Check Endpoint ---
 app.get('/api/admin/check-session', (req, res) => {
   res.status(200).json({ authenticated: true });
+});
+
+// --- Admin Logout Endpoint ---
+app.post('/api/logout', (req, res) => {
+  res.status(200).json({ success: true, message: 'Logged out successfully' });
 });
 
 
