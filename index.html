@@ -442,15 +442,42 @@
   <div id="homeView" class="view-section active">
     <section class="hero">
       <h1 id="heroTitle">Global Job Placement & Visa Agency</h1>
-      
-      <div class="lang-box">
-        <label id="labelSelectLang"><i class="fa-solid fa-globe"></i> Select Language:</label>
-        <select id="languageSelect" onchange="changeLanguage()">
-          <option value="en">English (US)</option>
-          <option value="am">አማርኛ (Amharic)</option>
-          <option value="ar">العربية (Arabic)</option>
-        </select>
-      </div>
+   <!-- Google Translate Widget Container -->
+<div id="google_translate_element" style="margin: 10px 0;"></div>
+
+<!-- Google Translate Script -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,om,ur,am,ar,fr,es,hi,zh-CN,de,it,pt,ru,ja,ko,tr,fa,so,ti,sw,nl',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<style>
+  /* የጉግል ዊጅት ዲዛይን ከዌብሳይቱ ገጽታ ጋር እንዲጣጣም ማስተካከያ */
+  .goog-te-combo {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background-color: #ffffff;
+    color: #1e293b;
+    font-size: 0.95rem;
+    outline: none;
+    cursor: pointer;
+    width: 100%;
+    max-width: 250px;
+  }
+  .goog-te-banner-frame { display: none !important; }
+  body { top: 0 !important; }
+  .goog-logo-link { display: none !important; }
+  .goog-te-gadget { color: transparent !important; }
+  .goog-te-gadget span { display: none; }
+</style>
 
       <div class="hero-buttons">
         <a onclick="scrollToElement('registrationSection')" class="primary-btn" id="btnApplyHero" style="cursor: pointer;">Apply Now ↓</a>
