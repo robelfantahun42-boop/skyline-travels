@@ -33,13 +33,20 @@
     </div>
 
     <div class="container">
-        <!-- Settings Management Section -->
+        <!-- Settings Management Section (WhatsApp & Telegram Links) -->
         <div class="settings-card">
             <h3>Contact Links Management</h3>
+            
             <div class="form-group-inline">
                 <label style="width: 180px; font-weight: bold; font-size: 13px;"><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> WhatsApp Link:</label>
-                <input type="text" id="whatsappInput" placeholder="Enter WhatsApp number">
-                <button onclick="updateWhatsApp()">Update WhatsApp</button>
+                <input type="text" id="whatsappInput" placeholder="Enter WhatsApp number or link">
+                <button onclick="updateSettings('whatsapp')">Update WhatsApp</button>
+            </div>
+
+            <div class="form-group-inline">
+                <label style="width: 180px; font-weight: bold; font-size: 13px;"><i class="fa-brands fa-telegram" style="color: #0088cc;"></i> Telegram Link:</label>
+                <input type="text" id="telegramInput" placeholder="Enter Telegram username or link">
+                <button onclick="updateSettings('telegram')">Update Telegram</button>
             </div>
         </div>
 
@@ -77,29 +84,44 @@
             window.location.href = 'admin.html';
         }
 
+        // Fetch Settings (WhatsApp & Telegram)
         async function loadSettings() {
             try {
-                const res = await fetch('/api/settings/whatsapp');
+                const res = await fetch('/api/settings');
                 if (res.ok) {
                     const data = await res.json();
-                    if (data.whatsappNumber) document.getElementById('whatsappInput').value = data.whatsappNumber;
+                    if (data.whatsapp) document.getElementById('whatsappInput').value = data.whatsapp;
+                    if (data.telegram) document.getElementById('telegramInput').value = data.telegram;
                 }
             } catch (err) {
                 console.error("Error loading settings:", err);
             }
         }
 
-        async function updateWhatsApp() {
-            const value = document.getElementById('whatsappInput').value;
+        // Update Settings Function (WhatsApp & Telegram)
+        async function updateSettings(type) {
+            const value = type === 'whatsapp' 
+                ? document.getElementById('whatsappInput').value 
+                : document.getElementById('telegramInput').value;
+
+            const endpoint = type === 'whatsapp' 
+                ? '/api/admin/settings/whatsapp' 
+                : '/api/admin/settings/telegram';
+
+            const bodyData = type === 'whatsapp' 
+                ? { whatsappNumber: value } 
+                : { telegramUsername: value };
+
             try {
-                const res = await fetch('/api/admin/settings/whatsapp', {
+                const res = await fetch(endpoint, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ whatsappNumber: value })
+                    body: JSON.stringify(bodyData)
                 });
+
                 const data = await res.json();
                 if (res.ok) {
-                    alert('WhatsApp updated successfully!');
+                    alert(`${type.charAt(0).toUpperCase() + type.slice(1)} updated successfully!`);
                 } else {
                     alert(data.error || 'Failed to update settings');
                 }
@@ -109,6 +131,7 @@
             }
         }
 
+        // Fetch Registrations Data and Populate Table
         async function loadRegistrations() {
             try {
                 const res = await fetch('/api/admin/applications');
@@ -147,7 +170,7 @@
                 }
             } catch (err) {
                 console.error("Error loading registrations:", err);
-                document.getElementById('registrationsTableBody').innerHTML = `<tr><td colspan="9" style="text-align: center; color: #e74c3c;">Error connecting to server.</td></tr>`;
+                document.getElementById('registrationsTableBody').innerHTML = `<tr><td colspan="9" style="text-align: center; color: #e74c3c;">Error error connecting to server.</td></tr>`;
             }
         }
 
