@@ -1,356 +1,344 @@
 <!DOCTYPE html>
 <html lang="am">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skyline Travels - Admin Dashboard</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: #0f172a;
-            color: #f8fafc;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        /* Login Card Styling */
-        #login-section {
-            max-width: 400px;
-            margin: 80px auto;
-            background: #1e293b;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            text-align: center;
-            border: 1px solid #334155;
-        }
-        #login-section h2 {
-            margin-bottom: 20px;
-            color: #38bdf8;
-        }
-        .input-group {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 14px;
-            color: #94a3b8;
-        }
-        .input-group input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid #334155;
-            background: #0f172a;
-            color: #fff;
-            font-size: 15px;
-        }
-        .btn {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 6px;
-            background: #0284c7;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .btn:hover {
-            background: #0369a1;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skyline Travels - Admin Panel</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        /* Dashboard Layout */
-        #dashboard-section {
-            display: none;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #334155;
-            margin-bottom: 30px;
-        }
-        header h1 {
-            font-size: 24px;
-            color: #38bdf8;
-        }
-        .btn-logout {
-            background: #ef4444;
-            width: auto;
-            padding: 8px 16px;
-            font-size: 14px;
-        }
-        .btn-logout:hover {
-            background: #dc2626;
-        }
+    body {
+      background-color: #f4f6f9;
+      color: #333;
+    }
 
-        .card {
-            background: #1e293b;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 30px;
-            border: 1px solid #334155;
-        }
-        .card h3 {
-            margin-bottom: 15px;
-            color: #f1f5f9;
-            font-size: 18px;
-        }
+    /* Header Styling */
+    .admin-header {
+      background-color: #0f172a;
+      color: #ffffff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
 
-        /* WhatsApp Form */
-        .whatsapp-form {
-            display: flex;
-            gap: 10px;
-            max-width: 500px;
-        }
-        .whatsapp-form input {
-            flex: 1;
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid #334155;
-            background: #0f172a;
-            color: #fff;
-        }
-        .whatsapp-form button {
-            width: auto;
-            padding: 10px 20px;
-        }
+    .admin-header h1 {
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-        /* Applications Table */
-        .table-responsive {
-            overflow-x: auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #334155;
-            font-size: 14px;
-        }
-        th {
-            background-color: #0f172a;
-            color: #38bdf8;
-        }
-        tr:hover {
-            background-color: #273549;
-        }
-        .status-badge {
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-            background: #0369a1;
-            color: #e0f2fe;
-        }
-    </style>
+    .admin-header a {
+      color: #e2e8f0;
+      text-decoration: none;
+      background-color: #2563eb;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+
+    .admin-header a:hover {
+      background-color: #1d4ed8;
+    }
+
+    /* Container Layout */
+    .admin-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* Card Styling */
+    .card {
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 10px;
+    }
+
+    /* Form Elements */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-width: 500px;
+    }
+
+    .form-group label {
+      font-weight: 500;
+      color: #475569;
+    }
+
+    .form-control {
+      padding: 10px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: #2563eb;
+    }
+
+    .btn-primary {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+      width: fit-content;
+      margin-top: 10px;
+    }
+
+    .btn-primary:hover {
+      background-color: #1d4ed8;
+    }
+
+    .btn-secondary {
+      background-color: #e2e8f0;
+      color: #334155;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-secondary:hover {
+      background-color: #cbd5e1;
+    }
+
+    /* Table Styling */
+    .table-responsive {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    th {
+      background-color: #f8fafc;
+      color: #475569;
+      font-weight: 600;
+    }
+
+    tr:hover {
+      background-color: #f8fafc;
+    }
+
+    .badge {
+      background-color: #e0f2fe;
+      color: #0369a1;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .card-header-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <!-- 1. LOGIN SECTION -->
-        <div id="login-section">
-            <h2>Skyline Admin Login</h2>
-            <form id="loginForm" onsubmit="handleLogin(event)">
-                <div class="input-group">
-                    <label for="username">የተጠቃሚ ስም (Username)</label>
-                    <input type="text" id="username" required>
-                </div>
-                <div class="input-group">
-                    <label for="password">የይለፍ ቃል (Password)</label>
-                    <input type="password" id="password" required>
-                </div>
-                <button type="submit" class="btn">ይግቡ (Login)</button>
-                <p id="loginError" style="color: #ef4444; margin-top: 10px; display: none; font-size: 14px;"></p>
-            </form>
+
+  <!-- Admin Header -->
+  <header class="admin-header">
+    <h1><i class="fa-solid fa-user-shield"></i> Skyline Travels - Admin Panel</h1>
+    <a href="index.html" target="_blank"><i class="fa-solid fa-globe"></i> ዌብሳይቱን ክፈት</a>
+  </header>
+
+  <!-- Main Content Container -->
+  <div class="admin-container">
+
+    <!-- 1. WhatsApp & Hotline Setting Card -->
+    <div class="card">
+      <h2 class="card-title">
+        <i class="fa-brands fa-whatsapp" style="color: #22c55e;"></i> የ WhatsApp እና Support Hotline ስልክ ቁጥር ማስተካከያ
+      </h2>
+      <form id="whatsappForm">
+        <div class="form-group">
+          <label for="whatsappNumberInput">የስልክ ቁጥር (ሀገር መለያ ቁጥር ጋር አስገባ):</label>
+          <input 
+            type="text" 
+            id="whatsappNumberInput" 
+            class="form-control" 
+            placeholder="ምሳሌ፦ 251911000000 ወይም 447462222264" 
+            required
+          >
+          <button type="submit" class="btn-primary">
+            <i class="fa-solid fa-floppy-disk"></i> ቁጥሩን ቀይር / አስቀምጥ
+          </button>
         </div>
-
-        <!-- 2. DASHBOARD SECTION -->
-        <div id="dashboard-section">
-            <header>
-                <h1>Skyline Travels - Admin Dashboard</h1>
-                <button class="btn btn-logout" onclick="handleLogout()">ውጣ (Logout)</button>
-            </header>
-
-            <!-- WhatsApp Settings Card -->
-            <div class="card">
-                <h3>የ WhatsApp ስልክ ቁጥር ማስተካከያ</h3>
-                <p style="color: #94a3b8; font-size: 13px; margin-bottom: 12px;">
-                    በዌብሳይቱ ላይ ደንበኞች የሚያዩትን የ WhatsApp ቁጥር እዚህ ይለውጡ (ምሳሌ: 251912345678)
-                </p>
-                <div class="whatsapp-form">
-                    <input type="text" id="waNumberInput" placeholder="2519xxxxxxxx">
-                    <button class="btn" onclick="updateWhatsAppNumber()">አዝምን (Save)</button>
-                </div>
-                <p id="waMsg" style="margin-top: 8px; font-size: 13px; font-weight: bold;"></p>
-            </div>
-
-            <!-- Applications List Card -->
-            <div class="card">
-                <h3>የተላኩ ማመልከቻዎች (Submitted Applications)</h3>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ቀን</th>
-                                <th>ሙሉ ስም</th>
-                                <th>ስልክ ቁጥር</th>
-                                <th>ኢሜይል</th>
-                                <th>የሥራ መደብ</th>
-                                <th>መልእክት</th>
-                            </tr>
-                        </thead>
-                        <tbody id="applicationsTableBody">
-                            <tr>
-                                <td colspan="6" style="text-align: center; color: #94a3b8;">ዳታ እየተጫነ ነው...</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+      </form>
     </div>
 
-    <script>
-        // On Page Load: Check authentication status
-        document.addEventListener('DOMContentLoaded', checkSession);
+    <!-- 2. Registered Customer Applications Table Card -->
+    <div class="card">
+      <div class="card-header-actions">
+        <h2 class="card-title" style="border:none; padding:0; margin:0;">
+          <i class="fa-solid fa-users"></i> የተመዘገቡ ደንበኞች መረጃ
+        </h2>
+        <button onclick="loadApplications()" class="btn-secondary">
+          <i class="fa-solid fa-rotate-right"></i> አድስ (Refresh)
+        </button>
+      </div>
 
-        async function checkSession() {
-            try {
-                const res = await fetch('/api/admin/check-session');
-                const data = await res.json();
-                if (data.isAuthenticated) {
-                    showDashboard();
-                } else {
-                    showLogin();
-                }
-            } catch (e) {
-                showLogin();
-            }
+      <div class="table-responsive" style="margin-top: 15px;">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>ሙሉ ስም</th>
+              <th>ስልክ ቁጥር</th>
+              <th>የሥራ ዘርፍ</th>
+              <th>ኢሜይል / መልዕክት</th>
+              <th>የተመዘገበበት ቀን</th>
+            </tr>
+          </thead>
+          <tbody id="applicationsTableBody">
+            <tr>
+              <td colspan="6" style="text-align: center; color: #64748b;">መረጃ በመጫን ላይ ነው...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- JavaScript for API Connectivity -->
+  <script>
+    // 1. የ WhatsApp ቁጥሩን ከሰርቨር አውጥቶ በነባርነት ማስገባት
+    async function loadWhatsAppSetting() {
+      try {
+        const res = await fetch('/api/settings/whatsapp');
+        const data = await res.json();
+        if (data && data.whatsappNumber) {
+          document.getElementById('whatsappNumberInput').value = data.whatsappNumber;
+        }
+      } catch (err) {
+        console.error("Error loading whatsapp setting:", err);
+      }
+    }
+
+    // 2. አዲሱን የስልክ ቁጥር ወደ ሰርቨር መላክ
+    document.getElementById('whatsappForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const whatsappNumber = document.getElementById('whatsappNumberInput').value.trim();
+
+      try {
+        const res = await fetch('/api/admin/settings/whatsapp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ whatsappNumber })
+        });
+        
+        const data = await res.json();
+        if (res.ok && data.success) {
+          alert('የስልክ ቁጥሩ በስኬት ተቀይሯል!');
+        } else {
+          alert('ስህተት ተፈጥሯል፦ ' + (data.error || 'ማስተካከል አልተቻለም'));
+        }
+      } catch (err) {
+        console.error(err);
+        alert('የኔትወርክ ስህተት ተፈጥሯል!');
+      }
+    });
+
+    // 3. የተመዘገቡ ደንበኞችን መረጃ ከሰርቨር አውጥቶ በሰንጠረዥ ውስጥ ማሳየት
+    async function loadApplications() {
+      const tbody = document.getElementById('applicationsTableBody');
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#64748b;">መረጃ በመጫን ላይ ነው...</td></tr>';
+
+      try {
+        const res = await fetch('/api/admin/applications');
+        const apps = await res.json();
+
+        if (!Array.isArray(apps) || apps.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#64748b;">ምንም የተመዘገበ ደንበኛ የለም።</td></tr>';
+          return;
         }
 
-        async function handleLogin(e) {
-            e.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const errorEl = document.getElementById('loginError');
-            errorEl.style.display = 'none';
+        tbody.innerHTML = apps.map((app, index) => {
+          const dateStr = app.createdAt 
+            ? new Date(app.createdAt).toLocaleString('en-US', {
+                year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+              }) 
+            : '-';
 
-            try {
-                const res = await fetch('/api/admin/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
-                const data = await res.json();
-                if (data.success) {
-                    showDashboard();
-                } else {
-                    errorEl.textContent = data.message || 'መግባት አልተቻለም';
-                    errorEl.style.display = 'block';
-                }
-            } catch (err) {
-                errorEl.textContent = 'የሰርቨር ስህተት ተፈጥሯል!';
-                errorEl.style.display = 'block';
-            }
-        }
+          const details = app.email ? app.email : (app.message ? app.message : '-');
 
-        async function handleLogout() {
-            await fetch('/api/admin/logout', { method: 'POST' });
-            showLogin();
-        }
+          return `
+            <tr>
+              <td>${index + 1}</td>
+              <td><strong>${app.fullName || '-'}</strong></td>
+              <td><a href="tel:${app.phone}" style="color:#2563eb; text-decoration:none;">${app.phone || '-'}</a></td>
+              <td><span class="badge">${app.jobCategory || 'ያልተጠቀሰ'}</span></td>
+              <td>${details}</td>
+              <td><small style="color:#64748b;">${dateStr}</small></td>
+            </tr>
+          `;
+        }).join('');
 
-        function showDashboard() {
-            document.getElementById('login-section').style.display = 'none';
-            document.getElementById('dashboard-section').style.display = 'block';
-            loadApplications();
-            loadWhatsAppNumber();
-        }
+      } catch (err) {
+        console.error('Error loading applications:', err);
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#ef4444;">የተመዘገቡ ደንበኞችን መረጃ ማምጣት አልተቻለም!</td></tr>';
+      }
+    }
 
-        function showLogin() {
-            document.getElementById('login-section').style.display = 'block';
-            document.getElementById('dashboard-section').style.display = 'none';
-        }
-
-        async function loadWhatsAppNumber() {
-            try {
-                const res = await fetch('/api/settings/whatsapp');
-                const data = await res.json();
-                if (data.whatsappNumber) {
-                    document.getElementById('waNumberInput').value = data.whatsappNumber;
-                }
-            } catch (e) {
-                console.error("Failed to load WhatsApp number", e);
-            }
-        }
-
-        async function updateWhatsAppNumber() {
-            const number = document.getElementById('waNumberInput').value;
-            const msgEl = document.getElementById('waMsg');
-            if (!number) return alert('እባክዎን ስልክ ቁጥር ያስገቡ');
-
-            try {
-                const res = await fetch('/api/admin/settings/whatsapp', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ whatsappNumber: number })
-                });
-                const data = await res.json();
-                if (data.success) {
-                    msgEl.style.color = '#4ade80';
-                    msgEl.textContent = data.message;
-                } else {
-                    msgEl.style.color = '#ef4444';
-                    msgEl.textContent = data.message || 'ማስተካከል አልተቻለም';
-                }
-            } catch (e) {
-                msgEl.style.color = '#ef4444';
-                msgEl.textContent = 'ስህተት ተፈጥሯል!';
-            }
-        }
-
-        async function loadApplications() {
-            const tbody = document.getElementById('applicationsTableBody');
-            try {
-                const res = await fetch('/api/admin/applications');
-                const data = await res.json();
-                if (data.success && data.applications.length > 0) {
-                    tbody.innerHTML = data.applications.map(app => `
-                        <tr>
-                            <td>${new Date(app.createdAt).toLocaleDateString()}</td>
-                            <td><strong>${escapeHtml(app.fullName)}</strong></td>
-                            <td>${escapeHtml(app.phone)}</td>
-                            <td>${escapeHtml(app.email)}</td>
-                            <td><span class="status-badge">${escapeHtml(app.position)}</span></td>
-                            <td>${escapeHtml(app.message || '-')}</td>
-                        </tr>
-                    `).join('');
-                } else {
-                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #94a3b8;">ምንም የተላከ ማመልከቻ የለም።</td></tr>';
-                }
-            } catch (e) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #ef4444;">መረጃውን መጫን አልተቻለም።</td></tr>';
-            }
-        }
-
-        function escapeHtml(str) {
-            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-        }
-    </script>
+    // ገጹ ሲከፈት በራሱ መረጃዎችን እንዲጭን ማድረግ
+    document.addEventListener("DOMContentLoaded", () => {
+      loadWhatsAppSetting();
+      loadApplications();
+    });
+  </script>
 </body>
 </html>
