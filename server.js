@@ -48,8 +48,10 @@ const applicationSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
   phone: { type: String, required: true },
   email: { type: String, default: '' },
+  originCountry: { type: String, default: '' },      // የመጣበት ሀገር ተጨምሯል
+  targetCountry: { type: String, default: '' },      // የሚሄድበት ሀገር ተጨምሯል
   jobCategory: { type: String, default: '' },
-  telegramUser: { type: String, default: '' }, // የቴሌግራም ዩዘርና ለመመዝገቢያ
+  telegramUser: { type: String, default: '' }, 
   message: { type: String, default: '' },
   createdAt: { type: Date, default: Date.now }
 });
@@ -86,7 +88,7 @@ app.post('/api/admin/settings/whatsapp', async (req, res) => {
   }
 });
 
-// --- Telegram Username/Link APIs (የተስተካከለ - በሁለቱም ኪዎች የሚሰራ) ---
+// --- Telegram Username/Link APIs ---
 app.get('/api/settings/telegram', async (req, res) => {
   try {
     const setting = await Setting.findOne({ 
@@ -103,7 +105,6 @@ app.post('/api/admin/settings/telegram', async (req, res) => {
     const { telegramUsername } = req.body;
     const val = telegramUsername || '';
     
-    // በሁለቱም ቁልፎች (Keys) ዳታቤዝ ላይ በአንድ ላይ እናስቀምጠዋለን
     await Setting.findOneAndUpdate(
       { key: 'telegramUsername' },
       { value: val },
@@ -121,7 +122,7 @@ app.post('/api/admin/settings/telegram', async (req, res) => {
   }
 });
 
-// --- General Settings Combined API (ለ admin.html እና index.html አገልግሎት) ---
+// --- General Settings Combined API ---
 app.get('/api/settings', async (req, res) => {
   try {
     const waSetting = await Setting.findOne({ key: 'whatsappNumber' });
@@ -140,13 +141,22 @@ app.get('/api/settings', async (req, res) => {
 // --- Customer Registration APIs ---
 app.post('/api/register', async (req, res) => {
   try {
-    const { fullName, phone, email, jobCategory, telegramUser, message } = req.body;
+    const { fullName, phone, email, originCountry, targetCountry, jobCategory, telegramUser, message } = req.body;
     
     if (!fullName || !phone) {
       return res.status(400).json({ success: false, error: 'ስም እና ስልክ ቁጥር ማስገባት አስፈላጊ ነው!' });
     }
 
-    const newApp = new Application({ fullName, phone, email, jobCategory, telegramUser, message });
+    const newApp = new Application({ 
+      fullName, 
+      phone, 
+      email, 
+      originCountry, 
+      targetCountry, 
+      jobCategory, 
+      telegramUser, 
+      message 
+    });
     await newApp.save();
     
     res.status(200).json({ success: true, message: 'በስኬት ተመዝግበዋል!' });
@@ -175,19 +185,14 @@ app.post('/api/logout', (req, res) => {
   res.status(200).json({ success: true, message: 'Logged out successfully' });
 });
 
-
 // --- Frontend Route Handling ---
-
-// የአድሚን ገጽን በትክክል ለመክፈት
 app.get('/admin.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
-// ለሌሎች ሊንኮች ወደ ዋናው ሆምፔጅ እንዲመልስ (Catch-all)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
-
 
 // Local Development Server Listener
 const PORT = process.env.PORT || 3000;
