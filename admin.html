@@ -121,6 +121,11 @@
         tr:hover {
             background-color: #f8fafc;
         }
+        @media (max-width: 768px) {
+            .settings-card {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -139,11 +144,11 @@
                 <label for="adminWhatsapp">
                     <i class="fa-brands fa-whatsapp" style="color: #25D366;"></i> WhatsApp Number/Link:
                 </label>
-                <input type="text" id="adminWhatsapp" placeholder="ለምሳሌ፡ +251911223344">
+                <input type="text" id="adminWhatsapp" placeholder="ለምሳሌ፡ 251911000000">
                 <button class="save-btn" onclick="updateWhatsApp()">Update WhatsApp</button>
             </div>
 
-            <!-- Telegram Setting (Newly Added) -->
+            <!-- Telegram Setting -->
             <div class="admin-control-group">
                 <label for="adminTelegram">
                     <i class="fa-brands fa-telegram" style="color: #229ED9;"></i> Telegram Username / Link:
@@ -160,18 +165,17 @@
                 <thead>
                     <tr>
                         <th>Full Name</th>
-                        <th>Country</th>
-                        <th>Destination</th>
-                        <th>Job Category</th>
                         <th>Phone</th>
-                        <th>Telegram</th>
+                        <th>Email</th>
+                        <th>Job Category</th>
+                        <th>Telegram User</th>
                         <th>Date</th>
                     </tr>
                 </thead>
                 <tbody id="registrationsTableBody">
                     <!-- Dynamic Data will be loaded here -->
                     <tr>
-                        <td colspan="7" style="text-align: center; color: #64748b;">Loading registrations...</td>
+                        <td colspan="6" style="text-align: center; color: #64748b;">Loading registrations...</td>
                     </tr>
                 </tbody>
             </table>
@@ -179,15 +183,15 @@
     </div>
 
     <script>
-        // ገጹ ሲከፈት ነባር መረጃዎችን እና ሴቲንጎችን ማምጣት
+        // ገጹ ሲከፈት ነባር መረጃዎችን እና ሴቲንጎችን በራስ-ሰር መጫን
         document.addEventListener("DOMContentLoaded", () => {
             loadRegistrations();
             loadSettings();
         });
 
-        // የክህሎት/የምዝገባ መረጃዎችን ከሰርቨር ማምጣት
+        // የተመዝጋቢዎችን መረጃ ከሰርቨር ማምጣት
         function loadRegistrations() {
-            fetch('/api/registrations')
+            fetch('/api/admin/applications')
                 .then(res => res.json())
                 .then(data => {
                     const tbody = document.getElementById('registrationsTableBody');
@@ -197,17 +201,16 @@
                             const tr = document.createElement('tr');
                             tr.innerHTML = `
                                 <td>${item.fullName || 'N/A'}</td>
-                                <td>${item.country || 'N/A'}</td>
-                                <td>${item.destination || 'N/A'}</td>
-                                <td>${item.jobCategory || 'N/A'}</td>
                                 <td>${item.phone || 'N/A'}</td>
+                                <td>${item.email || 'N/A'}</td>
+                                <td>${item.jobCategory || 'N/A'}</td>
                                 <td>${item.telegramUser || 'N/A'}</td>
-                                <td>${item.date ? new Date(item.date).toLocaleDateString() : 'N/A'}</td>
+                                <td>${item.createdAt ? new Date(item.createdAt).toLocaleDateString() : 'N/A'}</td>
                             `;
                             tbody.appendChild(tr);
                         });
                     } else {
-                        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #64748b;">No registrations found.</td></tr>`;
+                        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #64748b;">No registrations found.</td></tr>`;
                     }
                 })
                 .catch(err => {
@@ -215,7 +218,7 @@
                 });
         }
 
-        // ነባር ሴቲንጎችን መጫን
+        // ነባር የዋትሳፕ እና የቴሌግራም ሴቲንጎችን ከሰርቨር አምጥቶ በቦታው ማስገባት
         function loadSettings() {
             fetch('/api/settings')
                 .then(res => res.json())
@@ -234,32 +237,46 @@
 
         // የዋትሳፕ ቁጥር ማስተካከል
         function updateWhatsApp() {
-            const whatsappVal = document.getElementById('adminWhatsapp').value;
-            fetch('/api/settings/whatsapp', {
+            const whatsappNumber = document.getElementById('adminWhatsapp').value;
+            fetch('/api/admin/settings/whatsapp', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ whatsapp: whatsappVal })
+                body: JSON.stringify({ whatsappNumber: whatsappNumber })
             })
             .then(res => res.json())
             .then(response => {
-                alert('WhatsApp updated successfully!');
+                if (response.success) {
+                    alert('WhatsApp updated successfully!');
+                } else {
+                    alert('Failed to update WhatsApp');
+                }
             })
-            .catch(err => alert('Failed to update WhatsApp'));
+            .catch(err => {
+                console.error(err);
+                alert('Failed to update WhatsApp');
+            });
         }
 
-        // የቴሌግራም ዩዘርና ማስተካከል (አዲስ የተጨመረ)
+        // የቴሌግራም ዩዘርና ማስተካከል
         function updateTelegram() {
-            const telegramVal = document.getElementById('adminTelegram').value;
-            fetch('/api/settings/telegram', {
+            const telegramUsername = document.getElementById('adminTelegram').value;
+            fetch('/api/admin/settings/telegram', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ telegram: telegramVal })
+                body: JSON.stringify({ telegramUsername: telegramUsername })
             })
             .then(res => res.json())
             .then(response => {
-                alert('Telegram updated successfully!');
+                if (response.success) {
+                    alert('Telegram updated successfully!');
+                } else {
+                    alert('Failed to update Telegram');
+                }
             })
-            .catch(err => alert('Failed to update Telegram'));
+            .catch(err => {
+                console.error(err);
+                alert('Failed to update Telegram');
+            });
         }
 
         // Logout function
