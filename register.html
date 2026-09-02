@@ -4,72 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job & Visa Registration - Skyline Travels</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7f6;
-            margin: 0;
-            padding: 0;
-        }
-        .register-container {
-            max-width: 600px;
-            margin: 40px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        .register-container h2 {
-            margin-top: 0;
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 25px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #333;
-            font-size: 14px;
-        }
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
-        .form-group textarea {
-            resize: vertical;
-            height: 100px;
-        }
-        .submit-btn {
-            width: 100%;
-            padding: 12px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .submit-btn:hover {
-            background-color: #2980b9;
-        }
-        #responseMessage {
-            margin-top: 15px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 14px;
-        }
+        body { font-family: Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; }
+        .register-container { max-width: 600px; margin: 40px auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .register-container h2 { margin-top: 0; color: #2c3e50; text-align: center; margin-bottom: 25px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #333; font-size: 14px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; box-sizing: border-box; }
+        .form-group textarea { resize: vertical; height: 100px; }
+        .submit-btn { width: 100%; padding: 12px; background-color: #3498db; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.3s; }
+        .submit-btn:hover { background-color: #2980b9; }
+        #responseMessage { margin-top: 15px; text-align: center; font-weight: bold; font-size: 15px; padding: 10px; border-radius: 4px; }
     </style>
 </head>
 <body>
@@ -132,7 +78,7 @@
             
             submitBtn.disabled = true;
             submitBtn.textContent = 'Submitting...';
-            responseMessage.style.color = '#333';
+            responseMessage.style.backgroundColor = 'transparent';
             responseMessage.textContent = '';
 
             const formData = {
@@ -156,17 +102,20 @@
                 const data = await res.json();
 
                 if (res.ok && data.success) {
-                    responseMessage.style.color = '#27ae60';
+                    responseMessage.style.color = '#155724';
+                    responseMessage.style.backgroundColor = '#d4edda';
                     responseMessage.textContent = 'Application submitted successfully!';
                     document.getElementById('registrationForm').reset();
                 } else {
-                    responseMessage.style.color = '#e74c3c';
-                    responseMessage.textContent = data.error || 'Something went wrong. Please try again.';
+                    responseMessage.style.color = '#721c24';
+                    responseMessage.style.backgroundColor = '#f8d7da';
+                    responseMessage.textContent = data.error || 'Registration failed. Please try again.';
                 }
             } catch (err) {
-                console.error('Error:', err);
-                responseMessage.style.color = '#e74c3c';
-                responseMessage.textContent = 'Connection error. Please check your network.';
+                console.error('Network Error:', err);
+                responseMessage.style.color = '#721c24';
+                responseMessage.style.backgroundColor = '#f8d7da';
+                responseMessage.textContent = 'Connection error. Please check your internet.';
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Submit Application';
