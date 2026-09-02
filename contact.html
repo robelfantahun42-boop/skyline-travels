@@ -17,8 +17,20 @@
     .content { max-width: 800px; margin: 50px auto; padding: 40px; background: #1e293b; border-radius: 16px; text-align: center; border: 1px solid #334155; }
     h1 { font-size: 28px; margin-bottom: 20px; color: #fff; }
     p { color: #94a3b8; margin-bottom: 25px; font-size: 16px; }
+    
+    .button-group {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 25px;
+    }
     .whatsapp-btn { display: inline-block; background: #22c55e; color: white; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px; transition: background 0.3s; }
     .whatsapp-btn:hover { background: #16a34a; }
+
+    .telegram-btn { display: inline-block; background: #229ED9; color: white; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px; transition: background 0.3s; }
+    .telegram-btn:hover { background: #1e88e5; }
+
     footer { background: #020617; color: #94a3b8; text-align: center; padding: 30px 20px; font-size: 14px; margin-top: 50px; }
   </style>
 </head>
@@ -38,15 +50,59 @@
   <div class="content">
     <h1>Contact Us</h1>
     <p><i class="fa-solid fa-phone" style="color: #22c55e;"></i> Support Hotline: <strong>+251 911 000 000</strong></p>
-    <p>Chat with us on WhatsApp; we will explain everything in detail!</p>
-    <a href="https://wa.me/251911000000?text=Hello%20Skyline%20Travels,%20I%20want%20to%20know%20more%20details." class="whatsapp-btn" target="_blank">
-      <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
-    </a>
+    <p>Chat with us on WhatsApp or Telegram; we will explain everything in detail!</p>
+    
+    <div class="button-group">
+      <!-- WhatsApp Button with ID -->
+      <a href="#" id="contactWhatsappBtn" class="whatsapp-btn" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+      </a>
+      <!-- Telegram Button with ID -->
+      <a href="#" id="contactTelegramBtn" class="telegram-btn" target="_blank">
+        <i class="fa-brands fa-telegram"></i> Chat on Telegram
+      </a>
+    </div>
   </div>
 
   <footer>
     <p>&copy; 2026 Skyline Travels & Educational Consultancy. All rights reserved.</p>
   </footer>
+
+  <!-- Script to dynamically load WhatsApp and Telegram links from server/database -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('/api/settings')
+            .then(res => res.json())
+            .then(data => {
+                if (data) {
+                    // WhatsApp Link Setup
+                    if (data.whatsapp) {
+                        let waNum = data.whatsapp.trim().replace(/[^0-9]/g, '');
+                        const waBtn = document.getElementById('contactWhatsappBtn');
+                        if (waBtn) {
+                            waBtn.href = `https://wa.me/${waNum}`;
+                        }
+                    }
+                    
+                    // Telegram Link Setup
+                    if (data.telegram) {
+                        let tgUser = data.telegram.trim();
+                        if (!tgUser.startsWith('http')) {
+                            if (tgUser.startsWith('@')) {
+                                tgUser = tgUser.substring(1);
+                            }
+                            tgUser = `https://t.me/${tgUser}`;
+                        }
+                        const tgBtn = document.getElementById('contactTelegramBtn');
+                        if (tgBtn) {
+                            tgBtn.href = tgUser;
+                        }
+                    }
+                }
+            })
+            .catch(err => console.log('Error loading contact settings:', err));
+    });
+  </script>
 
 </body>
 </html>
