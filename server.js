@@ -106,7 +106,7 @@ app.post('/api/admin/settings/whatsapp', async (req, res) => {
     await Settings.findOneAndUpdate(
       { key: 'site_settings' },
       { whatsapp: whatsappValue },
-      { upsert: { key: 'site_settings' }, new: true }
+      { upsert: true, new: true }
     );
     return res.json({ success: true, message: 'WhatsApp updated successfully' });
   } catch (err) {
@@ -124,7 +124,7 @@ app.post('/api/admin/settings/telegram', async (req, res) => {
     await Settings.findOneAndUpdate(
       { key: 'site_settings' },
       { telegram: telegramValue },
-      { upsert: { key: 'site_settings' }, new: true }
+      { upsert: true, new: true }
     );
     return res.json({ success: true, message: 'Telegram updated successfully' });
   } catch (err) {
@@ -133,7 +133,12 @@ app.post('/api/admin/settings/telegram', async (req, res) => {
   }
 });
 
-// Catch-all route to serve index.html and prevent "Cannot GET /"
+// Explicit Route for Admin Page
+app.get('/admin.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin.html'));
+});
+
+// Catch-all route to serve index.html for frontend views
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
