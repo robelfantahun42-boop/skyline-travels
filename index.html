@@ -418,9 +418,9 @@
 </head>
 <body>
 
- <div class="top-bar">
+<div class="top-bar">
   <div class="support-hotline" id="supportHotlineText">
-    <i class="fa-solid fa-headset"></i> Support Hotline: <span id="supportHotline">+251 911 000 000</span>
+    <i class="fa-solid fa-headset"></i> Support Hotline: <span id="displayHotlineTop">+251 911 000 000</span>
   </div>
 </div>
 
@@ -547,7 +547,7 @@
   <div id="contactView" class="view-section">
     <div class="page-box">
       <h1>Contact Us</h1>
-      <p><i class="fa-solid fa-phone" style="color: #22c55e;"></i> Support Hotline: <strong>+251 911 000 000</strong></p>
+     <p><i class="fa-solid fa-phone" style="color: #22c55e;"></i> Support Hotline: <strong id="displayHotlineContact">+251 911 000 000</strong></p>
       <p>Chat with us on WhatsApp; we will explain everything in detail!</p>
       <a href="https://wa.me/251911000000?text=Hello%20Skyline%20Travels,%20I%20want%20to%20know%20more%20details." class="whatsapp-big-btn" target="_blank" style="display: inline-flex; max-width: 300px; margin: 0 auto;">
         <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
@@ -913,24 +913,35 @@
 </script>
 
 <script>
-  async function loadDynamicWhatsApp() {
+  async function syncSettings() {
     try {
       const res = await fetch('/api/settings/whatsapp');
       const data = await res.json();
-      if (data.whatsappNumber) {
-        const waLinks = document.querySelectorAll('a[href*="wa.me"], a[href*="whatsapp.com"]');
+      
+      if (data && data.whatsappNumber) {
+        const rawNum = data.whatsappNumber.replace(/\D/g, ''); 
+        const formattedNum = '+' + rawNum;
+
+        // 1. በገጹ ላይ በጽሑፍ የሚታዩትን ቁጥሮች መቀየር
+        const elTop = document.getElementById('displayHotlineTop');
+        const elContact = document.getElementById('displayHotlineContact');
+        if (elTop) elTop.textContent = formattedNum;
+        if (elContact) elContact.textContent = formattedNum;
+
+        // 2. የ WhatsApp ሊንኮችን በሙሉ ማዘመን
         const defaultMsg = encodeURIComponent("Hello Skyline Travels, I have already registered on your website. How do I complete the process?");
+        const waLinks = document.querySelectorAll('a[href*="wa.me"], a[href*="whatsapp.com"]');
         
         waLinks.forEach(link => {
-          link.href = `https://wa.me/${data.whatsappNumber}?text=${defaultMsg}`;
+          link.href = `https://wa.me/${rawNum}?text=${defaultMsg}`;
         });
       }
     } catch (err) {
-      console.error("WhatsApp number fetch error:", err);
+      console.error("Settings loading error:", err);
     }
   }
 
-  document.addEventListener("DOMContentLoaded", loadDynamicWhatsApp);
+  document.addEventListener("DOMContentLoaded", syncSettings);
 </script>
 
 </body>
